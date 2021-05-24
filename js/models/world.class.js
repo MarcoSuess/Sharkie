@@ -27,6 +27,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.draw();
+        console.log(this.character)
     }
 
 
@@ -61,6 +62,8 @@ class World {
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height)
     }
 
+
+    
 
 
 
