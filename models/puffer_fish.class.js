@@ -11,8 +11,8 @@ class puffer_fish extends MovableObject {
         'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim3.png',
         'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim4.png',
         'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png',]
-        
-    currentImage = 0;
+
+    
 
 
     constructor() {
@@ -20,21 +20,18 @@ class puffer_fish extends MovableObject {
         this.loadImages(this.IMAGES_SWIMMING);
         this.x = 400 + Math.random() * 500;
         this.y = 100 + Math.random() * 200;
-
+        this.speed = 0.15 + Math.random() * 0.25;
         this.animate_swimming();
+        
     }
 
 
     animate_swimming() {
+        this.moveLeft();
 
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_SWIMMING.length;
-            let path = this.IMAGES_SWIMMING[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-
+             this.playAnimation(this.IMAGES_SWIMMING);
         }, 100);
+       
     }
-
-
 }
