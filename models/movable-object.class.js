@@ -1,41 +1,24 @@
-class MovableObject {
-    img;
-    x = 30;
-    y = 100;
-    height = 150;
-    width = 100;
-    imageCache = {};
-    currentImage = 0;
+class MovableObject extends DrawableObject {
+   
     speed = 0.15;
     otherDirection = false;
+    HP = 100;
+    lastHit = 0;
 
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
 
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-
-    }
+    
+   
 
     playAnimation(images) {
-            let i = this.currentImage % images.length;
-            let path = images[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
     }
 
     moveRight() {
-
-
-
-
+        // move right
     }
 
     moveLeft() {
@@ -44,7 +27,37 @@ class MovableObject {
         }, 1000 / 60);
     }
 
+    //check colliding
+    isColliding(mo) {
+        return this.x + this.width - 60 > mo.x &&
+            this.y + this.height - 80 > mo.y &&
+            this.x < mo.x &&
+            this.y + 140 < mo.y + mo.height;
 
+    }
+
+    hit() {
+        this.HP -= 5;
+        if (this.HP < 0) {
+            this.HP = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    /*     console.log(this.HP, 'energy') */
+    }
+
+    isDead() {
+        return this.HP == 0;
+    }
+    
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
+        timepassed = timepassed / 1000; // Difference in s
+        return timepassed < 0.5;
+    }
+
+
+   
 
 
 
