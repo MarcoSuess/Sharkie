@@ -67,17 +67,20 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectstoMap(this.level.backgroundObjects);
 
+        this.addObjectstoMap(this.level.backgroundObjects);
+        this.addObjectstoMap(this.level.barrier);
+        this.addToMap(this.character)
         this.ctx.translate(-this.camera_x, 0);
         // ------Space for fixed objects -----
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
 
-        this.addToMap(this.character);
+
         this.addObjectstoMap(this.level.enemies);
+
         this.addObjectstoMap(this.throwableObjects);
-        this.addObjectstoMap(this.level.barrier);
+
 
         this.ctx.translate(-this.camera_x, 0);
 
