@@ -11,7 +11,7 @@ class DrawableObject {
         this.img = new Image();
         this.img.src = path;
     }
-    
+
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -28,7 +28,7 @@ class DrawableObject {
 
     drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof puffer_fish || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof puffer_fish || this instanceof Endboss ||this instanceof barrier) {
             //border for collision
             ctx.beginPath();
             ctx.lineWidth = '5';

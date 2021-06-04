@@ -4,9 +4,11 @@ class Character extends MovableObject {
     width = 270;
     height = 270;
     speed = 4;
-
+    atackBubble = false;
     swim_up = false;
     swim_down = false;
+
+
     IMAGES_SWIMMING = [
         'Sprites_Sharkie/1.Sharkie/3.Swim/1.png',
         'Sprites_Sharkie/1.Sharkie/3.Swim/2.png',
@@ -69,6 +71,18 @@ class Character extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/5.Hurt/1.Poisoned/5.png',
     ]
 
+
+    withBubbleAnimation = [
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png'
+    ]
+
     world;
     /* swimming_sound = new Audio('pfad'); */
 
@@ -82,14 +96,20 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_SWIMMING_DOWN_DEGREE);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-        this.animate();
+        this.loadImages(this.withBubbleAnimation);
+        this.move_animate();
+        this.atack_animate();
 
 
     }
 
-    animate() {
+    move_animate() {
 
         setInterval(() => {
+
+
+
+
             //Right
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
@@ -153,8 +173,6 @@ class Character extends MovableObject {
 
 
 
-
-
             this.world.camera_x = -this.x + 80;
 
         }, 1000 / 60);
@@ -175,7 +193,7 @@ class Character extends MovableObject {
             if (this.swim_up) {
                 this.playAnimation(this.IMAGES_SWIMMING_UP)
 
-            } 
+            }
 
             if (this.swim_down) {
                 this.playAnimation(this.IMAGES_SWIMMING_DOWN)
@@ -192,6 +210,27 @@ class Character extends MovableObject {
 
 
 
+    atack_animate() {
+
+
+
+        // atack with D --- Bubble normal
+        setInterval(() => {
+            if (this.world.keyboard.D) {
+                this.playAnimation(this.withBubbleAnimation);
+                this.world.checkThrowObjects();
+
+            }
+        }, 150);
+
+
+
+
+
+
+
+
+    }
 
 
 

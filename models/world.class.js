@@ -6,6 +6,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    throwableObjects = [new ThrowableObjects()];
 
 
     constructor(canvas, keyboard) {
@@ -14,7 +15,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
 
     };
 
@@ -23,20 +24,37 @@ class World {
         this.character.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    console.log('collision with', enemy)
-                    this.character.hit();
-                }
+            this.checkCollisions();
+            /* this.checkThrowObjects(); */
+        }, 150);
+    }
 
-            })
+    checkThrowObjects() {
+
+        setTimeout(() => {
+            let bubble = new ThrowableObjects(this.character.x + this.character.width - 40, this.character.y + 120);
+            this.throwableObjects.push(bubble)
+            this.character.atackBubble = false;
         }, 200);
+
+
+
     }
 
 
 
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                console.log('collision with', enemy)
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.HP)
+            }
+
+        })
+    }
 
 
 
@@ -49,11 +67,17 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectstoMap(this.level.backgroundObjects);
+
+        this.ctx.translate(-this.camera_x, 0);
+        // ------Space for fixed objects -----
         this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+
         this.addToMap(this.character);
         this.addObjectstoMap(this.level.enemies);
+        this.addObjectstoMap(this.throwableObjects);
+        this.addObjectstoMap(this.level.barrier);
 
         this.ctx.translate(-this.camera_x, 0);
 

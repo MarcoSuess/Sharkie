@@ -24,6 +24,8 @@ const level1 = new Level(
         new backgroundObject('Sprites_Sharkie/3. Background/Layers/1. Light/2.png', 720),
 
 
+
+
         new backgroundObject('Sprites_Sharkie/3. Background/Layers/5. Water/d1.png', 720 * 2),
         new backgroundObject('Sprites_Sharkie/3. Background/Layers/3.Fondo 1/D1.png', 720 * 2),
         new backgroundObject('Sprites_Sharkie/3. Background/Layers/4.Fondo 2/D1.png', 720 * 2),
@@ -39,8 +41,12 @@ const level1 = new Level(
 
 
 
+    ],
+
+
+    [
+        new barrier('Sprites_Sharkie/3. Background/Barrier/1.png', 720)
+
     ]
-
-
 
 );
