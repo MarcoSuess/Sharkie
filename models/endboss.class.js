@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     height = 500;
     width = 300;
     y = -50;
+    
 
     IMAGES_SWIMMING = [
         'Sprites_Sharkie/2.Enemy/3 Final Enemy/2.floating/1.png',

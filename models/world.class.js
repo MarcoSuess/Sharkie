@@ -28,7 +28,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             /* this.checkThrowObjects(); */
-        }, 150);
+        }, 50);
     }
 
     checkThrowObjects() {
@@ -46,6 +46,12 @@ class World {
 
 
     checkCollisions() {
+        this.checkCollisionsEnemy();
+        this.checkCollisionsBarrier();
+
+    }
+
+    checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 console.log('collision with', enemy)
@@ -56,11 +62,24 @@ class World {
         })
     }
 
+    checkCollisionsBarrier() {
+        
+        this.level.barrier.forEach((barrier) => {
+            if (this.character.isColliding(barrier)) {
+                console.log('collision with', barrier)
+                 this.character.isCollidingBarrier(barrier); 
+            } 
+            
+            
+                
+          
+        })
 
-
-
-
-
+        //Barrier double 
+        this.character.isCollidingBarrierDouble(this.level.barrierDouble[0])
+                
+    }
+  
 
 
     draw() {
@@ -69,6 +88,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectstoMap(this.level.backgroundObjects);
+        this.addObjectstoMap(this.level.barrierDouble);
         this.addObjectstoMap(this.level.barrier);
         this.addToMap(this.character)
         this.ctx.translate(-this.camera_x, 0);

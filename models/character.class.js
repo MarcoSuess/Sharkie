@@ -111,7 +111,9 @@ class Character extends MovableObject {
 
 
             //Right
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
+                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlock ) {
+
                 this.x += this.speed;
                 this.otherDirection = false;
 
@@ -126,7 +128,7 @@ class Character extends MovableObject {
 
             }
             //left
-            if (this.world.keyboard.LEFT && this.x > 80) {
+            if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble) {
                 this.x -= this.speed;
                 this.otherDirection = true;
 
@@ -141,7 +143,7 @@ class Character extends MovableObject {
                 }
             }
             //up
-            if (this.world.keyboard.UP && this.y > -100) {
+            if (this.world.keyboard.UP && this.y > -100 && !this.topSideBarrierDouble) {
                 this.y -= this.speed;
                 this.x += this.speed;
 
@@ -157,7 +159,7 @@ class Character extends MovableObject {
 
             }
             //down
-            if (this.world.keyboard.DOWN && this.y < 250) {
+            if (this.world.keyboard.DOWN && this.y < 250 && !this.bottomSideBarrierDouble && !this.barrierBlock) {
                 this.y += this.speed;
                 this.x += this.speed;
 

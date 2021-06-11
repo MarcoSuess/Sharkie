@@ -66,12 +66,14 @@ const level1 = new Level(
     ],
 
 
-
+    [
+        new barrier('Sprites_Sharkie/3. Background/Barrier/1.png', 1300, 0, 1082, 480),
+    ],
 
 
 
     [
-        new barrier('Sprites_Sharkie/3. Background/Barrier/1.png', 1300, 0, 1082, 480),
+
         new barrier('Sprites_Sharkie/3. Background/Barrier/2.png', 3000, 180, 500, 300),
         new barrier('Sprites_Sharkie/3. Background/Barrier/3.png', 4300, 130, 200, 350)
     ]

@@ -1,4 +1,13 @@
 class MovableObject extends DrawableObject {
+    //barrier
+    barrierBlock;
+    // ---
+
+
+    //barrier Double block
+    topSideBarrierDouble;
+    bottomSideBarrierDouble;
+    // ---
 
     speed = 0.15;
     otherDirection = false;
@@ -34,7 +43,7 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-   
+
 
     moveRight() {
         // move right
@@ -48,12 +57,37 @@ class MovableObject extends DrawableObject {
 
     //check colliding
     isColliding(mo) {
-        return this.x + this.width - 60 > mo.x &&
-            this.y + this.height - 80 > mo.y &&
-            this.x < mo.x &&
-            this.y + 140 < mo.y + mo.height;
+        return this.x + this.width - 60 > mo.x && // check front 
+            this.y + this.height - 80 > mo.y && //  check under
+            this.x < mo.x && // check behindg
+            this.y + 140 < mo.y + mo.height; // check up
+    }
+
+    isCollidingBarrier(mo) {
+
+        this.barrierBlock = this.x + this.width - 60 > mo.x && // check front 
+            this.y + this.height - 80 > mo.y && //  check under
+            this.x < mo.x && // check behindg
+            this.y + 140 < mo.y + mo.height; // check up
+
+
 
     }
+
+    isCollidingBarrierDouble(mo) {
+
+        //bottom side
+        this.bottomSideBarrierDouble = this.x + this.width - 60 > mo.x && this.x < mo.x + mo.width &&
+            this.y + this.height - 80 > mo.y + mo.height - 120;
+
+        //top side
+        this.topSideBarrierDouble = this.x + this.width - 60 > mo.x &&
+            this.x < mo.x + mo.width && this.y + 140 < mo.y + 120
+
+
+
+    }
+
 
     hit() {
         this.HP -= 5;
