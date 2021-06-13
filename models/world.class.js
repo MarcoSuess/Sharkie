@@ -6,7 +6,10 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
-    throwableObjects = [new ThrowableObjects()];
+    throwableObjects = [];
+   
+
+
 
 
     constructor(canvas, keyboard) {
@@ -27,7 +30,6 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-            /* this.checkThrowObjects(); */
         }, 50);
     }
 
@@ -43,12 +45,27 @@ class World {
 
     }
 
+    checkBubble() {
+        // filter function einbauen und splice // 
+        this.level.enemies.forEach(enemies => {
+            this.throwableObjects.forEach(bubble => {
+                if (this.character.checkCollisonBubble(enemies, bubble)) {
+                    console.log('hit')
+                   this.level.enemies[3].bubbleHitDead = true;
+                   this.level.enemies[4].bubbleHitDead = true;
 
+                   setTimeout(() => {
+                        this.level.enemies.splice(3,0)
+                   }, 2000);
+                }
+            });
+        });
+    }
 
     checkCollisions() {
         this.checkCollisionsEnemy();
         this.checkCollisionsBarrier();
-
+        this.checkBubble();
     }
 
     checkCollisionsEnemy() {
@@ -101,6 +118,7 @@ class World {
 
 
         this.addObjectstoMap(this.level.enemies);
+
 
         this.addObjectstoMap(this.throwableObjects);
 

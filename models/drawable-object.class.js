@@ -28,7 +28,8 @@ class DrawableObject {
 
     drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof puffer_fish || this instanceof Endboss ||this instanceof barrier) {
+        if (this instanceof Character || this instanceof puffer_fish || this instanceof Endboss ||
+            this instanceof barrier || this instanceof jelly_fish || this instanceof ThrowableObjects) {
             //border for collision
             ctx.beginPath();
             ctx.lineWidth = '5';

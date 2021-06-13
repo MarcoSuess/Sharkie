@@ -116,6 +116,7 @@ class Character extends MovableObject {
                 this.barrierBlock = false;
                 this.x += this.speed;
                 this.otherDirection = false;
+                    
 
                 if (this.swim_up) {
                     this.playAnimation(this.IMAGES_SWIMMING_UP_DEGREE.reverse())

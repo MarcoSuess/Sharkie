@@ -15,6 +15,9 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     acceleration = 2.5;
     speedY = 0;
+  
+   
+    
 
 
 
@@ -65,16 +68,13 @@ class MovableObject extends DrawableObject {
             this.y + 140 < mo.y + mo.height; // check up
     }
 
-     isCollidingBarrier(mo) {
+    isCollidingBarrier(mo) {
 
         return this.x + this.width - 60 > mo.x && // check front 
             this.y + this.height - 80 > mo.y && //  check under
             this.x < mo.x && // check behindg
             this.y + 140 < mo.y + mo.height; // check up
-
-
-
-    } 
+    }
 
     isCollidingBarrierDouble(mo) {
 
@@ -85,10 +85,15 @@ class MovableObject extends DrawableObject {
         //top side
         this.topSideBarrierDouble = this.x + this.width - 60 > mo.x &&
             this.x < mo.x + mo.width && this.y + 140 < mo.y + 120
-
-
-
     }
+
+    checkCollisonBubble(enemies, bubble) {
+        return enemies.x < bubble.x && enemies.y < bubble.y + bubble.height &&
+            enemies.y + enemies.height > bubble.y &&
+            enemies.x + enemies.width > bubble.x &&
+            enemies.y < bubble.y + bubble.height
+    }
+
 
 
     hit() {

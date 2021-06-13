@@ -3,6 +3,7 @@ class Level {
     backgroundObjects;
     barrierDouble;
     barrier;
+
     level_end_x = 5100;
 
     constructor(enemies, backgroundObjects, barrierDouble, barrier) {
@@ -10,6 +11,7 @@ class Level {
         this.backgroundObjects = backgroundObjects;
         this.barrierDouble = barrierDouble;
         this.barrier = barrier;
+
 
     }
 }

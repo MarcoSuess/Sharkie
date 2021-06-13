@@ -4,8 +4,8 @@ class puffer_fish extends MovableObject {
     y = 300;
     height = 80;
     width = 90;
-    start;
-    end;
+    startX;
+    endX;
 
     IMAGES_SWIMMING = [
         'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
@@ -35,18 +35,18 @@ class puffer_fish extends MovableObject {
 
 
 
-    constructor(x, y, start, end) {
+    constructor(x, y, startX, endX) {
         super().loadImage('Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.transition);
         this.loadImages(this.bubbleswim);
         this.x = x;
         this.y = y;
-        this.start = start;
-        this.end = end;
+        this.startX = startX;
+        this.endX = endX;
         this.speed = 0.15;
         this.animate_swimming();
-        this.action();
+        this.move();
 
     }
 
@@ -64,11 +64,11 @@ class puffer_fish extends MovableObject {
 
 
 
-        }, 100);
+        }, 200);
 
     }
 
-    action() {
+    move() {
         setInterval(() => {
             this.moveRightandLeft()
 
@@ -84,14 +84,14 @@ class puffer_fish extends MovableObject {
 
 
     moveRightandLeft() {
-        if (this.x <= this.end) {
+        if (this.x <= this.endX) {
             this.moveRight();
-
+            this.y += 3;
             this.otherDirection = true;
 
-        } else if (this.x >= this.start) {
+        } else if (this.x >= this.startX) {
             this.moveLeft();
-
+            this.y -= 3;
             this.otherDirection = false;
 
         }
