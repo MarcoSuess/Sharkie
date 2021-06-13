@@ -46,7 +46,9 @@ class MovableObject extends DrawableObject {
 
 
     moveRight() {
-        // move right
+        setInterval(() => {
+            this.x += this.speed;
+        }, 1000 / 60);
     }
 
     moveLeft() {
@@ -63,16 +65,16 @@ class MovableObject extends DrawableObject {
             this.y + 140 < mo.y + mo.height; // check up
     }
 
-    isCollidingBarrier(mo) {
+     isCollidingBarrier(mo) {
 
-        this.barrierBlock = this.x + this.width - 60 > mo.x && // check front 
+        return this.x + this.width - 60 > mo.x && // check front 
             this.y + this.height - 80 > mo.y && //  check under
             this.x < mo.x && // check behindg
             this.y + 140 < mo.y + mo.height; // check up
 
 
 
-    }
+    } 
 
     isCollidingBarrierDouble(mo) {
 

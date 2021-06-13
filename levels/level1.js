@@ -1,10 +1,10 @@
 const level1 = new Level(
 
     [
-        new puffer_fish(),
-        new puffer_fish(),
-        new puffer_fish(),
-        new puffer_fish(),
+        new puffer_fish(2400, 250, 2350, 2600),
+        new puffer_fish(3600, 60, 3300, 3800),
+        new puffer_fish(3900, 330, 3500, 4000),
+        
         new Endboss()
 
     ],

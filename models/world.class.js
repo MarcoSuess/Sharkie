@@ -63,23 +63,26 @@ class World {
     }
 
     checkCollisionsBarrier() {
-        
+
         this.level.barrier.forEach((barrier) => {
-            if (this.character.isColliding(barrier)) {
+
+
+
+            if (this.character.isCollidingBarrier(barrier)) {
+
+                this.character.barrierBlock = true;
+
                 console.log('collision with', barrier)
-                 this.character.isCollidingBarrier(barrier); 
-            } 
-            
-            
-                
-          
+
+            }
+
         })
 
         //Barrier double 
         this.character.isCollidingBarrierDouble(this.level.barrierDouble[0])
-                
+
     }
-  
+
 
 
     draw() {

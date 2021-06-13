@@ -112,8 +112,8 @@ class Character extends MovableObject {
 
             //Right
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
-                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlock ) {
-
+                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlock) {
+                this.barrierBlock = false;
                 this.x += this.speed;
                 this.otherDirection = false;
 
@@ -131,7 +131,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble) {
                 this.x -= this.speed;
                 this.otherDirection = true;
-
+                this.barrierBlock = false;
                 this.swim_up = false;
                 if (this.swim_up) {
                     this.playAnimation(this.IMAGES_SWIMMING_UP_DEGREE.reverse())
@@ -146,7 +146,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.UP && this.y > -100 && !this.topSideBarrierDouble) {
                 this.y -= this.speed;
                 this.x += this.speed;
-
+                this.barrierBlock = false;
 
 
 
@@ -162,7 +162,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.DOWN && this.y < 250 && !this.bottomSideBarrierDouble && !this.barrierBlock) {
                 this.y += this.speed;
                 this.x += this.speed;
-
+                this.barrierBlock = false;
 
                 if (!this.swim_down) {
                     this.playAnimation(this.IMAGES_SWIMMING_DOWN_DEGREE)
@@ -226,6 +226,15 @@ class Character extends MovableObject {
         }, 150);
 
 
+        //slap with space
+        setInterval(() => {
+            if (this.world.keyboard.SPACE) {
+
+                console.log('x =', this.x + this.width - 60);
+                console.log('y =', this.y + 140)
+
+            }
+        }, 150);
 
 
 
