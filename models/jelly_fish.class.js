@@ -2,6 +2,7 @@ class jelly_fish extends MovableObject {
     startX;
     endX;
     bubbleHitDead;
+    electroHit = false;
 
     regularDamage = [
         'Sprites_Sharkie/2.Enemy/2 Jelly fish/Regular damage/Yellow 1.png',
@@ -38,6 +39,8 @@ class jelly_fish extends MovableObject {
         this.endX = endX;
         this.animate();
         this.move();
+     
+        
     }
 
     animate() {
@@ -54,6 +57,10 @@ class jelly_fish extends MovableObject {
 
                 if (this.otherDirection == false) {
                     this.playAnimation(this.superDangerous);
+                    this.electroHit = true;
+
+                } else {
+                    this.electroHit = false;
                 };
 
 
@@ -90,9 +97,11 @@ class jelly_fish extends MovableObject {
      
         setInterval(() => {
             this.playAnimation(this.dead)
+            this.height -= 3;
+            this.width -= 3;
         }, 100);
         
-        
+      
 
 
     }

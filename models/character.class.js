@@ -7,6 +7,7 @@ class Character extends MovableObject {
     atackBubble = false;
     swim_up = false;
     swim_down = false;
+    electroHit = false;
 
 
     IMAGES_SWIMMING = [
@@ -83,6 +84,25 @@ class Character extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png'
     ]
 
+    electroHitImage = [
+        'Sprites_Sharkie/1.Sharkie/5.Hurt/2.Electric shock/1.png',
+        'Sprites_Sharkie/1.Sharkie/5.Hurt/2.Electric shock/2.png',
+        'Sprites_Sharkie/1.Sharkie/5.Hurt/2.Electric shock/3.png'
+    ]
+    electroDead = [
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/1.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/2.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/3.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/4.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/5.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/6.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/7.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/8.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/9.png',
+        'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/10.png'
+    ]
+
+
     world;
     /* swimming_sound = new Audio('pfad'); */
 
@@ -97,6 +117,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.withBubbleAnimation);
+        this.loadImages(this.electroHitImage);
+        this.loadImages(this.electroDead);
         this.move_animate();
         this.atack_animate();
 
@@ -116,7 +138,8 @@ class Character extends MovableObject {
                 this.barrierBlock = false;
                 this.x += this.speed;
                 this.otherDirection = false;
-                    
+
+
 
                 if (this.swim_up) {
                     this.playAnimation(this.IMAGES_SWIMMING_UP_DEGREE.reverse())
@@ -176,7 +199,7 @@ class Character extends MovableObject {
 
 
 
-            this.world.camera_x = -this.x + 80;
+            this.world.camera_x = -this.x + 150;
 
         }, 1000 / 60);
 
@@ -185,11 +208,24 @@ class Character extends MovableObject {
 
             this.playAnimation(this.IMAGES_SWIMMING)
 
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD)
 
-            } if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT)
+
+            if (this.isDead()) {
+                if (this.electroHit) {
+                    this.playAnimation(this.electroDead)
+                } else {
+                    this.playAnimation(this.IMAGES_DEAD)
+                }
+
+            }
+
+            if (this.isHurt()) {
+                if (this.electroHit) {
+                    this.playAnimation(this.electroHitImage)
+                } else {
+                    this.playAnimation(this.IMAGES_HURT)
+                }
+
             }
 
 
@@ -236,11 +272,6 @@ class Character extends MovableObject {
 
             }
         }, 150);
-
-
-
-
-
 
     }
 

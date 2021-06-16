@@ -17,6 +17,8 @@ class MovableObject extends DrawableObject {
     speedY = 0;
   
    
+  
+   
     
 
 

@@ -6,8 +6,10 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    posionBar = new Posion();
+    coinsBar = new coins_bar();
     throwableObjects = [];
-   
+
 
 
 
@@ -28,9 +30,14 @@ class World {
     }
 
     run() {
+
+        setInterval(() => {
+            this.checkBubble();
+        }, 50);
+
         setInterval(() => {
             this.checkCollisions();
-        }, 50);
+        }, 200);
     }
 
     checkThrowObjects() {
@@ -46,17 +53,16 @@ class World {
     }
 
     checkBubble() {
-        // filter function einbauen und splice // 
-        this.level.enemies.forEach(enemies => {
-            this.throwableObjects.forEach(bubble => {
-                if (this.character.checkCollisonBubble(enemies, bubble)) {
-                    console.log('hit')
-                   this.level.enemies[3].bubbleHitDead = true;
-                   this.level.enemies[4].bubbleHitDead = true;
 
-                   setTimeout(() => {
-                        this.level.enemies.splice(3,0)
-                   }, 2000);
+        this.level.jelly_fish.forEach(jelly_fish => {
+            this.throwableObjects.forEach(bubble => {
+                if (this.character.checkCollisonBubble(jelly_fish, bubble)) {
+                    jelly_fish.bubbleHitDead = true;
+                    this.throwableObjects.splice(bubble, 1)
+                    setTimeout(() => {
+                        this.level.jelly_fish.splice(jelly_fish, 1)
+                    }, 1000);
+
                 }
             });
         });
@@ -65,18 +71,40 @@ class World {
     checkCollisions() {
         this.checkCollisionsEnemy();
         this.checkCollisionsBarrier();
-        this.checkBubble();
     }
 
     checkCollisionsEnemy() {
+
         this.level.enemies.forEach((enemy) => {
+
             if (this.character.isColliding(enemy)) {
-                console.log('collision with', enemy)
+                this.character.electroHit = false;
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.HP)
+
             }
 
         })
+
+
+        this.level.jelly_fish.forEach(jelly_fish => {
+
+
+            if (this.character.isColliding(jelly_fish)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.HP)
+
+                if (jelly_fish.electroHit) {
+                    this.character.electroHit = true;
+                } else {
+                    this.character.electroHit = false;
+
+                }
+            }
+
+        });
+
+
     }
 
     checkCollisionsBarrier() {
@@ -110,14 +138,18 @@ class World {
         this.addObjectstoMap(this.level.backgroundObjects);
         this.addObjectstoMap(this.level.barrierDouble);
         this.addObjectstoMap(this.level.barrier);
+        this.addObjectstoMap(this.level.coins);
         this.addToMap(this.character)
         this.ctx.translate(-this.camera_x, 0);
         // ------Space for fixed objects -----
         this.addToMap(this.statusBar);
+        this.addToMap(this.posionBar);
+        this.addToMap(this.coinsBar);
         this.ctx.translate(this.camera_x, 0);
 
 
         this.addObjectstoMap(this.level.enemies);
+        this.addObjectstoMap(this.level.jelly_fish);
 
 
         this.addObjectstoMap(this.throwableObjects);
