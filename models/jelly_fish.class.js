@@ -39,7 +39,7 @@ class jelly_fish extends MovableObject {
         this.endX = endX;
         this.animate();
         this.move();
-     
+        
         
     }
 

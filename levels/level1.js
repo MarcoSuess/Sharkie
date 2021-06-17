@@ -1,5 +1,7 @@
 const level1 = new Level(
 
+
+
     [
 
 
@@ -102,6 +104,12 @@ const level1 = new Level(
         new coin(3994, 282),
         new coin(4050, 350),
 
+    ],
+
+    [
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 2600, 300),
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 3622, 260),
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4700, 300),
     ]
 
 

@@ -6,7 +6,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
-    posionBar = new Posion();
+    posionBar = new PosionBar();
     coinsBar = new coins_bar();
     throwableObjects = [];
 
@@ -21,6 +21,8 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+
+
 
     };
 
@@ -54,23 +56,59 @@ class World {
 
     checkBubble() {
 
+
         this.level.jelly_fish.forEach(jelly_fish => {
             this.throwableObjects.forEach(bubble => {
+
+
                 if (this.character.checkCollisonBubble(jelly_fish, bubble)) {
                     jelly_fish.bubbleHitDead = true;
                     this.throwableObjects.splice(bubble, 1)
+                    console.log(jelly_fish)
+
+
                     setTimeout(() => {
                         this.level.jelly_fish.splice(jelly_fish, 1)
                     }, 1000);
 
                 }
+
+
             });
         });
+
+
     }
 
     checkCollisions() {
         this.checkCollisionsEnemy();
         this.checkCollisionsBarrier();
+        this.checkCollisionsCoins();
+        this.checkCollisionsPosion();
+    }
+
+
+    checkCollisionsPosion() {
+        this.level.posion.forEach(posion => {
+            if (this.character.isColliding(posion)) {
+                console.log('posion', posion)
+                this.posionBar.setPercentage(this.character.posions += 35)
+                this.level.posion.splice(posion, 1)
+            }
+        });
+    }
+
+
+
+    checkCollisionsCoins() {
+        this.level.coins.forEach(coin => {
+            if (this.character.isColliding(coin)) {
+                console.log('coin !', coin)
+                this.coinsBar.setPercentage(this.character.coins += 10)
+                this.level.coins.splice(coin, 1)
+            }
+        });
+
     }
 
     checkCollisionsEnemy() {
@@ -85,7 +123,6 @@ class World {
             }
 
         })
-
 
         this.level.jelly_fish.forEach(jelly_fish => {
 
@@ -139,6 +176,7 @@ class World {
         this.addObjectstoMap(this.level.barrierDouble);
         this.addObjectstoMap(this.level.barrier);
         this.addObjectstoMap(this.level.coins);
+        this.addObjectstoMap(this.level.posion);
         this.addToMap(this.character)
         this.ctx.translate(-this.camera_x, 0);
         // ------Space for fixed objects -----

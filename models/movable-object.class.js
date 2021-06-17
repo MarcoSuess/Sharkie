@@ -12,15 +12,19 @@ class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     HP = 100;
+    coins = 0;
+    posions = 0;
     lastHit = 0;
     acceleration = 2.5;
     speedY = 0;
-  
-   
-  
-   
     
+  
+    
+  
+   
 
+    
+    
 
 
     applyLift() {

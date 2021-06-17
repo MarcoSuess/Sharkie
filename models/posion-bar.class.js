@@ -1,4 +1,4 @@
-class Posion extends DrawableObject {
+class PosionBar extends DrawableObject {
 
 
     PosionBar = [
@@ -10,6 +10,7 @@ class Posion extends DrawableObject {
         'Sprites_Sharkie/4. Marcadores/Purple/100_.png',
     ]
 
+    percentage = 0;
 
     constructor() {
         super();
@@ -23,7 +24,7 @@ class Posion extends DrawableObject {
 
     setPercentage(percentage) {
         this.percentage = percentage; // -> 0 ... 5
-        let path = this.PosionBar[this.resolveImageIndex()];
+        let path = this.PosionBar[this.resolveImageIndex(percentage)];
         this.img = this.imageCache[path];
     }
 
