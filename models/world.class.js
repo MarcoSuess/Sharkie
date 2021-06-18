@@ -8,7 +8,7 @@ class World {
     statusBar = new StatusBar();
     posionBar = new PosionBar();
     coinsBar = new coins_bar();
-    throwableObjects = [];
+    throwableObjects = [new ThrowableObjects(-400)];
 
 
 
@@ -42,8 +42,21 @@ class World {
         }, 200);
     }
 
-    checkThrowObjects() {
+    checkSpecialBubble() {
 
+        setTimeout(() => {
+            let specialBubble = new SpecialBubble(this.character.x + this.character.width - 40, this.character.y + 120);
+            this.throwableObjects.push(specialBubble)
+            setInterval(() => {
+                this.posionBar.setPercentage(this.character.posionsBar -= 10)
+                // how stop set interval ? 
+            }, 200);
+
+        }, 200);
+    }
+
+    checkThrowObjects() {
+        console.log(this.throwableObjects)
         setTimeout(() => {
             let bubble = new ThrowableObjects(this.character.x + this.character.width - 40, this.character.y + 120);
             this.throwableObjects.push(bubble)
@@ -92,10 +105,29 @@ class World {
         this.level.posion.forEach(posion => {
             if (this.character.isColliding(posion)) {
                 console.log('posion', posion)
-                this.posionBar.setPercentage(this.character.posions += 35)
+                this.posionBar.setPercentage(this.character.posionsBar += 35)
                 this.level.posion.splice(posion, 1)
             }
+
+
+
         });
+
+
+        /*         console.log(this.throwableObjects) */
+        this.throwableObjects.forEach(toxicBubble => {
+
+            if (this.character.posionsBar >= 100) {
+                this.character.specialBubble = true;
+                toxicBubble.specialBubble = true;
+
+            } else {
+                this.character.specialBubble = false;
+                toxicBubble.specialBubble = false;
+            }
+        });
+
+
     }
 
 

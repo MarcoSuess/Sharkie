@@ -8,6 +8,9 @@ class ThrowableObjects extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/bubble_animation/4.png'
     ];
 
+  
+
+
 
     constructor(x, y) {
         super().loadImage('Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
@@ -31,8 +34,15 @@ class ThrowableObjects extends MovableObject {
     }
 
     playBubbleAnimation() {
+
         setInterval(() => {
+
+
+
+
             this.playAnimation(this.bubbleAnimation)
+
+
         }, 100);
 
     }

@@ -7,6 +7,7 @@ class Level {
     coins;
     posion;
 
+    
 
     level_end_x = 5100;
 

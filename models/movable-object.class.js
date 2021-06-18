@@ -13,10 +13,11 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     HP = 100;
     coins = 0;
-    posions = 0;
+    posionsBar = 0;
     lastHit = 0;
     acceleration = 2.5;
     speedY = 0;
+    specialBubble = false;
     
   
     

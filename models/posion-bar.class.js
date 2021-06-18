@@ -23,9 +23,12 @@ class PosionBar extends DrawableObject {
     }
 
     setPercentage(percentage) {
+
         this.percentage = percentage; // -> 0 ... 5
         let path = this.PosionBar[this.resolveImageIndex(percentage)];
         this.img = this.imageCache[path];
+
+
     }
 
 

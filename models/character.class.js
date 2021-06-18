@@ -84,6 +84,28 @@ class Character extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png'
     ]
 
+    withBubbleAnimationSpecial = [
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/4.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/5.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/6.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png'
+    ]
+
+    withoutBubbleAnimationSpecial = [
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/1.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/2.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/3.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/4.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/5.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/6.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/7.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/8.png'
+    ]
+
     electroHitImage = [
         'Sprites_Sharkie/1.Sharkie/5.Hurt/2.Electric shock/1.png',
         'Sprites_Sharkie/1.Sharkie/5.Hurt/2.Electric shock/2.png',
@@ -119,6 +141,8 @@ class Character extends MovableObject {
         this.loadImages(this.withBubbleAnimation);
         this.loadImages(this.electroHitImage);
         this.loadImages(this.electroDead);
+        this.loadImages(this.withBubbleAnimationSpecial);
+        this.loadImages(this.withoutBubbleAnimationSpecial);
         this.move_animate();
         this.atack_animate();
 
@@ -239,7 +263,7 @@ class Character extends MovableObject {
 
             }
 
-            if (this.world.keyboard.DOWN == false && this.world.keyboard.UP == false) {
+            if (!this.world.keyboard.DOWN && !this.world.keyboard.UP) {
                 this.swim_up = false;
                 this.swim_down = false;
             }
@@ -255,24 +279,36 @@ class Character extends MovableObject {
 
         // atack with D --- Bubble normal
         setInterval(() => {
-            if (this.world.keyboard.D) {
+            if (this.world.keyboard.D && !this.world.keyboard.SPACE) {
                 this.playAnimation(this.withBubbleAnimation);
                 this.world.checkThrowObjects();
 
             }
-        }, 150);
+
+            //special atack with D and Space
+            if (this.world.keyboard.D && this.world.keyboard.SPACE) {
+                if (this.specialBubble) {
+                    this.playAnimation(this.withBubbleAnimationSpecial)
+                    this.world.checkSpecialBubble();
+                    console.log('test ')
+                } else {
+                    this.playAnimation(this.withoutBubbleAnimationSpecial)
+                }
 
 
-        //slap with space
-        setInterval(() => {
-            if (this.world.keyboard.SPACE) {
+            }
+
+
+            //slap with space
+
+            if (this.world.keyboard.SPACE && !this.world.keyboard.D) {
 
                 console.log('x =', this.x + this.width - 60);
                 console.log('y =', this.y + 140)
 
             }
-        }, 150);
 
+        }, 150);
     }
 
 
