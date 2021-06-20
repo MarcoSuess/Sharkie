@@ -96,7 +96,7 @@ class jelly_fish extends MovableObject {
     checkDead() {
      
         setInterval(() => {
-            this.playAnimation(this.dead)
+            this.playAnimation(this.dead, 3)
             this.height -= 3;
             this.width -= 3;
         }, 100);

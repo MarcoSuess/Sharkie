@@ -18,14 +18,14 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     speedY = 0;
     specialBubble = false;
-    
-  
-    
-  
-   
 
-    
-    
+
+
+
+
+
+
+
 
 
     applyLift() {
@@ -47,11 +47,16 @@ class MovableObject extends DrawableObject {
 
 
     playAnimation(images) {
+
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+
+
     }
+
+
 
 
 
@@ -104,6 +109,7 @@ class MovableObject extends DrawableObject {
 
 
     hit() {
+
         this.HP -= 5;
         if (this.HP < 0) {
             this.HP = 0;

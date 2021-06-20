@@ -48,8 +48,15 @@ class World {
             let specialBubble = new SpecialBubble(this.character.x + this.character.width - 40, this.character.y + 120);
             this.throwableObjects.push(specialBubble)
             setInterval(() => {
-                this.posionBar.setPercentage(this.character.posionsBar -= 10)
-                // how stop set interval ? 
+
+
+                if (this.character.posionsBar > 0) {
+                    this.posionBar.setPercentage(this.character.posionsBar -= 10)
+                }
+
+
+
+
             }, 200);
 
         }, 200);
@@ -98,6 +105,7 @@ class World {
         this.checkCollisionsBarrier();
         this.checkCollisionsCoins();
         this.checkCollisionsPosion();
+
     }
 
 
@@ -143,11 +151,34 @@ class World {
 
     }
 
+    checkCollisionSlap() {
+        this.level.enemies.forEach(pufferFish => {
+
+
+
+            if (this.character.isColliding(pufferFish)) {
+                console.log('slap', pufferFish)
+                pufferFish.slap = true;
+
+                setTimeout(() => {
+                    this.level.enemies.splice(pufferFish, 1)
+                }, 400);
+
+
+            } else {
+                pufferFish.slap = false;
+            }
+
+
+
+        });
+    }
+
     checkCollisionsEnemy() {
 
         this.level.enemies.forEach((enemy) => {
 
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !enemy.otherDirection) {
                 this.character.electroHit = false;
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.HP)

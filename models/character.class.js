@@ -124,6 +124,17 @@ class Character extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/6.dead/2.Electro_shock/10.png'
     ]
 
+    slap = [
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/1.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/2.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/3.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/4.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/5.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/6.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/7.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/8.png'
+    ]
+
 
     world;
     /* swimming_sound = new Audio('pfad'); */
@@ -143,6 +154,7 @@ class Character extends MovableObject {
         this.loadImages(this.electroDead);
         this.loadImages(this.withBubbleAnimationSpecial);
         this.loadImages(this.withoutBubbleAnimationSpecial);
+        this.loadImages(this.slap);
         this.move_animate();
         this.atack_animate();
 
@@ -236,9 +248,10 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 if (this.electroHit) {
-                    this.playAnimation(this.electroDead)
+                    this.playAnimation(this.electroDead, 9)
+                    
                 } else {
-                    this.playAnimation(this.IMAGES_DEAD)
+                    this.playAnimation(this.IMAGES_DEAD, 11)
                 }
 
             }
@@ -305,6 +318,9 @@ class Character extends MovableObject {
 
                 console.log('x =', this.x + this.width - 60);
                 console.log('y =', this.y + 140)
+                this.world.checkCollisionSlap();
+                this.playAnimation(this.slap)
+
 
             }
 

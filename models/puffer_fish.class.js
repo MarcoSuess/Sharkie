@@ -6,6 +6,8 @@ class puffer_fish extends MovableObject {
     width = 90;
     startX;
     endX;
+    slap;
+    
 
     IMAGES_SWIMMING = [
         'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
@@ -28,7 +30,13 @@ class puffer_fish extends MovableObject {
         'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/3.Bubbleeswim/1.bubbleswim4.png',
         'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/3.Bubbleeswim/1.bubbleswim5.png',
     ];
-    
+    dead = [
+        'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/4.DIE/deadGreen1.png',
+        'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/4.DIE/deadGreen2.png',
+        'Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/4.DIE/deadGreen3.png'
+
+    ]
+
 
 
 
@@ -40,13 +48,14 @@ class puffer_fish extends MovableObject {
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.transition);
         this.loadImages(this.bubbleswim);
+        this.loadImages(this.dead);
         this.x = x;
         this.y = y;
         this.startX = startX;
         this.endX = endX;
         this.speed = 0.15;
         this.animate_swimming();
-        this.move();
+
 
     }
 
@@ -54,13 +63,35 @@ class puffer_fish extends MovableObject {
     animate_swimming() {
 
 
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_SWIMMING);
 
-            if (this.otherDirection == false) {
-                this.playAnimation(this.transition);
-                this.playAnimation(this.bubbleswim);
+
+        setInterval(() => {
+
+
+            if (this.slap) {
+                this.deadMove();
+            } else {
+
+
+
+                this.playAnimation(this.IMAGES_SWIMMING);
+                this.moveRightandLeft()
+
+
+
+                if (!this.otherDirection) {
+                    this.playAnimation(this.transition);
+                    this.playAnimation(this.bubbleswim);
+                }
+
+
+
+
             }
+
+
+
+
 
 
 
@@ -68,32 +99,46 @@ class puffer_fish extends MovableObject {
 
     }
 
-    move() {
-        setInterval(() => {
-            this.moveRightandLeft()
-
-
-        }, 300);
 
 
 
 
+
+    deadMove() {
+        this.playAnimation(this.dead);
+        this.speed = 0;
+        console.log('dead')
+        this.x -= 80;
+        this.y += 70;
     }
 
 
 
 
     moveRightandLeft() {
+
+
         if (this.x <= this.endX) {
+
+
             this.moveRight();
             this.y += 3;
             this.otherDirection = true;
 
+
+
         } else if (this.x >= this.startX) {
+
+
             this.moveLeft();
             this.y -= 3;
             this.otherDirection = false;
 
+
         }
+
+
+
+
     }
 }
