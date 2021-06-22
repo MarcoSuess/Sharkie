@@ -14,6 +14,7 @@ class World {
 
 
 
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -32,13 +33,9 @@ class World {
     }
 
     run() {
-
-        setInterval(() => {
-            this.checkBubble();
-        }, 50);
-
         setInterval(() => {
             this.checkCollisions();
+
         }, 200);
     }
 
@@ -64,12 +61,18 @@ class World {
 
     checkThrowObjects() {
         console.log(this.throwableObjects)
+        this.character.throwTime = new Date().getTime();
         setTimeout(() => {
+
             let bubble = new ThrowableObjects(this.character.x + this.character.width - 40, this.character.y + 120);
             this.throwableObjects.push(bubble)
             this.character.atackBubble = false;
+
         }, 200);
 
+        setInterval(() => {
+            this.checkBubble();
+        }, 300);
 
 
     }
@@ -77,21 +80,33 @@ class World {
     checkBubble() {
 
 
-        this.level.jelly_fish.forEach(jelly_fish => {
-            this.throwableObjects.forEach(bubble => {
+
+        this.level.jelly_fish.forEach((jelly_fish, index) => {
+
+
+
+
+
+
+            this.throwableObjects.forEach((bubble) => {
 
 
                 if (this.character.checkCollisonBubble(jelly_fish, bubble)) {
+
                     jelly_fish.bubbleHitDead = true;
+
                     this.throwableObjects.splice(bubble, 1)
-                    console.log(jelly_fish)
 
 
                     setTimeout(() => {
-                        this.level.jelly_fish.splice(jelly_fish, 1)
-                    }, 1000);
+                        this.level.jelly_fish.splice(index, 1)
+                    }, 950);
+
+
+
 
                 }
+
 
 
             });
@@ -110,11 +125,12 @@ class World {
 
 
     checkCollisionsPosion() {
-        this.level.posion.forEach(posion => {
+        this.level.posion.forEach((posion, index) => {
+
             if (this.character.isColliding(posion)) {
                 console.log('posion', posion)
                 this.posionBar.setPercentage(this.character.posionsBar += 35)
-                this.level.posion.splice(posion, 1)
+                this.level.posion.splice(index, 1)
             }
 
 
@@ -141,18 +157,18 @@ class World {
 
 
     checkCollisionsCoins() {
-        this.level.coins.forEach(coin => {
+        this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 console.log('coin !', coin)
                 this.coinsBar.setPercentage(this.character.coins += 10)
-                this.level.coins.splice(coin, 1)
+                this.level.coins.splice(index, 1)
             }
         });
 
     }
 
     checkCollisionSlap() {
-        this.level.enemies.forEach(pufferFish => {
+        this.level.enemies.forEach((pufferFish, index) => {
 
 
 
@@ -161,7 +177,7 @@ class World {
                 pufferFish.slap = true;
 
                 setTimeout(() => {
-                    this.level.enemies.splice(pufferFish, 1)
+                    this.level.enemies.splice(index, 1)
                 }, 400);
 
 

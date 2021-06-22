@@ -63,8 +63,6 @@ class puffer_fish extends MovableObject {
     animate_swimming() {
 
 
-
-
         setInterval(() => {
 
 
@@ -89,12 +87,6 @@ class puffer_fish extends MovableObject {
 
             }
 
-
-
-
-
-
-
         }, 200);
 
     }
@@ -107,7 +99,6 @@ class puffer_fish extends MovableObject {
     deadMove() {
         this.playAnimation(this.dead);
         this.speed = 0;
-        console.log('dead')
         this.x -= 80;
         this.y += 70;
     }

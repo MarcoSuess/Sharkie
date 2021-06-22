@@ -14,8 +14,6 @@ function init() {
 }
 
 window.addEventListener('keydown', (e) => {
-
-
     if (e.keyCode == 38) {
         keyboard.UP = true;
     }
@@ -56,6 +54,7 @@ window.addEventListener('keyup', (e) => {
     }
     if (e.keyCode == 68) {
         keyboard.D = false;
+        world.character.throwTime = new Date().getTime();
     }
     if (e.keyCode == 32) {
         keyboard.SPACE = false;

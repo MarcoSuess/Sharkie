@@ -84,6 +84,16 @@ class Character extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png'
     ]
 
+    withoutBubbleAnimation = [
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Op2 (Without Bubbles)/1.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Op2 (Without Bubbles)/2.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Op2 (Without Bubbles)/3.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Op2 (Without Bubbles)/4.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Op2 (Without Bubbles)/5.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Op2 (Without Bubbles)/6.png',
+        'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Op2 (Without Bubbles)/7.png'
+    ]
+
     withBubbleAnimationSpecial = [
         'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png',
         'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png',
@@ -155,6 +165,7 @@ class Character extends MovableObject {
         this.loadImages(this.withBubbleAnimationSpecial);
         this.loadImages(this.withoutBubbleAnimationSpecial);
         this.loadImages(this.slap);
+        this.loadImages(this.withoutBubbleAnimation);
         this.move_animate();
         this.atack_animate();
 
@@ -204,8 +215,13 @@ class Character extends MovableObject {
             }
             //up
             if (this.world.keyboard.UP && this.y > -100 && !this.topSideBarrierDouble) {
-                this.y -= this.speed;
-                this.x += this.speed;
+                if (this.otherDirection) {
+                    this.y -= this.speed;
+                    this.x -= this.speed;
+                } else {
+                    this.y -= this.speed;
+                    this.x += this.speed;
+                }
                 this.barrierBlock = false;
 
 
@@ -220,8 +236,16 @@ class Character extends MovableObject {
             }
             //down
             if (this.world.keyboard.DOWN && this.y < 250 && !this.bottomSideBarrierDouble && !this.barrierBlock) {
-                this.y += this.speed;
-                this.x += this.speed;
+                if (this.otherDirection) {
+                    this.y += this.speed;
+                    this.x -= this.speed;
+                } else {
+                    this.y += this.speed;
+                    this.x += this.speed;
+                }
+
+
+
                 this.barrierBlock = false;
 
                 if (!this.swim_down) {
@@ -239,7 +263,7 @@ class Character extends MovableObject {
 
         }, 1000 / 60);
 
-        setInterval(() => {
+        var stopDeadAnimation = setInterval(() => {
 
 
             this.playAnimation(this.IMAGES_SWIMMING)
@@ -248,10 +272,12 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 if (this.electroHit) {
-                    this.playAnimation(this.electroDead, 9)
-                    
+                    this.playAnimation(this.electroDead, stopDeadAnimation, 9)
+
+
                 } else {
-                    this.playAnimation(this.IMAGES_DEAD, 11)
+                    this.playAnimation(this.IMAGES_DEAD, stopDeadAnimation, 11)
+
                 }
 
             }
@@ -259,6 +285,7 @@ class Character extends MovableObject {
             if (this.isHurt()) {
                 if (this.electroHit) {
                     this.playAnimation(this.electroHitImage)
+                    this.HP = 0;
                 } else {
                     this.playAnimation(this.IMAGES_HURT)
                 }
@@ -285,18 +312,28 @@ class Character extends MovableObject {
     }
 
 
-
     atack_animate() {
 
 
 
         // atack with D --- Bubble normal
         setInterval(() => {
-            if (this.world.keyboard.D && !this.world.keyboard.SPACE) {
-                this.playAnimation(this.withBubbleAnimation);
+            if (this.world.keyboard.D && !this.world.keyboard.SPACE && this.keyboardIntervall()) {
                 this.world.checkThrowObjects();
-
+                this.playAnimation(this.withBubbleAnimation);
+            } else if (this.world.keyboard.D && !this.keyboardIntervall()) {
+                this.playAnimation(this.withoutBubbleAnimation);
             }
+
+
+
+
+
+
+
+
+
+
 
             //special atack with D and Space
             if (this.world.keyboard.D && this.world.keyboard.SPACE) {

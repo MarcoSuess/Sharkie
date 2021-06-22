@@ -18,6 +18,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     speedY = 0;
     specialBubble = false;
+    throwTime = 0;
 
 
 
@@ -46,16 +47,28 @@ class MovableObject extends DrawableObject {
     }
 
 
-    playAnimation(images) {
-
+    playAnimation(images, endDeadAnimation, lastImg) {
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
 
 
+        if (this.img == this.imageCache[images[lastImg]]) {
+            clearInterval(endDeadAnimation)
+            this.moveAnimationDead();
+           
+        }
     }
 
+    moveAnimationDead() {
+        setInterval(() => {
+            if (this.y < 200) {
+                this.y += 30;
+            }
+        }, 250);
+
+    }
 
 
 
@@ -106,17 +119,33 @@ class MovableObject extends DrawableObject {
             enemies.y < bubble.y + bubble.height
     }
 
+    stopHitAnimation(hitAnimation) {
+        setTimeout(() => {
+            clearInterval(hitAnimation)
+        }, 200);
 
+    }
+
+    setBack() {
+        var hitAnimation = setInterval(() => {
+            if (this.otherDirection) {
+                this.x += 15;
+            } else {
+                this.x -= 15;
+            }
+            this.stopHitAnimation(hitAnimation);
+        }, 20);
+    }
 
     hit() {
-
         this.HP -= 5;
+        this.setBack();
         if (this.HP < 0) {
             this.HP = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
-        /*     console.log(this.HP, 'energy') */
+        
     }
 
     isDead() {
@@ -127,6 +156,14 @@ class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; // Difference in s
         return timepassed < 0.5;
+    }
+
+    keyboardIntervall() {
+        console.log(this.throwTime)
+        let timepassed = new Date().getTime() - this.throwTime;
+        timepassed = timepassed / 1000;
+
+        return timepassed > 0.6
     }
 
 

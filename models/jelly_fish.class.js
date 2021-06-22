@@ -39,12 +39,12 @@ class jelly_fish extends MovableObject {
         this.endX = endX;
         this.animate();
         this.move();
-        
-        
+
+
     }
 
     animate() {
-        
+
         setInterval(() => {
             if (this.bubbleHitDead) {
                 this.checkDead()
@@ -94,15 +94,12 @@ class jelly_fish extends MovableObject {
     }
 
     checkDead() {
-     
+
         setInterval(() => {
             this.playAnimation(this.dead, 3)
             this.height -= 3;
             this.width -= 3;
         }, 100);
-        
-      
-
 
     }
 
