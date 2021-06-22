@@ -36,7 +36,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
 
-        }, 200);
+        }, 10);
     }
 
     checkSpecialBubble() {
@@ -100,7 +100,7 @@ class World {
 
                     setTimeout(() => {
                         this.level.jelly_fish.splice(index, 1)
-                    }, 950);
+                    }, 850);
 
 
 
@@ -212,6 +212,7 @@ class World {
 
                 if (jelly_fish.electroHit) {
                     this.character.electroHit = true;
+                    this.statusBar.setPercentage(this.character.HP = 0)
                 } else {
                     this.character.electroHit = false;
 
@@ -227,11 +228,33 @@ class World {
 
         this.level.barrier.forEach((barrier) => {
 
-
+            this.character.barrierBlock = this.character.isCollidingBarrier(barrier);
 
             if (this.character.isCollidingBarrier(barrier)) {
 
-                this.character.barrierBlock = true;
+                
+
+                if (this.character.otherDirection) {
+                    this.character.barrierBlockLeft = true;  //  check move left
+                    this.character.barrierBlockRight = false;
+                    this.character.x += 10;
+
+                } else {
+                    this.character.barrierBlockRight = true; // check move right
+                    this.character.barrierBlockLeft = false;
+                    this.character.x -= 10;
+                }
+
+                if(this.character.otherDirectionUpAndDown) {
+                    this.character.y -= 10;
+                    this.character.barrierBlockDown = true; // check move Down
+                    this.character.barrierBlockUp = false;
+                } else {
+                    this.character.y += 10;
+                    this.character.barrierBlockDown = false;
+                    this.character.barrierBlockUp = true;   // check move Up
+                }
+
 
                 console.log('collision with', barrier)
 
@@ -241,6 +264,12 @@ class World {
 
         //Barrier double 
         this.character.isCollidingBarrierDouble(this.level.barrierDouble[0])
+        if(this.character.topSideBarrierDouble) {
+            this.character.y += 2;      
+        }
+        if(this.character.bottomSideBarrierDouble) {
+            this.character.y -= 2;
+        }
 
     }
 

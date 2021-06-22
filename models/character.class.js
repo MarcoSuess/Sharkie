@@ -8,6 +8,7 @@ class Character extends MovableObject {
     swim_up = false;
     swim_down = false;
     electroHit = false;
+  
 
 
     IMAGES_SWIMMING = [
@@ -172,6 +173,9 @@ class Character extends MovableObject {
 
     }
 
+
+   
+
     move_animate() {
 
         setInterval(() => {
@@ -181,8 +185,11 @@ class Character extends MovableObject {
 
             //Right
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
-                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlock) {
-                this.barrierBlock = false;
+                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlockRight) {
+                this.barrierBlockLeft = false;
+                this.barrierBlockRight = false;
+                this.barrierBlockUp = false;
+                this.barrierBlockDown = false;
                 this.x += this.speed;
                 this.otherDirection = false;
 
@@ -199,10 +206,13 @@ class Character extends MovableObject {
 
             }
             //left
-            if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble) {
+            if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlockLeft) {
                 this.x -= this.speed;
                 this.otherDirection = true;
-                this.barrierBlock = false;
+                this.barrierBlockRight = false;
+                this.barrierBlockLeft = false;
+                this.barrierBlockUp = false;
+                this.barrierBlockDown = false;
                 this.swim_up = false;
                 if (this.swim_up) {
                     this.playAnimation(this.IMAGES_SWIMMING_UP_DEGREE.reverse())
@@ -214,7 +224,7 @@ class Character extends MovableObject {
                 }
             }
             //up
-            if (this.world.keyboard.UP && this.y > -100 && !this.topSideBarrierDouble) {
+            if (this.world.keyboard.UP && !this.topSideBarrierDouble && !this.barrierBlockUp && this.y > -100) {
                 if (this.otherDirection) {
                     this.y -= this.speed;
                     this.x -= this.speed;
@@ -222,8 +232,12 @@ class Character extends MovableObject {
                     this.y -= this.speed;
                     this.x += this.speed;
                 }
-                this.barrierBlock = false;
 
+                this.otherDirectionUpAndDown = false;
+                this.barrierBlockLeft = false;
+                this.barrierBlockRight = false;
+                this.barrierBlockUp = false;
+                this.barrierBlockDown = false;
 
 
                 if (!this.swim_up) {
@@ -235,7 +249,7 @@ class Character extends MovableObject {
 
             }
             //down
-            if (this.world.keyboard.DOWN && this.y < 250 && !this.bottomSideBarrierDouble && !this.barrierBlock) {
+            if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble && !this.barrierBlockDown && this.y < 250) {
                 if (this.otherDirection) {
                     this.y += this.speed;
                     this.x -= this.speed;
@@ -246,7 +260,13 @@ class Character extends MovableObject {
 
 
 
-                this.barrierBlock = false;
+                this.barrierBlockLeft = false;
+                this.barrierBlockRight = false;
+                this.barrierBlockUp = false;
+                this.barrierBlockDown = false;
+                this.otherDirectionUpAndDown = true;
+
+
 
                 if (!this.swim_down) {
                     this.playAnimation(this.IMAGES_SWIMMING_DOWN_DEGREE)
@@ -285,7 +305,6 @@ class Character extends MovableObject {
             if (this.isHurt()) {
                 if (this.electroHit) {
                     this.playAnimation(this.electroHitImage)
-                    this.HP = 0;
                 } else {
                     this.playAnimation(this.IMAGES_HURT)
                 }

@@ -1,6 +1,9 @@
 class MovableObject extends DrawableObject {
     //barrier
-    barrierBlock;
+    barrierBlockDown;
+    barrierBlockRight;
+    barrierBlockLeft;
+    barrierBlockUp;
     // ---
 
 
@@ -11,6 +14,7 @@ class MovableObject extends DrawableObject {
 
     speed = 0.15;
     otherDirection = false;
+    otherDirectionUpAndDown;
     HP = 100;
     coins = 0;
     posionsBar = 0;
@@ -19,6 +23,8 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     specialBubble = false;
     throwTime = 0;
+    down;
+    up;
 
 
 
@@ -57,7 +63,7 @@ class MovableObject extends DrawableObject {
         if (this.img == this.imageCache[images[lastImg]]) {
             clearInterval(endDeadAnimation)
             this.moveAnimationDead();
-           
+
         }
     }
 
@@ -89,27 +95,29 @@ class MovableObject extends DrawableObject {
     isColliding(mo) {
         return this.x + this.width - 60 > mo.x && // check front 
             this.y + this.height - 80 > mo.y && //  check under
-            this.x < mo.x && // check behindg
+            this.x < mo.x && // check behind
             this.y + 140 < mo.y + mo.height; // check up
     }
 
     isCollidingBarrier(mo) {
 
         return this.x + this.width - 60 > mo.x && // check front 
-            this.y + this.height - 80 > mo.y && //  check under
-            this.x < mo.x && // check behindg
-            this.y + 140 < mo.y + mo.height; // check up
+            this.y + this.height - 80 > mo.y - 10 && //  check under
+            this.x + 50 < mo.x + mo.width && // check behind
+            this.y + 140 < mo.y + mo.height // check up
     }
 
     isCollidingBarrierDouble(mo) {
 
         //bottom side
-        this.bottomSideBarrierDouble = this.x + this.width - 60 > mo.x && this.x < mo.x + mo.width &&
-            this.y + this.height - 80 > mo.y + mo.height - 120;
+        this.bottomSideBarrierDouble = this.x + this.width - 60 > mo.x // front x
+            && this.x + 50 < mo.x + mo.width && // back x
+            this.y + this.height - 80 > mo.y + mo.height - 120; // y
 
         //top side
-        this.topSideBarrierDouble = this.x + this.width - 60 > mo.x &&
-            this.x < mo.x + mo.width && this.y + 140 < mo.y + 120
+        this.topSideBarrierDouble = this.x + this.width - 60 > mo.x && // front x
+            this.x + 50 < mo.x + mo.width && // back x
+            this.y + 140 < mo.y + 120 // y
     }
 
     checkCollisonBubble(enemies, bubble) {
@@ -129,9 +137,9 @@ class MovableObject extends DrawableObject {
     setBack() {
         var hitAnimation = setInterval(() => {
             if (this.otherDirection) {
-                this.x += 15;
+                this.x += 5;
             } else {
-                this.x -= 15;
+                this.x -= 5;
             }
             this.stopHitAnimation(hitAnimation);
         }, 20);
@@ -145,7 +153,7 @@ class MovableObject extends DrawableObject {
         } else {
             this.lastHit = new Date().getTime();
         }
-        
+
     }
 
     isDead() {
