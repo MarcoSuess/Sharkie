@@ -3,12 +3,15 @@ class Character extends MovableObject {
     x = 80;
     width = 270;
     height = 270;
-    speed = 4;
+    speed = 10;
     atackBubble = false;
     swim_up = false;
     swim_down = false;
     electroHit = false;
-  
+    idleTime = 0;
+    longAFK;
+    lastKeyboardTime;
+
 
 
     IMAGES_SWIMMING = [
@@ -146,6 +149,52 @@ class Character extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/8.png'
     ]
 
+    idle = [
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/1.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/2.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/3.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/4.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/5.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/6.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/7.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/8.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/9.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/10.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/11.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/12.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/13.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/14.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/15.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/16.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/17.png',
+        'Sprites_Sharkie/1.Sharkie/1.IDLE/18.png'
+    ]
+
+    longIdle = [
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i1.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i2.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i3.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i4.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i5.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i6.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i7.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i8.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i9.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i10.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i11.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i12.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i13.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i14.png'
+
+    ]
+
+    longIdleSleep = [
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i11.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i12.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i13.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i14.png'
+    ]
+
 
     world;
     /* swimming_sound = new Audio('pfad'); */
@@ -167,6 +216,10 @@ class Character extends MovableObject {
         this.loadImages(this.withoutBubbleAnimationSpecial);
         this.loadImages(this.slap);
         this.loadImages(this.withoutBubbleAnimation);
+        this.loadImages(this.idle);
+        this.loadImages(this.longIdle);
+        this.loadImages(this.longIdleSleep);
+        this.checkForAFK();
         this.move_animate();
         this.atack_animate();
 
@@ -174,11 +227,65 @@ class Character extends MovableObject {
     }
 
 
-   
+
+    checkForAFK(sleep) {
+        this.longAFK = false;
+        clearInterval(sleep);
+
+        setInterval(() => {
+            this.checkKeyboard();
+        }, 300);
+
+        var stopAFK = setInterval(() => {
+
+            console.log(this.idleTime)
+
+            if (this.idleTime < 15000) {
+                this.playAnimation(this.idle)
+
+                setTimeout(() => {
+                  
+                    this.longAFK = true;
+                }, 4000);
+
+            } else if (this.longAFK && this.checkKeyboard()) {
+
+
+                this.playAnimation(this.longIdle, stopAFK, 9)
+
+
+            }
+
+
+
+
+
+
+        }, 150);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     move_animate() {
 
+
+
+
+
         setInterval(() => {
+
+
 
 
 
@@ -186,6 +293,7 @@ class Character extends MovableObject {
             //Right
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
                 && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlockRight) {
+                this.playAnimation(this.IMAGES_SWIMMING)
                 this.barrierBlockLeft = false;
                 this.barrierBlockRight = false;
                 this.barrierBlockUp = false;
@@ -208,6 +316,7 @@ class Character extends MovableObject {
             //left
             if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlockLeft) {
                 this.x -= this.speed;
+                this.playAnimation(this.IMAGES_SWIMMING)
                 this.otherDirection = true;
                 this.barrierBlockRight = false;
                 this.barrierBlockLeft = false;
@@ -279,14 +388,18 @@ class Character extends MovableObject {
 
 
 
+
             this.world.camera_x = -this.x + 150;
 
         }, 1000 / 60);
 
+
+
+
+
+
+
         var stopDeadAnimation = setInterval(() => {
-
-
-            this.playAnimation(this.IMAGES_SWIMMING)
 
 
 
@@ -338,7 +451,7 @@ class Character extends MovableObject {
         // atack with D --- Bubble normal
         setInterval(() => {
             if (this.world.keyboard.D && !this.world.keyboard.SPACE && this.keyboardIntervall()) {
-                this.world.checkThrowObjects();
+                this.world.checkThrowObjects(this.otherDirection);
                 this.playAnimation(this.withBubbleAnimation);
             } else if (this.world.keyboard.D && !this.keyboardIntervall()) {
                 this.playAnimation(this.withoutBubbleAnimation);
@@ -356,10 +469,13 @@ class Character extends MovableObject {
 
             //special atack with D and Space
             if (this.world.keyboard.D && this.world.keyboard.SPACE) {
+
                 if (this.specialBubble) {
+                    console.log('world')
                     this.playAnimation(this.withBubbleAnimationSpecial)
-                    this.world.checkSpecialBubble();
-                    console.log('test ')
+                    this.world.playSpecialBubble(this.otherDirection);
+
+
                 } else {
                     this.playAnimation(this.withoutBubbleAnimationSpecial)
                 }
@@ -370,13 +486,18 @@ class Character extends MovableObject {
 
             //slap with space
 
-            if (this.world.keyboard.SPACE && !this.world.keyboard.D) {
+            if (this.world.keyboard.SPACE && !this.world.keyboard.D && this.keyboardIntervall()) {
 
                 console.log('x =', this.x + this.width - 60);
                 console.log('y =', this.y + 140)
                 this.world.checkCollisionSlap();
-                this.playAnimation(this.slap)
+                var stopSlap = setInterval(() => {
+                    this.playAnimation(this.slap)
+                }, 150);
 
+                setTimeout(() => {
+                    clearInterval(stopSlap)
+                }, 500);
 
             }
 
@@ -384,6 +505,35 @@ class Character extends MovableObject {
     }
 
 
+
+    checkKeyboard() {
+
+        if (!this.world.keyboard.SPACE && !this.world.keyboard.DOWN
+            && !this.world.keyboard.UP && !this.world.keyboard.LEFT
+            && !this.world.keyboard.RIGHT && !this.world.keyboard.D) {
+
+
+           this.idleTime = new Date().getTime() - this.lastKeyboardTime;
+
+
+            return true;
+
+        } else {
+            this.lastKeyboardTime = new Date().getTime();
+
+            return false;
+
+        }
+
+
+
+
+
+
+
+
+
+    }
 
 }
 

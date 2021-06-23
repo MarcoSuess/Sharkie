@@ -12,13 +12,14 @@ class ThrowableObjects extends MovableObject {
 
 
 
-    constructor(x, y) {
+    constructor(x, y, otherDirection) {
         super().loadImage('Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
         this.loadImages(this.bubbleAnimation);
         this.x = x;
         this.y = y;
         this.height = 65;
         this.width = 65;
+        this.otherDirection = otherDirection
         this.throw();
         this.playBubbleAnimation();
 
@@ -29,7 +30,12 @@ class ThrowableObjects extends MovableObject {
         this.speedY = 20;
         this.applyLift();
         setInterval(() => {
-            this.x += 5;
+            if(this.otherDirection) {
+                this.x -= 5;
+            } else {
+              this.x += 5;  
+            }
+            
         }, 30);
     }
 

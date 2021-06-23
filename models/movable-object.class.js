@@ -25,7 +25,7 @@ class MovableObject extends DrawableObject {
     throwTime = 0;
     down;
     up;
-
+  
 
 
 
@@ -62,9 +62,35 @@ class MovableObject extends DrawableObject {
 
         if (this.img == this.imageCache[images[lastImg]]) {
             clearInterval(endDeadAnimation)
-            this.moveAnimationDead();
+            if (this.longAFK) {
+                this.moveAnimateSleep();
+            } else {
+                this.moveAnimationDead();
+            }
+
 
         }
+    }
+
+    moveAnimateSleep() {
+
+     
+        var sleep = setInterval(() => {
+            this.playAnimation(this.longIdleSleep)
+            if (this.y < 200) {
+                this.y += 30;
+            }
+     
+            if (!this.checkKeyboard() && this.longAFK) {
+              
+                this.checkForAFK(sleep);
+            }
+
+
+
+        }, 250);
+
+
     }
 
     moveAnimationDead() {

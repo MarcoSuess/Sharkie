@@ -34,6 +34,7 @@ window.addEventListener('keydown', (e) => {
     }
 
 
+
 });
 
 window.addEventListener('keyup', (e) => {
@@ -48,6 +49,7 @@ window.addEventListener('keyup', (e) => {
     }
     if (e.keyCode == 39) {
         keyboard.RIGHT = false;
+        
     }
     if (e.keyCode == 37) {
         keyboard.LEFT = false;
@@ -58,7 +60,10 @@ window.addEventListener('keyup', (e) => {
     }
     if (e.keyCode == 32) {
         keyboard.SPACE = false;
+        world.character.throwTime = new Date().getTime();
     }
+
+
 
 
 });

@@ -9,9 +9,10 @@ class World {
     posionBar = new PosionBar();
     coinsBar = new coins_bar();
     throwableObjects = [new ThrowableObjects(-400)];
-
-
-
+    throwableObjectsSpecial = [];
+    stopPosionBarTrigger;
+    specialBubble;
+    bubble;
 
 
 
@@ -39,43 +40,67 @@ class World {
         }, 10);
     }
 
-    checkSpecialBubble() {
+    playSpecialBubble(otherDirection) {
+
+
 
         setTimeout(() => {
-            let specialBubble = new SpecialBubble(this.character.x + this.character.width - 40, this.character.y + 120);
-            this.throwableObjects.push(specialBubble)
-            setInterval(() => {
 
-
-                if (this.character.posionsBar > 0) {
-                    this.posionBar.setPercentage(this.character.posionsBar -= 10)
+            if (this.throwableObjectsSpecial.length <= 0) {
+                if (otherDirection) {
+                    this.specialBubble = new SpecialBubble(this.character.x - 40, this.character.y + 120, otherDirection);
+                } else {
+                    this.specialBubble = new SpecialBubble(this.character.x + this.character.width - 40, this.character.y + 120, otherDirection);
                 }
 
+                this.throwableObjectsSpecial.push(this.specialBubble)
+            }
+            this.stopPosionBarTrigger = setInterval(() => {
 
+                this.posionBar.setPercentage(this.character.posionsBar -= 10)
 
+                if (this.character.posionsBar <= 0) {
+                    clearInterval(this.stopPosionBarTrigger)
+                }
 
             }, 200);
 
         }, 200);
+
+        setInterval(() => {
+            this.checkSpecialBubble()
+        }, 200);
+
     }
 
-    checkThrowObjects() {
-        console.log(this.throwableObjects)
+    checkSpecialBubble() {
+        this.throwableObjectsSpecial.forEach(specialBubble => {
+            // collison with endboSS
+        });
+    }
+
+
+
+
+    checkThrowObjects(otherDirection) {
+
         this.character.throwTime = new Date().getTime();
         setTimeout(() => {
+            if (otherDirection) {
+                this.bubble = new ThrowableObjects(this.character.x - 40, this.character.y + 120 , otherDirection);
+            } else {
+                this.bubble = new ThrowableObjects(this.character.x + this.character.width - 40, this.character.y + 120 , otherDirection);
+            }
 
-            let bubble = new ThrowableObjects(this.character.x + this.character.width - 40, this.character.y + 120);
-            this.throwableObjects.push(bubble)
+            this.throwableObjects.push(this.bubble)
             this.character.atackBubble = false;
 
         }, 200);
-
         setInterval(() => {
             this.checkBubble();
         }, 300);
-
-
     }
+
 
     checkBubble() {
 
@@ -83,13 +108,7 @@ class World {
 
         this.level.jelly_fish.forEach((jelly_fish, index) => {
 
-
-
-
-
-
             this.throwableObjects.forEach((bubble) => {
-
 
                 if (this.character.checkCollisonBubble(jelly_fish, bubble)) {
 
@@ -97,18 +116,12 @@ class World {
 
                     this.throwableObjects.splice(bubble, 1)
 
-
+                    console.log(this.throwableObjects)
                     setTimeout(() => {
                         this.level.jelly_fish.splice(index, 1)
                     }, 850);
 
-
-
-
                 }
-
-
-
             });
         });
 
@@ -131,25 +144,16 @@ class World {
                 console.log('posion', posion)
                 this.posionBar.setPercentage(this.character.posionsBar += 35)
                 this.level.posion.splice(index, 1)
-            }
+                this.throwableObjectsSpecial.splice(0, 1)
 
-
-
-        });
-
-
-        /*         console.log(this.throwableObjects) */
-        this.throwableObjects.forEach(toxicBubble => {
-
-            if (this.character.posionsBar >= 100) {
-                this.character.specialBubble = true;
-                toxicBubble.specialBubble = true;
-
-            } else {
-                this.character.specialBubble = false;
-                toxicBubble.specialBubble = false;
             }
         });
+        if (this.character.posionsBar >= 100) {
+            this.character.specialBubble = true;
+        } else {
+            this.character.specialBubble = false;
+        }
+
 
 
     }
@@ -232,7 +236,7 @@ class World {
 
             if (this.character.isCollidingBarrier(barrier)) {
 
-                
+
 
                 if (this.character.otherDirection) {
                     this.character.barrierBlockLeft = true;  //  check move left
@@ -245,7 +249,7 @@ class World {
                     this.character.x -= 10;
                 }
 
-                if(this.character.otherDirectionUpAndDown) {
+                if (this.character.otherDirectionUpAndDown) {
                     this.character.y -= 10;
                     this.character.barrierBlockDown = true; // check move Down
                     this.character.barrierBlockUp = false;
@@ -264,10 +268,10 @@ class World {
 
         //Barrier double 
         this.character.isCollidingBarrierDouble(this.level.barrierDouble[0])
-        if(this.character.topSideBarrierDouble) {
-            this.character.y += 2;      
+        if (this.character.topSideBarrierDouble) {
+            this.character.y += 2;
         }
-        if(this.character.bottomSideBarrierDouble) {
+        if (this.character.bottomSideBarrierDouble) {
             this.character.y -= 2;
         }
 
@@ -299,6 +303,7 @@ class World {
 
 
         this.addObjectstoMap(this.throwableObjects);
+        this.addObjectstoMap(this.throwableObjectsSpecial);
 
 
         this.ctx.translate(-this.camera_x, 0);
