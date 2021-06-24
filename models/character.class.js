@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 150;
-    x = 80;
+    x =/*  80; */ 4300
     width = 270;
     height = 270;
     speed = 10;
@@ -11,6 +11,8 @@ class Character extends MovableObject {
     idleTime = 0;
     longAFK;
     lastKeyboardTime;
+    stopIntro;
+
 
 
 
@@ -222,15 +224,38 @@ class Character extends MovableObject {
         this.checkForAFK();
         this.move_animate();
         this.atack_animate();
-
+        this.checkXForEndbossIntro();
 
     }
 
 
+    checkXForEndbossIntro() {
+        this.stopIntro = setInterval(() => {
 
-    checkForAFK(sleep) {
+            if (this.x >= 4500) {
+                this.intro = true;
+                this.playAnimation(this.idle)
+
+            }
+
+
+        }, 200);
+
+
+        //stop intro 
+        setTimeout(() => {
+            clearInterval(this.stopIntro);
+            this.intro = false;
+
+        }, 6000);
+    }
+
+
+
+    checkForAFK() {
+        
         this.longAFK = false;
-        clearInterval(sleep);
+        
 
         setInterval(() => {
             this.checkKeyboard();
@@ -238,17 +263,19 @@ class Character extends MovableObject {
 
         var stopAFK = setInterval(() => {
 
-            console.log(this.idleTime)
 
-            if (this.idleTime < 15000) {
+
+            if (this.idleTime < 15000 && !this.intro && this.checkKeyboard()) {
                 this.playAnimation(this.idle)
 
                 setTimeout(() => {
-                  
-                    this.longAFK = true;
+                    if (this.checkKeyboard()) {
+                        this.longAFK = true;
+                    }
+
                 }, 4000);
 
-            } else if (this.longAFK && this.checkKeyboard()) {
+            } else if (this.longAFK && this.checkKeyboard() && !this.intro) {
 
 
                 this.playAnimation(this.longIdle, stopAFK, 9)
@@ -292,7 +319,7 @@ class Character extends MovableObject {
 
             //Right
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
-                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlockRight) {
+                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlockRight && !this.intro) {
                 this.playAnimation(this.IMAGES_SWIMMING)
                 this.barrierBlockLeft = false;
                 this.barrierBlockRight = false;
@@ -314,7 +341,8 @@ class Character extends MovableObject {
 
             }
             //left
-            if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlockLeft) {
+            if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble
+                && !this.topSideBarrierDouble && !this.barrierBlockLeft && !this.intro) {
                 this.x -= this.speed;
                 this.playAnimation(this.IMAGES_SWIMMING)
                 this.otherDirection = true;
@@ -333,7 +361,7 @@ class Character extends MovableObject {
                 }
             }
             //up
-            if (this.world.keyboard.UP && !this.topSideBarrierDouble && !this.barrierBlockUp && this.y > -100) {
+            if (this.world.keyboard.UP && !this.topSideBarrierDouble && !this.barrierBlockUp && this.y > -100 && !this.intro) {
                 if (this.otherDirection) {
                     this.y -= this.speed;
                     this.x -= this.speed;
@@ -358,7 +386,7 @@ class Character extends MovableObject {
 
             }
             //down
-            if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble && !this.barrierBlockDown && this.y < 250) {
+            if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble && !this.barrierBlockDown && this.y < 250 && !this.intro) {
                 if (this.otherDirection) {
                     this.y += this.speed;
                     this.x -= this.speed;
@@ -450,7 +478,7 @@ class Character extends MovableObject {
 
         // atack with D --- Bubble normal
         setInterval(() => {
-            if (this.world.keyboard.D && !this.world.keyboard.SPACE && this.keyboardIntervall()) {
+            if (this.world.keyboard.D && !this.world.keyboard.SPACE && this.keyboardIntervall() && !this.intro) {
                 this.world.checkThrowObjects(this.otherDirection);
                 this.playAnimation(this.withBubbleAnimation);
             } else if (this.world.keyboard.D && !this.keyboardIntervall()) {
@@ -468,7 +496,7 @@ class Character extends MovableObject {
 
 
             //special atack with D and Space
-            if (this.world.keyboard.D && this.world.keyboard.SPACE) {
+            if (this.world.keyboard.D && this.world.keyboard.SPACE && !this.intro) {
 
                 if (this.specialBubble) {
                     console.log('world')
@@ -486,7 +514,7 @@ class Character extends MovableObject {
 
             //slap with space
 
-            if (this.world.keyboard.SPACE && !this.world.keyboard.D && this.keyboardIntervall()) {
+            if (this.world.keyboard.SPACE && !this.world.keyboard.D && this.keyboardIntervall() && !this.intro) {
 
                 console.log('x =', this.x + this.width - 60);
                 console.log('y =', this.y + 140)
@@ -513,7 +541,7 @@ class Character extends MovableObject {
             && !this.world.keyboard.RIGHT && !this.world.keyboard.D) {
 
 
-           this.idleTime = new Date().getTime() - this.lastKeyboardTime;
+            this.idleTime = new Date().getTime() - this.lastKeyboardTime;
 
 
             return true;

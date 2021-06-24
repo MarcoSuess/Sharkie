@@ -9,7 +9,7 @@ class Level {
 
     
 
-    level_end_x = 5100;
+    level_end_x = 4800;
 
 
     constructor(enemies, jelly_fish, backgroundObjects, barrierDouble, barrier, coins, posion) {

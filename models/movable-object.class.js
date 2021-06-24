@@ -25,7 +25,7 @@ class MovableObject extends DrawableObject {
     throwTime = 0;
     down;
     up;
-  
+    intro;
 
 
 
@@ -53,7 +53,7 @@ class MovableObject extends DrawableObject {
     }
 
 
-    playAnimation(images, endDeadAnimation, lastImg) {
+    playAnimation(images, endDeadAnimation, lastImg, action) {
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
@@ -62,9 +62,21 @@ class MovableObject extends DrawableObject {
 
         if (this.img == this.imageCache[images[lastImg]]) {
             clearInterval(endDeadAnimation)
+
+
+
             if (this.longAFK) {
+
                 this.moveAnimateSleep();
-            } else {
+            }
+
+            if (action) { // END BOSS 
+
+                this.animation();
+
+            }
+            if (this.HP <= 0) {
+
                 this.moveAnimationDead();
             }
 
@@ -74,16 +86,18 @@ class MovableObject extends DrawableObject {
 
     moveAnimateSleep() {
 
-     
+
         var sleep = setInterval(() => {
             this.playAnimation(this.longIdleSleep)
-            if (this.y < 200) {
+            if (this.y < 200 && this.checkKeyboard()) {
                 this.y += 30;
+
             }
-     
-            if (!this.checkKeyboard() && this.longAFK) {
-              
-                this.checkForAFK(sleep);
+
+            if (!this.checkKeyboard()) {
+
+                this.checkForAFK();
+                clearInterval(sleep);
             }
 
 

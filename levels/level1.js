@@ -10,7 +10,7 @@ const level1 = new Level(
         new puffer_fish(3900, 330, 3500, 4000),
 
 
-        new Endboss()
+    
 
     ],
 

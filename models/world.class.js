@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    endBoss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -38,7 +39,29 @@ class World {
             this.checkCollisions();
 
         }, 10);
+
+        setInterval(() => {
+          
+            this.checkEndBossIntro();
+        }, 1000);
     }
+
+
+
+   
+
+
+    checkEndBossIntro() {
+
+
+
+        if (this.character.intro) {
+            this.endBoss.introReady = true;
+        }
+
+
+    }
+
 
     playSpecialBubble(otherDirection) {
 
@@ -87,9 +110,9 @@ class World {
         this.character.throwTime = new Date().getTime();
         setTimeout(() => {
             if (otherDirection) {
-                this.bubble = new ThrowableObjects(this.character.x - 40, this.character.y + 120 , otherDirection);
+                this.bubble = new ThrowableObjects(this.character.x - 40, this.character.y + 120, otherDirection);
             } else {
-                this.bubble = new ThrowableObjects(this.character.x + this.character.width - 40, this.character.y + 120 , otherDirection);
+                this.bubble = new ThrowableObjects(this.character.x + this.character.width - 40, this.character.y + 120, otherDirection);
             }
 
             this.throwableObjects.push(this.bubble)
@@ -300,6 +323,8 @@ class World {
 
         this.addObjectstoMap(this.level.enemies);
         this.addObjectstoMap(this.level.jelly_fish);
+        this.addToMap(this.endBoss)
+
 
 
         this.addObjectstoMap(this.throwableObjects);
