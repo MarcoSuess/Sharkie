@@ -7,10 +7,13 @@ class Endboss extends MovableObject {
     hurt;
     atack;
     dead;
-    move;
-
+    final;
+    wait;
     character_x;
     character_y;
+    otherSide;
+    resetPosion;
+
 
 
     IMAGES_INTRO = [
@@ -86,6 +89,12 @@ class Endboss extends MovableObject {
 
             if (this.introReady) {
                 this.x = 4850
+
+                this.resetPosion = true;
+
+
+
+
                 this.playAnimation(this.IMAGES_INTRO, stopIntro, 9, this.introReady)
             }
 
@@ -101,31 +110,64 @@ class Endboss extends MovableObject {
 
 
     animation() {
-        this.move = true;
-     var action = setInterval(() => {
+        this.final = true;
+        var action = setInterval(() => {
             this.playAnimation(this.IMAGES_SWIMMING);
 
-            if(this.character_y <= this.y + 150) {
-                this.y -= 20; 
+            if (this.x <= 2300) {
+                this.wait = true;
+            }
+
+            if (this.otherSide) {
+                this.x += 20;
+                this.otherDirection = true;
+
+            }
+            else {
+                this.x -= 20;
             }
 
 
-            if(this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT)
-            } 
 
-            if(this.dead) {
+
+
+
+            if (this.character_y <= this.y + 150) {
+                this.y -= 20;
+            }
+            if (this.character_y >= this.y + 150) {
+                this.y += 20;
+            }
+
+
+
+
+            if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT)
+            }
+
+            if (this.dead) {
                 this.playAnimation(this.IMAGES_DEAD, action, 4)
             }
 
-            if(this.atack) {
+            if (this.atack) {
                 this.playAnimation(this.IMAGES_ATACK)
-             /*    this.x -= 10; */
+                if (!this.otherDirection) {
+                    this.x -= 5;
+                }
+                if (this.otherDirection) {
+                    this.x += 5
+
+                }
+
+
             }
-            
+
 
 
         }, 200);
+
+
 
     }
 

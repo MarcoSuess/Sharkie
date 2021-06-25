@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 150;
-    x =/*  80; */ 4300
+    x = 80;
     width = 270;
     height = 270;
     speed = 10;
@@ -236,9 +236,9 @@ class Character extends MovableObject {
                 this.intro = true;
                 this.endIntro();
                 this.playAnimation(this.idle)
-
+             
             }
-
+    
 
         }, 200);
 
@@ -252,12 +252,13 @@ class Character extends MovableObject {
     endIntro() {
         setTimeout(() => {
             if (this.intro) {
+              
                 clearInterval(this.stopIntro);
                 this.intro = false;
             }
 
 
-        }, 3000);
+        }, 1000);
     }
 
 
@@ -273,7 +274,7 @@ class Character extends MovableObject {
 
         var stopAFK = setInterval(() => {
 
-
+        
 
             if (this.idleTime < 15000 && !this.intro && this.checkKeyboard()) {
                 this.playAnimation(this.idle)
@@ -317,7 +318,9 @@ class Character extends MovableObject {
     move_animate() {
 
 
-
+     
+            
+     
 
 
         setInterval(() => {

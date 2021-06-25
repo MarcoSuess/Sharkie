@@ -38,6 +38,9 @@ class World {
 
     run() {
         setInterval(() => {
+            this.endRoundAction()
+        }, 300);
+        setInterval(() => {
 
             this.checkEndBossIntro();
             this.checkCollisions();
@@ -48,7 +51,34 @@ class World {
 
     }
 
+    endRoundAction() {
 
+        if (this.endBoss.final && this.character.x <= 1800 && !this.endBoss.otherSide) {
+            this.endBoss.otherSide = true;
+            this.endBoss.x = 800;
+            console.log('test')
+            this.level.posion.push(new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 2600, 300),
+                new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 3622, 260),
+                new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4700, 300))
+
+        }
+
+        if (this.endBoss.resetPosion && this.character.x <= 4400) {
+
+            console.log('posion')
+            this.newPosion();
+
+
+        }
+
+    }
+
+    newPosion() {
+        this.endBoss.resetPosion = false;
+        this.level.posion.push(new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 1700, 250),
+            new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 3622, 260),
+            new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4000, 300))
+    }
 
 
     endBossLife() {
@@ -58,16 +88,21 @@ class World {
             lifeBar.endBossY = this.endBoss.y;
         });
 
-     
+
     }
 
     checkEndBossIntro() {
 
 
+
         if (this.character.intro) {
             this.endBoss.introReady = true;
-
         }
+
+
+
+
+
 
 
     }
@@ -88,19 +123,24 @@ class World {
 
                 this.throwableObjectsSpecial.push(this.specialBubble)
             }
-            this.stopPosionBarTrigger = setInterval(() => {
-                this.blockPosion = true;
-                this.posionBar.setPercentage(this.character.posionsBar -= 50)
 
-
-                if (this.character.posionsBar <= 0) {
-                    this.blockPosion = false;
-                    clearInterval(this.stopPosionBarTrigger)
-                }
-
-            }, 200);
 
         }, 200);
+
+        this.stopPosionBarTrigger = setInterval(() => {
+            this.blockPosion = true;
+            this.posionBar.setPercentage(this.character.posionsBar -= 60)
+
+
+            if (this.character.posionsBar <= 0) {
+                this.character.posionsBar = 0;
+                this.blockPosion = false;
+                clearInterval(this.stopPosionBarTrigger)
+            }
+
+        }, 200);
+
+
 
         setInterval(() => {
 
@@ -206,7 +246,7 @@ class World {
         this.endBoss.character_x = this.character.x;
         this.endBoss.character_y = this.character.y;
 
-  
+
 
         if (this.character.endBossAtackRange(this.endBoss)) {
             this.endBoss.atack = true;
@@ -225,6 +265,7 @@ class World {
 
                 this.level.posion.splice(index, 1)
                 this.throwableObjectsSpecial.splice(0, 1)
+                console.log('test')
                 this.posionBar.setPercentage(this.character.posionsBar += 35)
 
             }
@@ -306,7 +347,7 @@ class World {
 
         });
 
-        if (this.character.isColliding(this.endBoss)) {
+        if (this.character.isCollidingEndBoss(this.endBoss)) {
             this.character.hit();
             this.statusBar.setPercentage(this.character.HP)
         }
@@ -377,7 +418,7 @@ class World {
         this.addObjectstoMap(this.level.coins);
         this.addObjectstoMap(this.level.posion);
         this.addToMap(this.endBoss)
-           if (this.endBoss.move) {
+        if (this.endBoss.final) {
             this.addObjectstoMap(this.endBossBar);
         }
 
@@ -385,7 +426,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         // ------Space for fixed objects -----
 
-     
+
         this.addToMap(this.statusBar);
         this.addToMap(this.posionBar);
         this.addToMap(this.coinsBar);

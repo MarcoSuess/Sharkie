@@ -17,7 +17,7 @@ class MovableObject extends DrawableObject {
     otherDirectionUpAndDown;
     HP = 100;
     coins = 0;
-    posionsBar = 100;
+    posionsBar = 0;
     lastHit = 0;
     acceleration = 2.5;
     speedY = 0;
@@ -26,6 +26,7 @@ class MovableObject extends DrawableObject {
     down;
     up;
     intro;
+   
 
 
 
@@ -71,7 +72,7 @@ class MovableObject extends DrawableObject {
             }
 
             if (action) { // END BOSS 
-
+                
                 this.animation();
 
             }
@@ -139,6 +140,13 @@ class MovableObject extends DrawableObject {
             this.y + 140 < mo.y + mo.height; // check up
     }
 
+    isCollidingEndBoss(mo) {
+        return this.x + this.width - 60 > mo.x && // check front 
+            this.y + this.height - 80 > mo.y && //  check under
+            this.x - this.width < mo.x && // check behind
+            this.y + 140 < mo.y + mo.height; // check up
+    }
+
     isCollidingBarrier(mo) {
 
         return this.x + this.width - 60 > mo.x && // check front 
@@ -164,7 +172,7 @@ class MovableObject extends DrawableObject {
         return enemies.x < bubble.x && enemies.y < bubble.y + bubble.height &&
             enemies.y + enemies.height > bubble.y &&
             enemies.x + enemies.width > bubble.x
-           
+
     }
 
     checkCollisonSpecialBubble(endBoss, specialBubble) {
@@ -172,17 +180,17 @@ class MovableObject extends DrawableObject {
             endBoss.y + 250 < specialBubble.y + specialBubble.height && // up
             endBoss.y + endBoss.height - 130 > specialBubble.y && // down
             endBoss.x + endBoss.width - 20 > specialBubble.x  // behind
-            
+
     }
 
 
 
-    
+
     endBossAtackRange(boss) {
         return boss.x - 100 < this.x + this.width - 60 && // front
-        boss.y + 250 < this.y + this.height - 80 && // up
-        boss.y + boss.height - 130 > this.y + 140  && // down
-        boss.x + boss.width - 20 > this.x + 50  // behind
+            boss.y + 250 < this.y + this.height - 80 && // up
+            boss.y + boss.height - 130 > this.y + 140 && // down
+            boss.x + boss.width + 100 > this.x + 50  // behind
     }
 
 
