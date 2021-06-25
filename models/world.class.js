@@ -208,11 +208,17 @@ class World {
 
 
 
+
         this.level.jelly_fish.forEach((jelly_fish, index) => {
 
             this.throwableObjects.forEach((bubble) => {
+                if(bubble.y < -10) {
+                    this.throwableObjects.splice(bubble, 1)
+                }
 
-                if (this.character.checkCollisonBubble(jelly_fish, bubble)) {
+                
+    
+                if (this.character.checkCollisonBubble(jelly_fish, bubble) && !jelly_fish.bubbleHitDead) {
 
                     jelly_fish.bubbleHitDead = true;
 
@@ -397,10 +403,10 @@ class World {
         //Barrier double 
         this.character.isCollidingBarrierDouble(this.level.barrierDouble[0])
         if (this.character.topSideBarrierDouble) {
-            this.character.y += 2;
+            this.character.y += 10;
         }
         if (this.character.bottomSideBarrierDouble) {
-            this.character.y -= 2;
+            this.character.y -= 10;
         }
 
     }

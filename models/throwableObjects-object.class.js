@@ -8,7 +8,7 @@ class ThrowableObjects extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/bubble_animation/4.png'
     ];
 
-  
+
 
 
 
@@ -29,13 +29,27 @@ class ThrowableObjects extends MovableObject {
 
         this.speedY = 20;
         this.applyLift();
+
         setInterval(() => {
-            if(this.otherDirection) {
+            if (!this.moveUp) {
+                if (this.otherDirection) {
+                    this.x -= 10;
+                } else {
+                    this.x += 10;
+                }
+            }
+
+            if (this.moveUp && !this.otherDirection) {
+                this.x += 8;
                 this.x -= 5;
             } else {
-              this.x += 5;  
+                this.x += 5;
+                this.x -= 8;
             }
-            
+
+
+
+
         }, 30);
     }
 
@@ -44,9 +58,11 @@ class ThrowableObjects extends MovableObject {
         setInterval(() => {
 
 
-
-
             this.playAnimation(this.bubbleAnimation)
+
+
+
+
 
 
         }, 100);

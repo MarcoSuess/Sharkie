@@ -3,7 +3,7 @@ class Character extends MovableObject {
     x = 80;
     width = 270;
     height = 270;
-    speed = 10;
+    speed = 15;
     atackBubble = false;
     swim_up = false;
     swim_down = false;
@@ -12,6 +12,9 @@ class Character extends MovableObject {
     longAFK;
     lastKeyboardTime;
     stopIntro;
+    keyboard;
+    atackMove;
+
 
 
 
@@ -236,9 +239,9 @@ class Character extends MovableObject {
                 this.intro = true;
                 this.endIntro();
                 this.playAnimation(this.idle)
-             
+
             }
-    
+
 
         }, 200);
 
@@ -252,7 +255,7 @@ class Character extends MovableObject {
     endIntro() {
         setTimeout(() => {
             if (this.intro) {
-              
+
                 clearInterval(this.stopIntro);
                 this.intro = false;
             }
@@ -270,17 +273,17 @@ class Character extends MovableObject {
 
         setInterval(() => {
             this.checkKeyboard();
-        }, 300);
+        }, 50);
 
         var stopAFK = setInterval(() => {
 
-        
 
-            if (this.idleTime < 15000 && !this.intro && this.checkKeyboard()) {
+
+            if (this.idleTime < 15000 && !this.intro && this.checkKeyboard() && !this.isDead()) {
                 this.playAnimation(this.idle)
 
                 setTimeout(() => {
-                    if (this.checkKeyboard()) {
+                    if (this.checkKeyboard() && !this.isDead()) {
                         this.longAFK = true;
                     }
 
@@ -318,12 +321,12 @@ class Character extends MovableObject {
     move_animate() {
 
 
-     
-            
-     
 
 
-        setInterval(() => {
+
+
+
+        this.keyboard = setInterval(() => {
 
 
 
@@ -332,7 +335,8 @@ class Character extends MovableObject {
 
             //Right
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
-                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble && !this.barrierBlockRight && !this.intro) {
+                && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble
+                && !this.barrierBlockRight && !this.intro && !this.world.keyboard.DOWN && !this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIMMING)
                 this.barrierBlockLeft = false;
                 this.barrierBlockRight = false;
@@ -355,7 +359,7 @@ class Character extends MovableObject {
             }
             //left
             if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble
-                && !this.topSideBarrierDouble && !this.barrierBlockLeft && !this.intro) {
+                && !this.topSideBarrierDouble && !this.barrierBlockLeft && !this.intro && !this.world.keyboard.DOWN && !this.world.keyboard.UP) {
                 this.x -= this.speed;
                 this.playAnimation(this.IMAGES_SWIMMING)
                 this.otherDirection = true;
@@ -374,7 +378,8 @@ class Character extends MovableObject {
                 }
             }
             //up
-            if (this.world.keyboard.UP && !this.topSideBarrierDouble && !this.barrierBlockUp && this.y > -100 && !this.intro) {
+            if (this.world.keyboard.UP && !this.topSideBarrierDouble
+                && !this.barrierBlockUp && this.y > -100 && !this.intro && !this.world.keyboard.DOWN) {
                 if (this.otherDirection) {
                     this.y -= this.speed;
                     this.x -= this.speed;
@@ -399,7 +404,8 @@ class Character extends MovableObject {
 
             }
             //down
-            if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble && !this.barrierBlockDown && this.y < 250 && !this.intro) {
+            if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble &&
+                !this.barrierBlockDown && this.y < 250 && !this.intro && !this.world.keyboard.UP) {
                 if (this.otherDirection) {
                     this.y += this.speed;
                     this.x -= this.speed;
@@ -432,7 +438,7 @@ class Character extends MovableObject {
 
             this.world.camera_x = -this.x + 150;
 
-        }, 1000 / 60);
+        }, 1000 / 30);
 
 
 
@@ -447,11 +453,14 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 if (this.electroHit) {
                     this.playAnimation(this.electroDead, stopDeadAnimation, 9)
+                    clearInterval(this.keyboard)
+                    clearInterval(this.atackMove)
 
 
                 } else {
                     this.playAnimation(this.IMAGES_DEAD, stopDeadAnimation, 11)
-
+                    clearInterval(this.keyboard)
+                    clearInterval(this.atackMove)
                 }
 
             }
@@ -490,7 +499,7 @@ class Character extends MovableObject {
 
 
         // atack with D --- Bubble normal
-        setInterval(() => {
+        this.atackMove = setInterval(() => {
             if (this.world.keyboard.D && !this.world.keyboard.SPACE && this.keyboardIntervall() && !this.intro) {
                 this.world.checkThrowObjects(this.otherDirection);
                 this.playAnimation(this.withBubbleAnimation);
@@ -532,13 +541,8 @@ class Character extends MovableObject {
                 console.log('x =', this.x + this.width - 60);
                 console.log('y =', this.y + 140)
                 this.world.checkCollisionSlap();
-                var stopSlap = setInterval(() => {
-                    this.playAnimation(this.slap)
-                }, 150);
+                this.playAnimation(this.slap)
 
-                setTimeout(() => {
-                    clearInterval(stopSlap)
-                }, 500);
 
             }
 

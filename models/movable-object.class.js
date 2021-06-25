@@ -26,9 +26,7 @@ class MovableObject extends DrawableObject {
     down;
     up;
     intro;
-   
-
-
+    moveUp;
 
 
 
@@ -38,19 +36,30 @@ class MovableObject extends DrawableObject {
 
     applyLift() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (this.isAboveGround() && !this.moveUp) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+
+                if (this.y > 470) {
+                    this.moveUp = true;
+                }
             }
+            if (this.moveUp) {
+                
+                this.y -= 15;
+            }
+
         }, 1000 / 25);
     }
+
+
 
     isAboveGround() {
         if (this instanceof ThrowableObjects) { // Throwable object should always fall
             return true;
-        } else {
-            return this.y < 180;
         }
+
+
     }
 
 
@@ -66,18 +75,18 @@ class MovableObject extends DrawableObject {
 
 
 
-            if (this.longAFK) {
+            if (this.longAFK && !this.isDead()) {
 
                 this.moveAnimateSleep();
             }
 
             if (action) { // END BOSS 
-                
+
                 this.animation();
 
             }
-            if (this.HP <= 0) {
-
+            if (this.isDead()) {
+                console.log('dead', this.isDead())
                 this.moveAnimationDead();
             }
 
@@ -109,6 +118,13 @@ class MovableObject extends DrawableObject {
     }
 
     moveAnimationDead() {
+        if (this.electroHit) {
+            this.loadImage(this.electroDead[9])
+        } else {
+            this.loadImage(this.IMAGES_DEAD[11])
+        }
+
+
         setInterval(() => {
             if (this.y < 200) {
                 this.y += 30;
@@ -234,11 +250,11 @@ class MovableObject extends DrawableObject {
     }
 
     keyboardIntervall() {
-        console.log(this.throwTime)
+
         let timepassed = new Date().getTime() - this.throwTime;
         timepassed = timepassed / 1000;
 
-        return timepassed > 0.6
+        return timepassed > 0.5;
     }
 
 
