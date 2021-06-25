@@ -1,6 +1,7 @@
 class World {
     character = new Character();
     endBoss = new Endboss();
+    endBossBar = [new Endboss_bar(50, 120), new Endboss_bar(100, 120), new Endboss_bar(150, 120)];
     level = level1;
     canvas;
     ctx;
@@ -11,6 +12,7 @@ class World {
     coinsBar = new coins_bar();
     throwableObjects = [new ThrowableObjects(-400)];
     throwableObjectsSpecial = [];
+    blockPosion;
     stopPosionBarTrigger;
     specialBubble;
     bubble;
@@ -36,27 +38,35 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
 
-        }, 10);
-
-        setInterval(() => {
-          
             this.checkEndBossIntro();
-        }, 1000);
+            this.checkCollisions();
+            this.endBossLife();
+
+        }, 50);
+
+
     }
 
 
 
-   
 
+    endBossLife() {
+
+        this.endBossBar.forEach(lifeBar => {
+            lifeBar.endBossX = this.endBoss.x;
+            lifeBar.endBossY = this.endBoss.y;
+        });
+
+     
+    }
 
     checkEndBossIntro() {
 
 
-
         if (this.character.intro) {
             this.endBoss.introReady = true;
+
         }
 
 
@@ -79,10 +89,12 @@ class World {
                 this.throwableObjectsSpecial.push(this.specialBubble)
             }
             this.stopPosionBarTrigger = setInterval(() => {
+                this.blockPosion = true;
+                this.posionBar.setPercentage(this.character.posionsBar -= 50)
 
-                this.posionBar.setPercentage(this.character.posionsBar -= 10)
 
                 if (this.character.posionsBar <= 0) {
+                    this.blockPosion = false;
                     clearInterval(this.stopPosionBarTrigger)
                 }
 
@@ -91,18 +103,45 @@ class World {
         }, 200);
 
         setInterval(() => {
+
             this.checkSpecialBubble()
+            this.spliceEndbossBar()
         }, 200);
 
     }
 
     checkSpecialBubble() {
-        this.throwableObjectsSpecial.forEach(specialBubble => {
-            // collison with endboSS
+        this.throwableObjectsSpecial.forEach((specialBubble, index) => {
+            if (this.character.checkCollisonSpecialBubble(this.endBoss, specialBubble)) {
+
+                this.endBoss.lastHit = new Date().getTime();
+                this.endBoss.HP -= 20;
+                this.throwableObjectsSpecial.splice(index, 1)
+
+
+            }
+
+
         });
+
+
+
+
     }
 
+    spliceEndbossBar() {
 
+        if (this.endBoss.HP == 80) {
+            this.endBossBar.splice(2)
+        }
+        if (this.endBoss.HP == 60) {
+            this.endBossBar.splice(1)
+        }
+        if (this.endBoss.HP == 40) {
+            this.endBoss.dead = true;
+            this.endBossBar.splice(0)
+        }
+    }
 
 
     checkThrowObjects(otherDirection) {
@@ -156,18 +195,37 @@ class World {
         this.checkCollisionsBarrier();
         this.checkCollisionsCoins();
         this.checkCollisionsPosion();
+        this.checkEndBossAtackRange();
+
+
 
     }
 
 
+    checkEndBossAtackRange() {
+        this.endBoss.character_x = this.character.x;
+        this.endBoss.character_y = this.character.y;
+
+  
+
+        if (this.character.endBossAtackRange(this.endBoss)) {
+            this.endBoss.atack = true;
+        } else {
+            this.endBoss.atack = false;
+        }
+
+    }
+
     checkCollisionsPosion() {
+
         this.level.posion.forEach((posion, index) => {
 
-            if (this.character.isColliding(posion)) {
+            if (this.character.isColliding(posion) && !this.blockPosion) {
                 console.log('posion', posion)
-                this.posionBar.setPercentage(this.character.posionsBar += 35)
+
                 this.level.posion.splice(index, 1)
                 this.throwableObjectsSpecial.splice(0, 1)
+                this.posionBar.setPercentage(this.character.posionsBar += 35)
 
             }
         });
@@ -248,6 +306,12 @@ class World {
 
         });
 
+        if (this.character.isColliding(this.endBoss)) {
+            this.character.hit();
+            this.statusBar.setPercentage(this.character.HP)
+        }
+
+
 
     }
 
@@ -312,18 +376,26 @@ class World {
         this.addObjectstoMap(this.level.barrier);
         this.addObjectstoMap(this.level.coins);
         this.addObjectstoMap(this.level.posion);
+        this.addToMap(this.endBoss)
+           if (this.endBoss.move) {
+            this.addObjectstoMap(this.endBossBar);
+        }
+
         this.addToMap(this.character)
         this.ctx.translate(-this.camera_x, 0);
         // ------Space for fixed objects -----
+
+     
         this.addToMap(this.statusBar);
         this.addToMap(this.posionBar);
         this.addToMap(this.coinsBar);
+
         this.ctx.translate(this.camera_x, 0);
 
 
         this.addObjectstoMap(this.level.enemies);
         this.addObjectstoMap(this.level.jelly_fish);
-        this.addToMap(this.endBoss)
+
 
 
 

@@ -4,6 +4,13 @@ class Endboss extends MovableObject {
     width = 300;
     y = -50;
     introReady;
+    hurt;
+    atack;
+    dead;
+    move;
+
+    character_x;
+    character_y;
 
 
     IMAGES_INTRO = [
@@ -86,7 +93,7 @@ class Endboss extends MovableObject {
 
         }, 200);
 
-        
+
     }
 
 
@@ -94,10 +101,30 @@ class Endboss extends MovableObject {
 
 
     animation() {
-      
-        setInterval(() => {
+        this.move = true;
+     var action = setInterval(() => {
             this.playAnimation(this.IMAGES_SWIMMING);
+
+            if(this.character_y <= this.y + 150) {
+                this.y -= 20; 
+            }
+
+
+            if(this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT)
+            } 
+
+            if(this.dead) {
+                this.playAnimation(this.IMAGES_DEAD, action, 4)
+            }
+
+            if(this.atack) {
+                this.playAnimation(this.IMAGES_ATACK)
+             /*    this.x -= 10; */
+            }
             
+
+
         }, 200);
 
     }

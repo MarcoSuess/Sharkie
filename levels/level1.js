@@ -114,6 +114,14 @@ const level1 = new Level(
         new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 500, 300),
         new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 600, 260),
         new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 700, 300),
+
+
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4000, 300),
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 4000, 260),
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4000, 300),
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4600, 400),
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 4600, 360),
+        new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4600, 400),
     ]
 
 

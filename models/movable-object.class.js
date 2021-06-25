@@ -17,7 +17,7 @@ class MovableObject extends DrawableObject {
     otherDirectionUpAndDown;
     HP = 100;
     coins = 0;
-    posionsBar = 0;
+    posionsBar = 100;
     lastHit = 0;
     acceleration = 2.5;
     speedY = 0;
@@ -163,9 +163,28 @@ class MovableObject extends DrawableObject {
     checkCollisonBubble(enemies, bubble) {
         return enemies.x < bubble.x && enemies.y < bubble.y + bubble.height &&
             enemies.y + enemies.height > bubble.y &&
-            enemies.x + enemies.width > bubble.x &&
-            enemies.y < bubble.y + bubble.height
+            enemies.x + enemies.width > bubble.x
+           
     }
+
+    checkCollisonSpecialBubble(endBoss, specialBubble) {
+        return endBoss.x < specialBubble.x + specialBubble.width && // front
+            endBoss.y + 250 < specialBubble.y + specialBubble.height && // up
+            endBoss.y + endBoss.height - 130 > specialBubble.y && // down
+            endBoss.x + endBoss.width - 20 > specialBubble.x  // behind
+            
+    }
+
+
+
+    
+    endBossAtackRange(boss) {
+        return boss.x - 100 < this.x + this.width - 60 && // front
+        boss.y + 250 < this.y + this.height - 80 && // up
+        boss.y + boss.height - 130 > this.y + 140  && // down
+        boss.x + boss.width - 20 > this.x + 50  // behind
+    }
+
 
     stopHitAnimation(hitAnimation) {
         setTimeout(() => {
@@ -177,9 +196,9 @@ class MovableObject extends DrawableObject {
     setBack() {
         var hitAnimation = setInterval(() => {
             if (this.otherDirection) {
-                this.x += 5;
+                this.x += 2;
             } else {
-                this.x -= 5;
+                this.x -= 2;
             }
             this.stopHitAnimation(hitAnimation);
         }, 20);

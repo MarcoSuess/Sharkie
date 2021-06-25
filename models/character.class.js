@@ -234,6 +234,7 @@ class Character extends MovableObject {
 
             if (this.x >= 4500) {
                 this.intro = true;
+                this.endIntro();
                 this.playAnimation(this.idle)
 
             }
@@ -242,20 +243,29 @@ class Character extends MovableObject {
         }, 200);
 
 
-        //stop intro 
-        setTimeout(() => {
-            clearInterval(this.stopIntro);
-            this.intro = false;
 
-        }, 6000);
+
+
+
+    }
+
+    endIntro() {
+        setTimeout(() => {
+            if (this.intro) {
+                clearInterval(this.stopIntro);
+                this.intro = false;
+            }
+
+
+        }, 3000);
     }
 
 
 
     checkForAFK() {
-        
+
         this.longAFK = false;
-        
+
 
         setInterval(() => {
             this.checkKeyboard();
