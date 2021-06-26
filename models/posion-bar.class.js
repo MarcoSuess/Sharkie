@@ -1,5 +1,6 @@
 class PosionBar extends DrawableObject {
 
+    SOUND_PosionFull = new Audio('Sprites_Sharkie/sounds/character/specialAtackisReady.mp3')
 
     PosionBar = [
         'Sprites_Sharkie/4. Marcadores/Purple/0_.png',

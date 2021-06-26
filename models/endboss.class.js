@@ -14,6 +14,12 @@ class Endboss extends MovableObject {
     otherSide;
     resetPosion;
 
+    SOUND_Hurt = new Audio('Sprites_Sharkie/sounds/endBoss/endbossHurt.mp3');
+    SOUND_Atack = new Audio('Sprites_Sharkie/sounds/endBoss/endbossAtack.mp3');
+    SOUND_Intro = new Audio('Sprites_Sharkie/sounds/endBoss/endBossIntro.mp3');
+    SOUND_EndBossIsNear = new Audio('Sprites_Sharkie/sounds/endBoss/sharkisNear.mp3');
+    SOUND_Dead = new Audio('Sprites_Sharkie/sounds/enemy/pufferFish_dead.mp3');
+
 
 
     IMAGES_INTRO = [
@@ -89,13 +95,14 @@ class Endboss extends MovableObject {
 
             if (this.introReady) {
                 this.x = 4850
-
+                this.SOUND_Intro.play();
                 this.resetPosion = true;
 
 
 
 
                 this.playAnimation(this.IMAGES_INTRO, stopIntro, 9, this.introReady)
+
             }
 
 
@@ -144,14 +151,17 @@ class Endboss extends MovableObject {
 
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
+             
             }
 
             if (this.dead) {
                 this.playAnimation(this.IMAGES_DEAD, action, 4)
+                this.SOUND_Dead.play();
             }
 
             if (this.atack) {
                 this.playAnimation(this.IMAGES_ATACK)
+                this.SOUND_Atack.play();
                 if (!this.otherDirection) {
                     this.x -= 5;
                 }

@@ -3,6 +3,7 @@ class jelly_fish extends MovableObject {
     endX;
     bubbleHitDead;
     electroHit = false;
+    AUDIO_Dead = new Audio('Sprites_Sharkie/sounds/enemy/jellyFish_dead.mp3');
 
     regularDamage = [
         'Sprites_Sharkie/2.Enemy/2 Jelly fish/Regular damage/Yellow 1.png',

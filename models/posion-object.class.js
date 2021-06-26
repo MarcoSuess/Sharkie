@@ -1,8 +1,8 @@
 class posion extends MovableObject {
 
+    
 
-
-
+    SOUND_PosionCollect = new Audio('Sprites_Sharkie/sounds/character/posion.mp3')
 
 
 

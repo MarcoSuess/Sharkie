@@ -1,5 +1,6 @@
 class coin extends MovableObject {
 
+    SOUND_COIN = new Audio('Sprites_Sharkie/sounds/character/coin.mp3');
 
     coinsAnimationImg = [
         'Sprites_Sharkie/4. Marcadores/1. Coins/1.png',

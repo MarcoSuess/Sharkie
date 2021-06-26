@@ -10,12 +10,18 @@ class World {
     statusBar = new StatusBar();
     posionBar = new PosionBar();
     coinsBar = new coins_bar();
-    throwableObjects = [new ThrowableObjects(-400)];
+    throwableObjects = [];
     throwableObjectsSpecial = [];
     blockPosion;
     stopPosionBarTrigger;
     specialBubble;
     bubble;
+    SOUND_BACKGROUND = new Audio('Sprites_Sharkie/sounds/background.mp3');
+    SOUND_EndTheme = new Audio('Sprites_Sharkie/sounds/endBossTheme.mp3');
+   /*  SOUND_Win = new Audio() */
+   SOUND_Lose = new Audio('Sprites_Sharkie/sounds/gameOver.mp3');
+
+
 
 
 
@@ -33,23 +39,51 @@ class World {
 
 
     setWorld() {
+
         this.character.world = this;
     }
 
     run() {
+
+
+        this.SOUND_BACKGROUND.volume = 0.2;
+
         setInterval(() => {
+
+            this.SOUND_BACKGROUND.play();
+            this.checkEndScreen();
             this.endRoundAction()
         }, 300);
         setInterval(() => {
 
             this.checkEndBossIntro();
             this.checkCollisions();
-            this.endBossLife();
+            this.endBossLifeBar();
 
         }, 50);
+        setTimeout(() => {
+
+        }, 4000);
 
 
     }
+
+    checkEndScreen() {
+
+        if(this.character.checkForLose) {
+            console.log('lose screen')
+            this.SOUND_Lose.play();
+            this.character.checkForLose = false;
+        }
+
+        if(this.endBoss.dead) {
+            console.log('win')
+        }
+
+    }
+
+
+
 
     endRoundAction() {
 
@@ -65,7 +99,7 @@ class World {
 
         if (this.endBoss.resetPosion && this.character.x <= 4400) {
 
-            console.log('posion')
+
             this.newPosion();
 
 
@@ -81,7 +115,7 @@ class World {
     }
 
 
-    endBossLife() {
+    endBossLifeBar() {
 
         this.endBossBar.forEach(lifeBar => {
             lifeBar.endBossX = this.endBoss.x;
@@ -94,11 +128,21 @@ class World {
     checkEndBossIntro() {
 
 
+        if (this.character.x >= 2800) {
+            this.endBoss.SOUND_EndBossIsNear.play();
+            this.SOUND_BACKGROUND.pause();
+        }
 
         if (this.character.intro) {
             this.endBoss.introReady = true;
         }
 
+        if (this.endBoss.final) {
+            this.endBoss.SOUND_EndBossIsNear.pause();
+            this.SOUND_BACKGROUND.pause();
+            this.SOUND_EndTheme.volume = 0.2
+            this.SOUND_EndTheme.play();
+        }
 
 
 
@@ -110,10 +154,11 @@ class World {
 
     playSpecialBubble(otherDirection) {
 
-
+        this.character.SOUND_SpecialAtack.volume = 1;
 
         setTimeout(() => {
 
+            this.character.SOUND_SpecialAtack.play();
             if (this.throwableObjectsSpecial.length <= 0) {
                 if (otherDirection) {
                     this.specialBubble = new SpecialBubble(this.character.x - 40, this.character.y + 120, otherDirection);
@@ -131,11 +176,9 @@ class World {
             this.blockPosion = true;
             this.posionBar.setPercentage(this.character.posionsBar -= 60)
 
-
-            if (this.character.posionsBar <= 0) {
+            if (this.character.posionsBar < 0) {
                 this.character.posionsBar = 0;
-                this.blockPosion = false;
-                clearInterval(this.stopPosionBarTrigger)
+                this.character.specialBubble = false;
             }
 
         }, 200);
@@ -144,6 +187,10 @@ class World {
 
         setInterval(() => {
 
+            if (this.character.posionsBar <= 0) {
+                this.blockPosion = false;
+                clearInterval(this.stopPosionBarTrigger)
+            }
             this.checkSpecialBubble()
             this.spliceEndbossBar()
         }, 200);
@@ -153,7 +200,7 @@ class World {
     checkSpecialBubble() {
         this.throwableObjectsSpecial.forEach((specialBubble, index) => {
             if (this.character.checkCollisonSpecialBubble(this.endBoss, specialBubble)) {
-
+                this.endBoss.SOUND_Hurt.play();
                 this.endBoss.lastHit = new Date().getTime();
                 this.endBoss.HP -= 20;
                 this.throwableObjectsSpecial.splice(index, 1)
@@ -188,6 +235,7 @@ class World {
 
         this.character.throwTime = new Date().getTime();
         setTimeout(() => {
+            this.character.SOUND_BubbleAtack.play();
             if (otherDirection) {
                 this.bubble = new ThrowableObjects(this.character.x - 40, this.character.y + 120, otherDirection);
             } else {
@@ -200,28 +248,25 @@ class World {
         }, 200);
         setInterval(() => {
             this.checkBubble();
-        }, 300);
+        }, 30);
     }
 
 
     checkBubble() {
 
-
-
-
         this.level.jelly_fish.forEach((jelly_fish, index) => {
 
             this.throwableObjects.forEach((bubble) => {
-                if(bubble.y < -10) {
+                if (bubble.y < -10) {
                     this.throwableObjects.splice(bubble, 1)
                 }
 
-                
-    
+
+
                 if (this.character.checkCollisonBubble(jelly_fish, bubble) && !jelly_fish.bubbleHitDead) {
 
                     jelly_fish.bubbleHitDead = true;
-
+                    jelly_fish.AUDIO_Dead.play();
                     this.throwableObjects.splice(bubble, 1)
 
                     console.log(this.throwableObjects)
@@ -237,6 +282,7 @@ class World {
     }
 
     checkCollisions() {
+
         this.checkCollisionsEnemy();
         this.checkCollisionsBarrier();
         this.checkCollisionsCoins();
@@ -267,20 +313,23 @@ class World {
         this.level.posion.forEach((posion, index) => {
 
             if (this.character.isColliding(posion) && !this.blockPosion) {
-                console.log('posion', posion)
+                posion.SOUND_PosionCollect.play();
+
 
                 this.level.posion.splice(index, 1)
-                this.throwableObjectsSpecial.splice(0, 1)
-                console.log('test')
+                /*  this.throwableObjectsSpecial.splice(0, 1) */
+
                 this.posionBar.setPercentage(this.character.posionsBar += 35)
 
             }
         });
-        if (this.character.posionsBar >= 100) {
+        if (this.character.posionsBar >= 100 && !this.character.specialBubble) {
+            this.posionBar.SOUND_PosionFull.play();
+
             this.character.specialBubble = true;
-        } else {
-            this.character.specialBubble = false;
         }
+
+
 
 
 
@@ -291,7 +340,8 @@ class World {
     checkCollisionsCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                console.log('coin !', coin)
+
+                coin.SOUND_COIN.play();
                 this.coinsBar.setPercentage(this.character.coins += 10)
                 this.level.coins.splice(index, 1)
             }
@@ -305,10 +355,11 @@ class World {
 
 
             if (this.character.isColliding(pufferFish)) {
-                console.log('slap', pufferFish)
-                pufferFish.slap = true;
 
+                pufferFish.slap = true;
+                pufferFish.SOUND_Dead.play();
                 setTimeout(() => {
+
                     this.level.enemies.splice(index, 1)
                 }, 400);
 
@@ -414,6 +465,8 @@ class World {
 
 
     draw() {
+
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);

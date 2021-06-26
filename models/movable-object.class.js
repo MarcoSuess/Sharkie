@@ -27,6 +27,8 @@ class MovableObject extends DrawableObject {
     up;
     intro;
     moveUp;
+    checkForWin;
+    checkForLose;
 
 
 
@@ -128,6 +130,7 @@ class MovableObject extends DrawableObject {
         setInterval(() => {
             if (this.y < 200) {
                 this.y += 30;
+                this.checkForLose = true;
             }
         }, 250);
 
@@ -254,7 +257,7 @@ class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.throwTime;
         timepassed = timepassed / 1000;
 
-        return timepassed > 0.5;
+        return timepassed > 0.6;
     }
 
 

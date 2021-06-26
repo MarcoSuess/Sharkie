@@ -7,6 +7,7 @@ class puffer_fish extends MovableObject {
     startX;
     endX;
     slap;
+    SOUND_Dead = new Audio('Sprites_Sharkie/sounds/enemy/pufferFish_dead.mp3');
     
 
     IMAGES_SWIMMING = [

@@ -202,8 +202,14 @@ class Character extends MovableObject {
 
 
     world;
-    /* swimming_sound = new Audio('pfad'); */
-
+    SOUND_BubbleAtack = new Audio('Sprites_Sharkie/sounds/character/bubbleAtack.mp3');
+    SOUND_SpecialAtack = new Audio('Sprites_Sharkie/sounds/character/specialAtack.mp3');
+    SOUND_Slap = new Audio('Sprites_Sharkie/sounds/character/slap.mp3');
+    SOUND_SWIM = new Audio('Sprites_Sharkie/sounds/character/swim.mp3')
+    SOUND_ElectroDead = new Audio('Sprites_Sharkie/sounds/character/electro_dead.mp3');
+    SOUND_DEAD = new Audio('Sprites_Sharkie/sounds/character/knockout.mp3');
+    SOUND_Sleep = new Audio('Sprites_Sharkie/sounds/character/sleep.mp3');
+    SOUND_Hurt = new Audio('Sprites_Sharkie/sounds/character/hurt.mp3');
     constructor() {
 
         super().loadImage('Sprites_Sharkie/1.Sharkie/1.IDLE/1.png');
@@ -293,7 +299,7 @@ class Character extends MovableObject {
 
 
                 this.playAnimation(this.longIdle, stopAFK, 9)
-
+                this.SOUND_Sleep.play();
 
             }
 
@@ -338,6 +344,7 @@ class Character extends MovableObject {
                 && !this.bottomSideBarrierDouble && !this.topSideBarrierDouble
                 && !this.barrierBlockRight && !this.intro && !this.world.keyboard.DOWN && !this.world.keyboard.UP) {
                 this.playAnimation(this.IMAGES_SWIMMING)
+                this.SOUND_SWIM.play();
                 this.barrierBlockLeft = false;
                 this.barrierBlockRight = false;
                 this.barrierBlockUp = false;
@@ -361,6 +368,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.LEFT && this.x > 80 && !this.bottomSideBarrierDouble
                 && !this.topSideBarrierDouble && !this.barrierBlockLeft && !this.intro && !this.world.keyboard.DOWN && !this.world.keyboard.UP) {
                 this.x -= this.speed;
+                this.SOUND_SWIM.play();
                 this.playAnimation(this.IMAGES_SWIMMING)
                 this.otherDirection = true;
                 this.barrierBlockRight = false;
@@ -379,7 +387,8 @@ class Character extends MovableObject {
             }
             //up
             if (this.world.keyboard.UP && !this.topSideBarrierDouble
-                && !this.barrierBlockUp && this.y > -100 && !this.intro && !this.world.keyboard.DOWN) {
+                && !this.barrierBlockUp && this.y > -100 && !this.intro &&
+                !this.world.keyboard.DOWN && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
                 if (this.otherDirection) {
                     this.y -= this.speed;
                     this.x -= this.speed;
@@ -387,7 +396,7 @@ class Character extends MovableObject {
                     this.y -= this.speed;
                     this.x += this.speed;
                 }
-
+                this.SOUND_SWIM.play();
                 this.otherDirectionUpAndDown = false;
                 this.barrierBlockLeft = false;
                 this.barrierBlockRight = false;
@@ -405,7 +414,8 @@ class Character extends MovableObject {
             }
             //down
             if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble &&
-                !this.barrierBlockDown && this.y < 250 && !this.intro && !this.world.keyboard.UP) {
+                !this.barrierBlockDown && this.y < 250 && !this.intro && !this.world.keyboard.UP
+                && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
                 if (this.otherDirection) {
                     this.y += this.speed;
                     this.x -= this.speed;
@@ -415,7 +425,7 @@ class Character extends MovableObject {
                 }
 
 
-
+                this.SOUND_SWIM.play();
                 this.barrierBlockLeft = false;
                 this.barrierBlockRight = false;
                 this.barrierBlockUp = false;
@@ -452,12 +462,14 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 if (this.electroHit) {
+                    this.SOUND_ElectroDead.play();
                     this.playAnimation(this.electroDead, stopDeadAnimation, 9)
                     clearInterval(this.keyboard)
                     clearInterval(this.atackMove)
 
 
                 } else {
+                    this.SOUND_DEAD.play();
                     this.playAnimation(this.IMAGES_DEAD, stopDeadAnimation, 11)
                     clearInterval(this.keyboard)
                     clearInterval(this.atackMove)
@@ -469,6 +481,7 @@ class Character extends MovableObject {
                 if (this.electroHit) {
                     this.playAnimation(this.electroHitImage)
                 } else {
+                    this.SOUND_Hurt.play();
                     this.playAnimation(this.IMAGES_HURT)
                 }
 
@@ -501,8 +514,10 @@ class Character extends MovableObject {
         // atack with D --- Bubble normal
         this.atackMove = setInterval(() => {
             if (this.world.keyboard.D && !this.world.keyboard.SPACE && this.keyboardIntervall() && !this.intro) {
+
                 this.world.checkThrowObjects(this.otherDirection);
                 this.playAnimation(this.withBubbleAnimation);
+
             } else if (this.world.keyboard.D && !this.keyboardIntervall()) {
                 this.playAnimation(this.withoutBubbleAnimation);
             }
@@ -537,7 +552,7 @@ class Character extends MovableObject {
             //slap with space
 
             if (this.world.keyboard.SPACE && !this.world.keyboard.D && this.keyboardIntervall() && !this.intro) {
-
+                this.SOUND_Slap.play();
                 console.log('x =', this.x + this.width - 60);
                 console.log('y =', this.y + 140)
                 this.world.checkCollisionSlap();
