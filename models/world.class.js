@@ -2,6 +2,9 @@ class World {
     character = new Character();
     endBoss = new Endboss();
     endBossBar = [new Endboss_bar(50, 120), new Endboss_bar(100, 120), new Endboss_bar(150, 120)];
+    gameOver = new GameOver();
+    gameOverScreen;
+    winScreen = new YouWin();
     level = level1;
     canvas;
     ctx;
@@ -18,8 +21,8 @@ class World {
     bubble;
     SOUND_BACKGROUND = new Audio('Sprites_Sharkie/sounds/background.mp3');
     SOUND_EndTheme = new Audio('Sprites_Sharkie/sounds/endBossTheme.mp3');
-   /*  SOUND_Win = new Audio() */
-   SOUND_Lose = new Audio('Sprites_Sharkie/sounds/gameOver.mp3');
+    /*  SOUND_Win = new Audio() */
+    SOUND_Lose = new Audio('Sprites_Sharkie/sounds/gameOver.mp3');
 
 
 
@@ -70,13 +73,14 @@ class World {
 
     checkEndScreen() {
 
-        if(this.character.checkForLose) {
+        if (this.character.checkForLose) {
             console.log('lose screen')
             this.SOUND_Lose.play();
             this.character.checkForLose = false;
+            this.gameOverScreen = true;
         }
 
-        if(this.endBoss.dead) {
+        if (this.endBoss.dead) {
             console.log('win')
         }
 
@@ -469,9 +473,12 @@ class World {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+
         this.ctx.translate(this.camera_x, 0);
 
+
         this.addObjectstoMap(this.level.backgroundObjects);
+
         this.addObjectstoMap(this.level.barrierDouble);
         this.addObjectstoMap(this.level.barrier);
         this.addObjectstoMap(this.level.coins);
@@ -481,10 +488,18 @@ class World {
             this.addObjectstoMap(this.endBossBar);
         }
 
+
+
         this.addToMap(this.character)
         this.ctx.translate(-this.camera_x, 0);
         // ------Space for fixed objects -----
+        if (this.gameOverScreen) {
+            this.addToMap(this.gameOver)
+        }
 
+        if (this.endBoss.dead) {
+            this.addToMap(this.winScreen)
+        }
 
         this.addToMap(this.statusBar);
         this.addToMap(this.posionBar);

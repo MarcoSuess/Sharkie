@@ -387,8 +387,7 @@ class Character extends MovableObject {
             }
             //up
             if (this.world.keyboard.UP && !this.topSideBarrierDouble
-                && !this.barrierBlockUp && this.y > -100 && !this.intro &&
-                !this.world.keyboard.DOWN && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+                && !this.barrierBlockUp && this.y > -100 && !this.intro && !this.world.keyboard.DOWN) {
                 if (this.otherDirection) {
                     this.y -= this.speed;
                     this.x -= this.speed;
@@ -414,8 +413,7 @@ class Character extends MovableObject {
             }
             //down
             if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble &&
-                !this.barrierBlockDown && this.y < 250 && !this.intro && !this.world.keyboard.UP
-                && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+                !this.barrierBlockDown && this.y < 250 && !this.intro && !this.world.keyboard.UP) {
                 if (this.otherDirection) {
                     this.y += this.speed;
                     this.x -= this.speed;

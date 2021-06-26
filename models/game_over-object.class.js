@@ -14,14 +14,21 @@ class GameOver extends MovableObject {
     constructor() {
         super().loadImage('Sprites_Sharkie/6.Botones/Tittles/Game Over/Recurso 9.png');
         this.loadImages(this.GameOverScreen)
-        this.height = 130;
-        this.width = 90;
-        this.x = 0;
-        this.y = 0;
+        this.height = 50;
+        this.width = 400;
+        this.x = 160;
+        this.y = 200;
+        this.animation();
 
 
 
+    }
 
+    animation() {
+        setInterval(() => {
+
+            this.playAnimation(this.GameOverScreen)
+        }, 800);
     }
 
 
