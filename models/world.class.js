@@ -61,14 +61,14 @@ class World {
             this.checkEndScreen();
             this.endRoundAction()
         }, 500);
-        setInterval(() => {
+        this.endThemeSound = setInterval(() => {
 
             this.checkEndBossIntro();
             this.checkCollisions();
             this.endBossLifeBar();
 
         }, 50);
-       
+
 
 
     }
@@ -86,7 +86,7 @@ class World {
 
 
         if (this.character.checkForLose) {
-          
+
             this.SOUND_BACKGROUND.pause();
 
             this.gameOverScreen = true;
@@ -105,6 +105,7 @@ class World {
             this.SOUND_EndTheme.pause();
             this.win = true;
 
+
         }
 
     }
@@ -116,7 +117,7 @@ class World {
 
         if (this.endBoss.final && this.character.x <= 1800 && !this.endBoss.otherSide) {
             this.endBoss.otherSide = true;
-            this.endBoss.x = 800;
+            this.endBoss.x = 900;
 
             this.level.posion.push(new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 2600, 300),
                 new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 3622, 260),
@@ -213,7 +214,7 @@ class World {
 
 
         setInterval(() => {
-        
+
             if (this.character.posionsBar <= 0) {
                 this.blockPosion = false;
                 clearInterval(this.stopPosionBarTrigger)
@@ -244,7 +245,7 @@ class World {
     }
 
     spliceEndbossBar() {
-     
+
         if (this.endBoss.HP == 80) {
             this.endBossBar.splice(2)
         }
@@ -296,7 +297,7 @@ class World {
                     jelly_fish.AUDIO_Dead.play();
                     this.throwableObjects.splice(bubble, 1)
 
-           
+
                     setTimeout(() => {
                         this.level.jelly_fish.splice(index, 1)
                     }, 850);
@@ -416,7 +417,7 @@ class World {
         this.level.jelly_fish.forEach(jelly_fish => {
 
 
-            if (this.character.isColliding(jelly_fish)) {
+            if (this.character.isColliding(jelly_fish) && !jelly_fish.bubbleHitDead) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.HP)
 
@@ -448,7 +449,7 @@ class World {
 
             if (this.character.isCollidingBarrier(barrier)) {
 
-                this.character.y -= 10;
+                this.character.y -= 20;
                 /* 
                                 if (this.character.otherDirection) {
                                     this.character.barrierBlockLeft = true;  //  check move left
@@ -474,7 +475,7 @@ class World {
                                 } */
 
 
-                
+
 
             }
 
@@ -523,7 +524,7 @@ class World {
         }
 
         if (this.endBoss.dead && this.win) {
-         
+
             this.addToMap(this.winScreen)
 
         }

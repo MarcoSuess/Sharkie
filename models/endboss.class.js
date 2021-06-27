@@ -126,12 +126,12 @@ class Endboss extends MovableObject {
             }
 
             if (this.otherSide) {
-                this.x += 20;
+                this.x += 30;
                 this.otherDirection = true;
 
             }
             else {
-                this.x -= 20;
+                this.x -= 30;
             }
 
 

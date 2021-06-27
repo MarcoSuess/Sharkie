@@ -1,9 +1,41 @@
 body {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction:column;
+    height: 90vh;
+
 }
 
 canvas {
     background-color: black;
+    z-index: 1;
+    
 }
+
+#startScreen img {
+    height: 480px;
+    width: 720px;   
+    object-fit: cover;
+    
+}
+
+#startScreen {
+    height: 480px;
+    width: 720px;
+    z-index: 1;
+    position: fixed;
+}
+
+.background {
+
+    object-fit: cover;
+    width: 100%;
+    position: fixed;
+}
+
+.topSide {
+    height: 50px;
+    background-color: white;
+}
+

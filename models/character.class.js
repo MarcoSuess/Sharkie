@@ -145,8 +145,6 @@ class Character extends MovableObject {
 
     slap = [
         'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/1.png',
-        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/2.png',
-        'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/3.png',
         'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/4.png',
         'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/5.png',
         'Sprites_Sharkie/1.Sharkie/4.Attack/Fin slap/6.png',
@@ -281,33 +279,32 @@ class Character extends MovableObject {
             this.checkKeyboard();
         }, 50);
 
+
         var stopAFK = setInterval(() => {
 
+            if (!this.world.endBoss.dead) {
 
 
-            if (this.idleTime < 15000 && !this.intro && this.checkKeyboard() && !this.isDead()) {
-                this.playAnimation(this.idle)
-
-                setTimeout(() => {
-                    if (this.checkKeyboard() && !this.isDead()) {
-                        this.longAFK = true;
-                    }
-
-                }, 4000);
-
-            } else if (this.longAFK && this.checkKeyboard() && !this.intro) {
 
 
-                this.playAnimation(this.longIdle, stopAFK, 9)
-                this.SOUND_Sleep.play();
+                if (this.idleTime < 15000 && !this.intro && this.checkKeyboard() && !this.isDead()) {
+                    this.playAnimation(this.idle)
 
+                    setTimeout(() => {
+                        if (this.checkKeyboard() && !this.isDead()) {
+                            this.longAFK = true;
+                        }
+
+                    }, 4000);
+
+                } else if (this.longAFK && this.checkKeyboard() && !this.intro) {
+
+
+                    this.playAnimation(this.longIdle, stopAFK, 9)
+                    this.SOUND_Sleep.play();
+
+                }
             }
-
-
-
-
-
-
         }, 150);
 
     }
@@ -325,7 +322,6 @@ class Character extends MovableObject {
 
 
     move_animate() {
-
 
 
 
@@ -387,7 +383,7 @@ class Character extends MovableObject {
             }
             //up
             if (this.world.keyboard.UP && !this.topSideBarrierDouble
-                && !this.barrierBlockUp && this.y > -100 && !this.intro && !this.world.keyboard.DOWN  && this.x < this.world.level.level_end_x) {
+                && !this.barrierBlockUp && this.y > -100 && !this.intro && !this.world.keyboard.DOWN && this.x < this.world.level.level_end_x) {
                 if (this.otherDirection) {
                     this.y -= this.speed;
                     this.x -= this.speed;
@@ -413,7 +409,7 @@ class Character extends MovableObject {
             }
             //down
             if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble &&
-                !this.barrierBlockDown && this.y < 250 && !this.intro && !this.world.keyboard.UP  && this.x < this.world.level.level_end_x) {
+                !this.barrierBlockDown && this.y < 250 && !this.intro && !this.world.keyboard.UP && this.x < this.world.level.level_end_x) {
                 if (this.otherDirection) {
                     this.y += this.speed;
                     this.x -= this.speed;
@@ -549,17 +545,18 @@ class Character extends MovableObject {
 
             //slap with space
 
-            if (this.world.keyboard.SPACE && !this.world.keyboard.D && this.keyboardIntervall() && !this.intro) {
+            if (this.world.keyboard.SPACE && !this.world.keyboard.D && !this.intro) {
                 this.SOUND_Slap.play();
                 console.log('x =', this.x + this.width - 60);
                 console.log('y =', this.y + 140)
                 this.world.checkCollisionSlap();
+
                 this.playAnimation(this.slap)
 
 
             }
 
-        }, 150);
+        }, 80);
     }
 
 
