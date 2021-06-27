@@ -5,6 +5,7 @@ class World {
     gameOver = new GameOver();
     gameOverScreen;
     winScreen = new YouWin();
+    isWin;
     level = level1;
     canvas;
     ctx;
@@ -19,10 +20,13 @@ class World {
     stopPosionBarTrigger;
     specialBubble;
     bubble;
+    backgroundSound;
+    endThemeSound;
     SOUND_BACKGROUND = new Audio('Sprites_Sharkie/sounds/background.mp3');
     SOUND_EndTheme = new Audio('Sprites_Sharkie/sounds/endBossTheme.mp3');
-    /*  SOUND_Win = new Audio() */
+    SOUND_Win = new Audio('Sprites_Sharkie/sounds/win.mp3');
     SOUND_Lose = new Audio('Sprites_Sharkie/sounds/gameOver.mp3');
+
 
 
 
@@ -35,7 +39,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-
+        this.backgroundMusic();
 
 
     };
@@ -49,14 +53,14 @@ class World {
     run() {
 
 
-        this.SOUND_BACKGROUND.volume = 0.2;
+
 
         setInterval(() => {
 
-            this.SOUND_BACKGROUND.play();
+
             this.checkEndScreen();
             this.endRoundAction()
-        }, 300);
+        }, 500);
         setInterval(() => {
 
             this.checkEndBossIntro();
@@ -64,24 +68,43 @@ class World {
             this.endBossLifeBar();
 
         }, 50);
-        setTimeout(() => {
-
-        }, 4000);
+       
 
 
     }
 
+    backgroundMusic() {
+        this.SOUND_BACKGROUND.volume = 0.2;
+
+
+        this.backgroundSound = setInterval(() => {
+            this.SOUND_BACKGROUND.play();
+        }, 1000);
+    }
+
     checkEndScreen() {
 
+
         if (this.character.checkForLose) {
-            console.log('lose screen')
-            this.SOUND_Lose.play();
-            this.character.checkForLose = false;
+          
+            this.SOUND_BACKGROUND.pause();
+
             this.gameOverScreen = true;
+            this.SOUND_Lose.play();
+            this.SOUND_EndTheme.pause();
+            clearInterval(this.backgroundSound)
+            this.character.checkForLose = false;
         }
 
-        if (this.endBoss.dead) {
-            console.log('win')
+        if (this.endBoss.dead && !this.win) {
+            this.level.level_end_x = -100;
+            this.SOUND_BACKGROUND.pause();
+            clearInterval(this.backgroundSound)
+            this.SOUND_Win.play();
+            clearInterval(this.endThemeSound)
+            this.SOUND_EndTheme.pause();
+            this.win = true;
+
         }
 
     }
@@ -94,7 +117,7 @@ class World {
         if (this.endBoss.final && this.character.x <= 1800 && !this.endBoss.otherSide) {
             this.endBoss.otherSide = true;
             this.endBoss.x = 800;
-            console.log('test')
+
             this.level.posion.push(new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 2600, 300),
                 new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 3622, 260),
                 new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4700, 300))
@@ -185,12 +208,12 @@ class World {
                 this.character.specialBubble = false;
             }
 
-        }, 200);
+        }, 0);
 
 
 
         setInterval(() => {
-
+        
             if (this.character.posionsBar <= 0) {
                 this.blockPosion = false;
                 clearInterval(this.stopPosionBarTrigger)
@@ -221,7 +244,7 @@ class World {
     }
 
     spliceEndbossBar() {
-
+     
         if (this.endBoss.HP == 80) {
             this.endBossBar.splice(2)
         }
@@ -273,7 +296,7 @@ class World {
                     jelly_fish.AUDIO_Dead.play();
                     this.throwableObjects.splice(bubble, 1)
 
-                    console.log(this.throwableObjects)
+           
                     setTimeout(() => {
                         this.level.jelly_fish.splice(index, 1)
                     }, 850);
@@ -425,31 +448,33 @@ class World {
 
             if (this.character.isCollidingBarrier(barrier)) {
 
+                this.character.y -= 10;
+                /* 
+                                if (this.character.otherDirection) {
+                                    this.character.barrierBlockLeft = true;  //  check move left
+                                    this.character.barrierBlockRight = false;
+                                    this.character.x += 10;
+                                    this.character.y -= 10;
+                
+                                } else {
+                                    this.character.barrierBlockRight = true; // check move right
+                                    this.character.barrierBlockLeft = false;
+                                    this.character.x -= 10;
+                                    this.character.y -= 10;
+                                }
+                
+                                if (this.character.otherDirectionUpAndDown) {
+                                    this.character.y -= 10;
+                                    this.character.barrierBlockDown = true; // check move Down
+                                    this.character.barrierBlockUp = false;
+                                } else {
+                                    this.character.y += 10;
+                                    this.character.barrierBlockDown = false;
+                                    this.character.barrierBlockUp = true;   // check move Up
+                                } */
 
 
-                if (this.character.otherDirection) {
-                    this.character.barrierBlockLeft = true;  //  check move left
-                    this.character.barrierBlockRight = false;
-                    this.character.x += 10;
-
-                } else {
-                    this.character.barrierBlockRight = true; // check move right
-                    this.character.barrierBlockLeft = false;
-                    this.character.x -= 10;
-                }
-
-                if (this.character.otherDirectionUpAndDown) {
-                    this.character.y -= 10;
-                    this.character.barrierBlockDown = true; // check move Down
-                    this.character.barrierBlockUp = false;
-                } else {
-                    this.character.y += 10;
-                    this.character.barrierBlockDown = false;
-                    this.character.barrierBlockUp = true;   // check move Up
-                }
-
-
-                console.log('collision with', barrier)
+                
 
             }
 
@@ -497,8 +522,10 @@ class World {
             this.addToMap(this.gameOver)
         }
 
-        if (this.endBoss.dead) {
+        if (this.endBoss.dead && this.win) {
+         
             this.addToMap(this.winScreen)
+
         }
 
         this.addToMap(this.statusBar);
