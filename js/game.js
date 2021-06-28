@@ -4,8 +4,14 @@ let keyboard = new Keyboard();
 
 
 
+function fullScreen() {
+  
+    canvas.requestFullscreen();
+}
+
 
 function startGame() {
+    document.getElementById('startScreen').classList.add('d-none')
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('my Character is', world.character)

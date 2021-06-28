@@ -1,11 +1,21 @@
+
+
 body {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction:column;
     height: 90vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    background-color: rgb(189, 183, 183);
+    
+   
 
 }
+
+
 
 canvas {
     background-color: black;
@@ -13,7 +23,7 @@ canvas {
     
 }
 
-#startScreen img {
+.backgroundStartScreen {
     height: 480px;
     width: 720px;   
     object-fit: cover;
@@ -25,6 +35,7 @@ canvas {
     width: 720px;
     z-index: 1;
     position: fixed;
+    display: flex;
 }
 
 .background {
@@ -36,6 +47,126 @@ canvas {
 
 .topSide {
     height: 50px;
-    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
+
+.startBtn {
+    height: 7vh;
+    position: absolute;
+    margin-left: 262px;
+    margin-top: 250px;
+    cursor: pointer;
+}
+
+.content {
+    height: 580px;
+    width: 730px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.gameScreen {
+    display: flex;
+}
+
+.arrowKey {
+    display: flex;
+    align-items: center;
+    background-color: #ff9800;
+    border-radius: 10px;
+   
+}
+
+.arrowImg {
+    height: 7vh;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+.moveTitle {
+    height: 3vh;
+    width: 20vh;
+    margin-right: 20px;
+}
+
+.keys img {
+    height: 4vh;
+    display: flex;
+    object-fit: contain;
+}
+
+.keys  {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+ 
+}
+
+
+.atackKey {
+    display: flex;
+    background-color: #f44336;
+    align-items: center;
+    border-radius: 10px;
+
+}
+
+.atackTitle {
+    height: 3vh;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.top {
+    height: 5vh;
+    width: 100%;
+}
+
+.iconFullScreen {
+    height: 5vh;
+    cursor: pointer;
+}
+
+.fullScreen {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.handbook {
+    height: 15vh;
+    cursor: pointer;
+   
+}
+
+.d-none {
+    display: none !important;
+}
+
+.bottom {
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.keyboardMenu {
+    width: 80%;
+    height: 80vh;
+    z-index: 3;
+    background-color: #000000;
+    position: absolute;
+    opacity: 0.9;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
