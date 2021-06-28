@@ -1,33 +1,24 @@
-
-
 body {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction:column;
+    flex-direction: column;
     height: 90vh;
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden;
     background-color: rgb(189, 183, 183);
-    
-   
-
 }
-
-
 
 canvas {
     background-color: black;
     z-index: 1;
-    
 }
 
 .backgroundStartScreen {
     height: 480px;
-    width: 720px;   
+    width: 720px;
     object-fit: cover;
-    
 }
 
 #startScreen {
@@ -39,7 +30,6 @@ canvas {
 }
 
 .background {
-
     object-fit: cover;
     width: 100%;
     position: fixed;
@@ -52,7 +42,6 @@ canvas {
     justify-content: space-around;
 }
 
-
 .startBtn {
     height: 7vh;
     position: absolute;
@@ -60,6 +49,8 @@ canvas {
     margin-top: 250px;
     cursor: pointer;
 }
+
+
 
 .content {
     height: 580px;
@@ -79,7 +70,6 @@ canvas {
     align-items: center;
     background-color: #ff9800;
     border-radius: 10px;
-   
 }
 
 .arrowImg {
@@ -87,6 +77,7 @@ canvas {
     margin-right: 20px;
     margin-left: 10px;
 }
+
 .moveTitle {
     height: 3vh;
     width: 20vh;
@@ -99,21 +90,18 @@ canvas {
     object-fit: contain;
 }
 
-.keys  {
+.keys {
     display: flex;
     flex-direction: column;
     margin-left: 10px;
     margin-right: 10px;
- 
 }
-
 
 .atackKey {
     display: flex;
     background-color: #f44336;
     align-items: center;
     border-radius: 10px;
-
 }
 
 .atackTitle {
@@ -121,7 +109,6 @@ canvas {
     margin-left: 10px;
     margin-right: 10px;
 }
-
 
 .top {
     height: 5vh;
@@ -141,7 +128,9 @@ canvas {
 .handbook {
     height: 15vh;
     cursor: pointer;
-   
+}
+.handbook:hover {
+    height: 17vh;
 }
 
 .d-none {
@@ -155,18 +144,115 @@ canvas {
     justify-content: center;
 }
 
-.keyboardMenu {
+#gameExplanation {
     width: 80%;
-    height: 80vh;
+    height: 90vh;
     z-index: 3;
     background-color: #000000;
     position: absolute;
     opacity: 0.9;
     display: flex;
     flex-direction: column;
+    
 }
 
 h1 {
     color: white;
     text-align: center;
+}
+
+.spaceBar {
+    height: 5vh;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.atackWithSpace {
+    margin-top:50px;
+    display: flex;
+    align-items: center;
+}
+
+.keyD {
+    height: 5vh;
+    margin-left: 10px;
+    margin-right: 20px;
+
+}
+.atackWithBubble {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+}
+.bubbleAtackTitle {
+    height: 12vh;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.specialBubble {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.spaceAndD {
+    height: 13vh;
+    margin-left: 10px;
+    margin-right: 90px;
+}
+
+.specialAtack {
+    height: 14vh;
+    margin-left: -150px;
+    margin-right: 10px;
+}
+
+
+
+
+h2 {
+    color: red;
+    font-size: 2em;
+}
+
+.pufferFish {
+    height: 9vh;
+    object-fit: cover;
+    margin-left: 30px;
+}
+.jellyFish {
+    height: 15vh;
+    border-radius: 30px;
+    margin-left: 30px;
+}
+
+.endBoss {
+    height: 25vh;
+    margin-left: 30px;
+}
+
+.closeButton {
+    margin-top: 82vh;
+    height: 8vh;
+    object-fit: cover;
+    position: absolute;
+    margin-left: 75vw;
+
+}
+
+
+
+.titleSpecialBubble {
+    display: flex;
+    flex-direction: column;
+}
+
+#newStart {
+    position: absolute;
+    z-index: 2;
+    height: 6vh;
+    margin-left: 17vw;
+    margin-top: 35vh;
+    cursor: pointer;
 }

@@ -159,7 +159,8 @@ class World {
         if (this.character.x >= 2800) {
             this.endBoss.SOUND_EndBossIsNear.play();
             this.SOUND_BACKGROUND.pause();
-        }
+            clearInterval(this.backgroundSound)
+        } 
 
         if (this.character.intro) {
             this.endBoss.introReady = true;
@@ -167,6 +168,7 @@ class World {
 
         if (this.endBoss.final) {
             this.endBoss.SOUND_EndBossIsNear.pause();
+            
             this.SOUND_BACKGROUND.pause();
             this.SOUND_EndTheme.volume = 0.2
             this.SOUND_EndTheme.play();
@@ -382,7 +384,7 @@ class World {
 
 
 
-            if (this.character.isColliding(pufferFish)) {
+            if (this.character.isColliding(pufferFish) && !pufferFish.slap) {
 
                 pufferFish.slap = true;
                 pufferFish.SOUND_Dead.play();
@@ -521,6 +523,8 @@ class World {
         // ------Space for fixed objects -----
         if (this.gameOverScreen) {
             this.addToMap(this.gameOver)
+            clearInterval(this.endThemeSound)
+            
         }
 
         if (this.endBoss.dead && this.win) {
@@ -573,7 +577,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+      /*   mo.drawFrame(this.ctx); */
 
         if (mo.otherDirection) {
             mo.x = mo.x * -1;

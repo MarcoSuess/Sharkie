@@ -126,12 +126,12 @@ class Endboss extends MovableObject {
             }
 
             if (this.otherSide) {
-                this.x += 30;
+                this.x += 35;
                 this.otherDirection = true;
 
             }
             else {
-                this.x -= 30;
+                this.x -= 35;
             }
 
 
@@ -156,7 +156,7 @@ class Endboss extends MovableObject {
 
             if (this.dead) {
                 this.playAnimation(this.IMAGES_DEAD, action, 4)
-                this.SOUND_Dead.play();
+               
             }
 
             if (this.atack) {

@@ -5,12 +5,41 @@ let keyboard = new Keyboard();
 
 
 function fullScreen() {
-  
+
     canvas.requestFullscreen();
 }
 
+function closeGameMenu() {
+    document.getElementById('gameExplanation').classList.add('d-none')
+}
+
+function checkforGameOver() {
+    setInterval(() => {
+        if (world.gameOverScreen) {
+            document.getElementById('newStart').classList.remove('d-none')
+        }
+
+        if (world.win) {
+            setTimeout(() => {
+                window.location = 'index.html';
+            }, 5000);
+
+        }
+
+
+    }, 300);
+}
+
+function tryAgainGame() {
+
+}
+
+function openGameExplanation() {
+    document.getElementById('gameExplanation').classList.remove('d-none')
+}
 
 function startGame() {
+    checkforGameOver();
     document.getElementById('startScreen').classList.add('d-none')
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);

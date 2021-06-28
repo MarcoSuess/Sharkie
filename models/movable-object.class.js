@@ -83,7 +83,7 @@ class MovableObject extends DrawableObject {
             }
 
             if (action) { // END BOSS 
-
+                this.SOUND_Dead.pause();
                 this.animation();
 
             }

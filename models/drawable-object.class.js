@@ -26,7 +26,7 @@ class DrawableObject {
     }
 
 
-    drawFrame(ctx) {
+ /*    drawFrame(ctx) {
 
         if (this instanceof Character || this instanceof puffer_fish || this instanceof Endboss ||
             this instanceof barrier || this instanceof jelly_fish || this instanceof ThrowableObjects) {
@@ -37,7 +37,7 @@ class DrawableObject {
             ctx.rect(this.x, this.y, this.width, this.height)
             ctx.stroke();
         }
-    }
+    } */
 
    
     resolveImageIndex(percentage){
