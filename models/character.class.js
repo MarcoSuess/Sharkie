@@ -174,28 +174,29 @@ class Character extends MovableObject {
     ]
 
     longIdle = [
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i1.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i2.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i3.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i4.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i5.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i6.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i7.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i8.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i9.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i10.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i11.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i12.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i13.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i14.png'
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I1.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I2.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I3.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I4.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I5.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I6.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I7.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I8.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I9.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I10.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I11.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I12.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I13.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I14.png'
 
+        
     ]
 
     longIdleSleep = [
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i11.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i12.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i13.png',
-        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/i14.png'
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I11.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I12.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I13.png',
+        'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I14.png'
     ]
 
 

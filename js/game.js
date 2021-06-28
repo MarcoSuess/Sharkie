@@ -31,20 +31,19 @@ function checkforGameOver() {
 }
 
 function tryAgainGame() {
-
+    window.location = 'index.html';
 }
 
 function openGameExplanation() {
     document.getElementById('gameExplanation').classList.remove('d-none')
 }
-
 function startGame() {
-    checkforGameOver();
+
     document.getElementById('startScreen').classList.add('d-none')
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('my Character is', world.character)
-
+    checkforGameOver();
 
 
     window.addEventListener('keydown', (e) => {

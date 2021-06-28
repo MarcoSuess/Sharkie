@@ -3,41 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 
-    <script src="/models/drawable-object.class.js"></script>
-    <script src="/models/movable-object.class.js"></script>
-    <script src="/models/endboss-bar-object.class.js"></script>
-    <script src="/models/status-bar.class.js"></script>
-    <script src="/models/posion-bar.class.js"></script>
-    <script src="/models/coins-bar.class.js"></script>
-    <script src="/models/character.class.js"></script>
-    <script src="/models/puffer_fish.class.js"></script>
-    <script src="/models/jelly_fish.class.js"></script>
-    <script src="/models/world.class.js"></script>
-    <script src="/models/barrier-object.class.js"></script>
-    <script src="/models/coin-object.class.js"></script>
-    <script src="/models/posion-object.class.js"></script>
-    <script src="/models/background-object.class.js"></script>
-    <script src="/models/keyboard.class.js"></script>
-    <script src="/models/level.class.js"></script>
-    <script src="/models/throwableObjects-object.class.js"></script>
-    <script src="/models/game_over-object.class.js"></script>
-    <script src="/models/you_win-object.class.js"></script>
-    <script src="/models/specialBubble-object.class.js"></script>
-    <script src="/models/endboss.class.js"></script>
-    <script src="/levels/level1.js"></script>
-    <script src="/models/drawable-object.class.js"></script>
-    <script src="/js/game.js"></script>
+    <script src="models/drawable-object.class.js"></script>
+    <script src="models/movable-object.class.js"></script>
+    <script src="models/endboss-bar-object.class.js"></script>
+    <script src="models/status-bar.class.js"></script>
+    <script src="models/posion-bar.class.js"></script>
+    <script src="models/coins-bar.class.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/puffer_fish.class.js"></script>
+    <script src="models/jelly_fish.class.js"></script>
+    <script src="models/world.class.js"></script>
+    <script src="models/barrier-object.class.js"></script>
+    <script src="models/coin-object.class.js"></script>
+    <script src="models/posion-object.class.js"></script>
+    <script src="models/background-object.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="models/throwableObjects-object.class.js"></script>
+    <script src="models/game_over-object.class.js"></script>
+    <script src="models/you_win-object.class.js"></script>
+    <script src="models/specialBubble-object.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="levels/level1.js"></script>
+    <script src="js/game.js"></script>
 
     <title>Sharkie</title>
 </head>
 
 <body>
 
-    <img class="background" src="/Sprites_Sharkie/6.Botones/underwater-background_1280.jpg">
+    <img class="background" src="Sprites_Sharkie/6.Botones/underwater-background_1280.jpg">
 
 
     <div class="content">
@@ -46,7 +45,7 @@
             <div class="fullScreen">
 
                 <img onclick="fullScreen()" class="iconFullScreen"
-                    src="/Sprites_Sharkie/6.Botones/Full Screen/Mesa de trabajo 8.png">
+                    src="Sprites_Sharkie/6.Botones/Full Screen/Mesa de trabajo 8.png">
 
             </div>
 
@@ -57,11 +56,11 @@
         </div>
 
         <div class="gameScreen">
-            <img id="newStart" onclick="tryAgainGame()" class="d-none" src="/Sprites_Sharkie/6.Botones/Try again/Recurso 15.png">
+            <img id="newStart" onclick="tryAgainGame()" class="d-none" src="Sprites_Sharkie/6.Botones/Try again/Recurso 15.png">
             <canvas id="canvas" width="720px" height=480px> </canvas>
 
             <div id="startScreen">
-                <img class="backgroundStartScreen" src="/Sprites_Sharkie/6.Botones/start_screen.png">
+                <img class="backgroundStartScreen" src="Sprites_Sharkie/6.Botones/start_screen.png">
 
 
                 <img onclick="startGame()" class="startBtn" src="Sprites_Sharkie/6.Botones/Start/1.png">
@@ -70,7 +69,7 @@
         </div>
 
         <div class="bottom">
-            <img onclick="openGameExplanation()" class="handbook" src="/Sprites_Sharkie/6.Botones/handBook.png">
+            <img onclick="openGameExplanation()" class="handbook" src="Sprites_Sharkie/6.Botones/handBook.png">
         </div>
 
 
@@ -85,36 +84,36 @@
         <h1>Game explanation</h1>
 
         <div class="moveTutorial">
-            <img class="arrowImg" src="/Sprites_Sharkie/6.Botones/Key/arrow keys.png">
-            <img class="moveTitle" src="/Sprites_Sharkie/6.Botones/Tittles/Move title.png">
+            <img class="arrowImg" src="Sprites_Sharkie/6.Botones/Key/arrow keys.png">
+            <img class="moveTitle" src="Sprites_Sharkie/6.Botones/Tittles/Move title.png">
         </div>
 
         <div class="atackWithSpace">
-            <img class="spaceBar" src="/Sprites_Sharkie/6.Botones/Key/Space Bar key.png">
-            <img class="atackTitle" src="/Sprites_Sharkie/6.Botones/Tittles/Attack tittle.png">
+            <img class="spaceBar" src="Sprites_Sharkie/6.Botones/Key/Space Bar key.png">
+            <img class="atackTitle" src="Sprites_Sharkie/6.Botones/Tittles/Attack tittle.png">
             <h2> &#10140;</h2>
-            <img class="pufferFish" src="/Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/Preview.gif">
+            <img class="pufferFish" src="Sprites_Sharkie/2.Enemy/1.Puffer fish (3 color options)/Preview.gif">
 
         </div>
 
         <div class="atackWithBubble">
-            <img class="keyD" src="/Sprites_Sharkie/6.Botones/Key/D key.png">
-            <img class="bubbleAtackTitle" src="/Sprites_Sharkie/6.Botones/Tittles/BubbleAtack.png">
+            <img class="keyD" src="Sprites_Sharkie/6.Botones/Key/D key.png">
+            <img class="bubbleAtackTitle" src="Sprites_Sharkie/6.Botones/Tittles/BubbleAtack.png">
             <h2> &#10140;</h2>
-            <img class="jellyFish" src="/Sprites_Sharkie/2.Enemy/2 Jelly fish/Preview swim-dead.gif">
+            <img class="jellyFish" src="Sprites_Sharkie/2.Enemy/2 Jelly fish/Preview swim-dead.gif">
         </div>
         <div class="specialBubble">
-            <img class="spaceAndD" src="/Sprites_Sharkie/6.Botones/Key/spaceAndD2.0.png">
-            <img class="specialAtack" src="/Sprites_Sharkie/6.Botones/Tittles/specialAtack.png">
+            <img class="spaceAndD" src="Sprites_Sharkie/6.Botones/Key/spaceAndD2.0.png">
+            <img class="specialAtack" src="Sprites_Sharkie/6.Botones/Tittles/specialAtack.png">
             <h2> &#10140;</h2>
-            <img class="endBoss" src="/Sprites_Sharkie/2.Enemy/3 Final Enemy/Preview.gif">
+            <img class="endBoss" src="Sprites_Sharkie/2.Enemy/3 Final Enemy/Preview.gif">
 
 
         </div>
 
 
 
-        <img onclick="closeGameMenu()" class="closeButton" src="/Sprites_Sharkie/6.Botones/closeBotton.png">
+        <img onclick="closeGameMenu()" class="closeButton" src="Sprites_Sharkie/6.Botones/closeBotton.png">
 
 
 

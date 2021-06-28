@@ -156,7 +156,7 @@ class Endboss extends MovableObject {
 
             if (this.dead) {
                 this.playAnimation(this.IMAGES_DEAD, action, 4)
-               
+                this.SOUND_Dead.play();
             }
 
             if (this.atack) {
