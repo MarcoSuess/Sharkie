@@ -50,8 +50,6 @@ canvas {
     cursor: pointer;
 }
 
-
-
 .content {
     height: 580px;
     width: 730px;
@@ -129,6 +127,7 @@ canvas {
     height: 15vh;
     cursor: pointer;
 }
+
 .handbook:hover {
     height: 17vh;
 }
@@ -153,7 +152,7 @@ canvas {
     opacity: 0.9;
     display: flex;
     flex-direction: column;
-    
+    overflow: auto;
 }
 
 h1 {
@@ -168,7 +167,7 @@ h1 {
 }
 
 .atackWithSpace {
-    margin-top:50px;
+    margin-top: 50px;
     display: flex;
     align-items: center;
 }
@@ -177,13 +176,14 @@ h1 {
     height: 5vh;
     margin-left: 10px;
     margin-right: 20px;
-
 }
+
 .atackWithBubble {
     margin-top: 50px;
     display: flex;
     align-items: center;
 }
+
 .bubbleAtackTitle {
     height: 12vh;
     margin-left: 10px;
@@ -208,9 +208,6 @@ h1 {
     margin-right: 10px;
 }
 
-
-
-
 h2 {
     color: red;
     font-size: 2em;
@@ -221,6 +218,7 @@ h2 {
     object-fit: cover;
     margin-left: 30px;
 }
+
 .jellyFish {
     height: 15vh;
     border-radius: 30px;
@@ -233,13 +231,11 @@ h2 {
 }
 
 .closeButton {
-    margin-top: 82vh;
     height: 8vh;
     object-fit: cover;
     position: absolute;
-    margin-left: 75vw;
+    margin-left: 65vw;
     cursor: pointer;
-
 }
 
 .responsive {
@@ -260,36 +256,60 @@ h2 {
     cursor: pointer;
 }
 
-@media (max-width: 1024px) {
-    
+.sound_icon {
+    height: 12vh;
+}
 
+.soundMenu {
+    display: flex;
+    justify-content: center;
+}
+
+.soundSettings {
+    display: flex;
+    margin-top: 5vh;
+    justify-content: space-around
+}
+
+.soundSettings img {
+    background-color: #f44336;
+    height: 8vh;
+}
+
+.musicSettings {
+    display: flex;
+    margin-top: 5vh;
+    justify-content: space-around
+}
+
+.musicSettings img {
+    background-color: #f44336;
+    height: 8vh;
+}
+
+@media (max-width: 1024px) {
     .background {
-        width:fit-content;
+        width: fit-content;
         opacity: 0.2;
     }
-    .iconFullScreen{
+    .iconFullScreen {
         display: none;
     }
-
-    
     .top {
         display: none;
     }
-   
     .handbook {
         display: none;
     }
     .startBtn {
         display: none;
     }
-    
     canvas {
         display: none;
     }
     #startScreen {
         display: none;
     }
-
     .responsive {
         display: block;
         height: 100%;
@@ -303,16 +323,14 @@ h2 {
         align-items: center;
         justify-content: center;
     }
-    .responsive img{
+    .responsive img {
         height: 20vh;
         object-fit: cover;
     }
-
     .responsive h1 {
         font-size: 5em;
         color: #e42f2f;
     }
-
     .content {
         display: none;
     }
