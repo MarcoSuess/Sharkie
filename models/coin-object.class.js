@@ -28,8 +28,6 @@ class coin extends MovableObject {
         this.y = y;
         this.loadImages(this.coinsAnimationImg);
         this.coinAnimation();
-
-
     }
 
     coinAnimation() {
@@ -37,5 +35,4 @@ class coin extends MovableObject {
             this.playAnimation(this.coinsAnimationImg)
         }, 1000 / 15);
     }
-
 }

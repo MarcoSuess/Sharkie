@@ -8,8 +8,6 @@ class barrier extends MovableObject {
             this.y = y;
             this.width = width;
             this.height = height;
-        
-            
         }
 
 

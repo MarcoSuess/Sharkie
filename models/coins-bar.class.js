@@ -8,9 +8,7 @@ class coins_bar extends DrawableObject {
         'Sprites_Sharkie/4. Marcadores/orange/60.png',
         'Sprites_Sharkie/4. Marcadores/orange/80.png',
         'Sprites_Sharkie/4. Marcadores/orange/100.png'
-       
-
-    ]
+          ]
 
     percentage = 0;
 

@@ -37,15 +37,10 @@ class Endboss_bar extends DrawableObject {
         }, 5);
 
         setInterval(() => {
-           
-
-            let i = this.currentImage % this.life_bar.length;
+                       let i = this.currentImage % this.life_bar.length;
             let path = this.life_bar[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-
-
-
         }, 250);
     }
 

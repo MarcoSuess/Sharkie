@@ -7,7 +7,7 @@ class Level {
     coins;
     posion;
 
-    
+
 
     level_end_x = 4800;
 
@@ -20,11 +20,6 @@ class Level {
         this.jelly_fish = jelly_fish;
         this.coins = coins;
         this.posion = posion;
-        
-        
-     
-        
-        
 
     }
 }

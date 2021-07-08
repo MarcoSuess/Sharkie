@@ -40,42 +40,29 @@ class World {
         this.setWorld();
         this.run();
         this.backgroundMusic();
-
-
     };
 
 
     setWorld() {
-
         this.character.world = this;
     }
 
     run() {
-
-
-
-
         setInterval(() => {
-
-
             this.checkEndScreen();
             this.endRoundAction()
         }, 500);
-        this.endThemeSound = setInterval(() => {
 
+        this.endThemeSound = setInterval(() => {
             this.checkEndBossIntro();
             this.checkCollisions();
             this.endBossLifeBar();
-
         }, 50);
-
-
 
     }
 
     backgroundMusic() {
         this.SOUND_BACKGROUND.volume = 0.2;
-
 
         this.backgroundSound = setInterval(() => {
             this.SOUND_BACKGROUND.play();
@@ -84,11 +71,8 @@ class World {
 
     checkEndScreen() {
 
-
         if (this.character.checkForLose) {
-
             this.SOUND_BACKGROUND.pause();
-
             this.gameOverScreen = true;
             this.SOUND_Lose.play();
             this.SOUND_EndTheme.pause();
@@ -104,8 +88,6 @@ class World {
             clearInterval(this.endThemeSound)
             this.SOUND_EndTheme.pause();
             this.win = true;
-
-
         }
 
     }
@@ -118,7 +100,6 @@ class World {
         if (this.endBoss.final && this.character.x <= 1800 && !this.endBoss.otherSide) {
             this.endBoss.otherSide = true;
             this.endBoss.x = 900;
-
             this.level.posion.push(new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 2600, 300),
                 new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Right.png', 3622, 260),
                 new posion('Sprites_Sharkie/4. Marcadores/Posión/Dark - Left.png', 4700, 300))
@@ -126,13 +107,8 @@ class World {
         }
 
         if (this.endBoss.resetPosion && this.character.x <= 4400) {
-
-
-            this.newPosion();
-
-
+           this.newPosion();
         }
-
     }
 
     newPosion() {
@@ -154,8 +130,6 @@ class World {
     }
 
     checkEndBossIntro() {
-
-
         if (this.character.x >= 2800) {
             this.endBoss.SOUND_EndBossIsNear.play();
             this.SOUND_BACKGROUND.pause();
@@ -173,12 +147,6 @@ class World {
             this.SOUND_EndTheme.volume = 0.2
             this.SOUND_EndTheme.play();
         }
-
-
-
-
-
-
     }
 
 
@@ -312,23 +280,17 @@ class World {
     }
 
     checkCollisions() {
-
         this.checkCollisionsEnemy();
         this.checkCollisionsBarrier();
         this.checkCollisionsCoins();
         this.checkCollisionsPosion();
         this.checkEndBossAtackRange();
-
-
-
     }
 
 
     checkEndBossAtackRange() {
         this.endBoss.character_x = this.character.x;
         this.endBoss.character_y = this.character.y;
-
-
 
         if (this.character.endBossAtackRange(this.endBoss)) {
             this.endBoss.atack = true;
@@ -359,10 +321,6 @@ class World {
             this.character.specialBubble = true;
         }
 
-
-
-
-
     }
 
 
@@ -382,8 +340,6 @@ class World {
     checkCollisionSlap() {
         this.level.enemies.forEach((pufferFish, index) => {
 
-
-
             if (this.character.isColliding(pufferFish) && !pufferFish.slap) {
 
                 pufferFish.slap = true;
@@ -393,12 +349,9 @@ class World {
                     this.level.enemies.splice(index, 1)
                 }, 400);
 
-
             } else {
                 pufferFish.slap = false;
             }
-
-
 
         });
     }
@@ -475,10 +428,6 @@ class World {
                                     this.character.barrierBlockDown = false;
                                     this.character.barrierBlockUp = true;   // check move Up
                                 } */
-
-
-
-
             }
 
         })
@@ -491,19 +440,15 @@ class World {
         if (this.character.bottomSideBarrierDouble) {
             this.character.y -= 10;
         }
-
     }
 
 
 
     draw() {
 
-
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-
         this.ctx.translate(this.camera_x, 0);
-
 
         this.addObjectstoMap(this.level.backgroundObjects);
 
@@ -515,8 +460,6 @@ class World {
         if (this.endBoss.final) {
             this.addObjectstoMap(this.endBossBar);
         }
-
-
 
         this.addToMap(this.character)
         this.ctx.translate(-this.camera_x, 0);
@@ -539,16 +482,10 @@ class World {
 
         this.ctx.translate(this.camera_x, 0);
 
-
         this.addObjectstoMap(this.level.enemies);
         this.addObjectstoMap(this.level.jelly_fish);
-
-
-
-
         this.addObjectstoMap(this.throwableObjects);
         this.addObjectstoMap(this.throwableObjectsSpecial);
-
 
         this.ctx.translate(-this.camera_x, 0);
 

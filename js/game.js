@@ -5,7 +5,6 @@ let keyboard = new Keyboard();
 
 
 function fullScreen() {
-
     canvas.requestFullscreen();
 }
 
@@ -23,10 +22,7 @@ function checkforGameOver() {
             setTimeout(() => {
                 window.location = 'index.html';
             }, 5000);
-
         }
-
-
     }, 300);
 }
 
@@ -37,6 +33,8 @@ function tryAgainGame() {
 function openGameExplanation() {
     document.getElementById('gameExplanation').classList.remove('d-none')
 }
+
+
 function startGame() {
 
     document.getElementById('startScreen').classList.add('d-none')
@@ -44,7 +42,13 @@ function startGame() {
     world = new World(canvas, keyboard);
     console.log('my Character is', world.character)
     checkforGameOver();
+    checkKeyDown();
+    checkKeyUp();
+}
 
+
+
+function checkKeyDown() {
 
     window.addEventListener('keydown', (e) => {
         if (e.keyCode == 38) {
@@ -66,15 +70,11 @@ function startGame() {
         if (e.keyCode == 32) {
             keyboard.SPACE = true;
         }
-
-
-
     });
+}
 
+function checkKeyUp() {
     window.addEventListener('keyup', (e) => {
-
-
-
         if (e.keyCode == 38) {
             keyboard.UP = false;
         }
@@ -96,9 +96,5 @@ function startGame() {
             keyboard.SPACE = false;
             world.character.throwTime = new Date().getTime();
         }
-
-
-
-
     });
 }

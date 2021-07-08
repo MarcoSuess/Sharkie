@@ -50,10 +50,6 @@ class jelly_fish extends MovableObject {
             if (this.bubbleHitDead) {
                 this.checkDead()
             } else {
-
-
-
-
                 this.playAnimation(this.regularDamage);
 
                 if (this.otherDirection == false) {
@@ -63,9 +59,6 @@ class jelly_fish extends MovableObject {
                 } else {
                     this.electroHit = false;
                 };
-
-
-
 
             }
 
@@ -77,7 +70,6 @@ class jelly_fish extends MovableObject {
             this.moveRightandLeft()
         }, 300);
     }
-
 
     moveRightandLeft() {
         if (this.x <= this.endX) {

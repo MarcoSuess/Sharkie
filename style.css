@@ -238,10 +238,13 @@ h2 {
     object-fit: cover;
     position: absolute;
     margin-left: 75vw;
+    cursor: pointer;
 
 }
 
-
+.responsive {
+    display: none;
+}
 
 .titleSpecialBubble {
     display: flex;
@@ -255,4 +258,62 @@ h2 {
     margin-left: 17vw;
     margin-top: 35vh;
     cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    
+
+    .background {
+        width:fit-content;
+        opacity: 0.2;
+    }
+    .iconFullScreen{
+        display: none;
+    }
+
+    
+    .top {
+        display: none;
+    }
+   
+    .handbook {
+        display: none;
+    }
+    .startBtn {
+        display: none;
+    }
+    
+    canvas {
+        display: none;
+    }
+    #startScreen {
+        display: none;
+    }
+
+    .responsive {
+        display: block;
+        height: 100%;
+        /* width: 100%; */
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        z-index: 3;
+        align-items: center;
+        margin-top: 5vh;
+        align-items: center;
+        justify-content: center;
+    }
+    .responsive img{
+        height: 20vh;
+        object-fit: cover;
+    }
+
+    .responsive h1 {
+        font-size: 5em;
+        color: #e42f2f;
+    }
+
+    .content {
+        display: none;
+    }
 }

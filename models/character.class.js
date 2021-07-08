@@ -16,9 +16,6 @@ class Character extends MovableObject {
     atackMove;
 
 
-
-
-
     IMAGES_SWIMMING = [
         'Sprites_Sharkie/1.Sharkie/3.Swim/1.png',
         'Sprites_Sharkie/1.Sharkie/3.Swim/2.png',
@@ -199,7 +196,6 @@ class Character extends MovableObject {
         'Sprites_Sharkie/1.Sharkie/2.Long_IDLE/I14.png'
     ]
 
-
     world;
     SOUND_BubbleAtack = new Audio('Sprites_Sharkie/sounds/character/bubbleAtack.mp3');
     SOUND_SpecialAtack = new Audio('Sprites_Sharkie/sounds/character/specialAtack.mp3');
@@ -209,8 +205,9 @@ class Character extends MovableObject {
     SOUND_DEAD = new Audio('Sprites_Sharkie/sounds/character/knockout.mp3');
     SOUND_Sleep = new Audio('Sprites_Sharkie/sounds/character/sleep.mp3');
     SOUND_Hurt = new Audio('Sprites_Sharkie/sounds/character/hurt.mp3');
-    constructor() {
 
+
+    constructor() {
         super().loadImage('Sprites_Sharkie/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_SWIMMING_UP_DEGREE);
@@ -246,15 +243,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.idle)
 
             }
-
-
         }, 200);
-
-
-
-
-
-
     }
 
     endIntro() {
@@ -264,30 +253,20 @@ class Character extends MovableObject {
                 clearInterval(this.stopIntro);
                 this.intro = false;
             }
-
-
         }, 1000);
     }
 
 
 
     checkForAFK() {
-
         this.longAFK = false;
-
-
         setInterval(() => {
             this.checkKeyboard();
         }, 50);
 
-
         var stopAFK = setInterval(() => {
 
             if (!this.world.endBoss.dead) {
-
-
-
-
                 if (this.idleTime < 15000 && !this.intro && this.checkKeyboard() && !this.isDead()) {
                     this.playAnimation(this.idle)
 
@@ -297,44 +276,18 @@ class Character extends MovableObject {
                         }
 
                     }, 4000);
-
                 } else if (this.longAFK && this.checkKeyboard() && !this.intro) {
-
-
                     this.playAnimation(this.longIdle, stopAFK, 9)
                     this.SOUND_Sleep.play();
-
                 }
             }
         }, 150);
-
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     move_animate() {
 
-
-
-
-
-
         this.keyboard = setInterval(() => {
-
-
-
-
-
 
             //Right
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x
@@ -348,7 +301,6 @@ class Character extends MovableObject {
                 this.barrierBlockDown = false;
                 this.x += this.speed;
                 this.otherDirection = false;
-
 
 
                 if (this.swim_up) {
@@ -405,8 +357,6 @@ class Character extends MovableObject {
                     this.swim_up = true;
                 }
 
-
-
             }
             //down
             if (this.world.keyboard.DOWN && !this.bottomSideBarrierDouble &&
@@ -419,7 +369,6 @@ class Character extends MovableObject {
                     this.x += this.speed;
                 }
 
-
                 this.SOUND_SWIM.play();
                 this.barrierBlockLeft = false;
                 this.barrierBlockRight = false;
@@ -427,32 +376,18 @@ class Character extends MovableObject {
                 this.barrierBlockDown = false;
                 this.otherDirectionUpAndDown = true;
 
-
-
                 if (!this.swim_down) {
                     this.playAnimation(this.IMAGES_SWIMMING_DOWN_DEGREE)
                     this.swim_down = true;
                 }
-
             }
-
-
-
-
-
 
             this.world.camera_x = -this.x + 150;
 
         }, 1000 / 30);
 
 
-
-
-
-
-
         var stopDeadAnimation = setInterval(() => {
-
 
 
             if (this.isDead()) {
@@ -461,8 +396,6 @@ class Character extends MovableObject {
                     this.playAnimation(this.electroDead, stopDeadAnimation, 9)
                     clearInterval(this.keyboard)
                     clearInterval(this.atackMove)
-
-
                 } else {
                     this.SOUND_DEAD.play();
                     this.playAnimation(this.IMAGES_DEAD, stopDeadAnimation, 11)
@@ -501,7 +434,6 @@ class Character extends MovableObject {
 
     }
 
-
     atack_animate() {
 
 
@@ -517,16 +449,6 @@ class Character extends MovableObject {
                 this.playAnimation(this.withoutBubbleAnimation);
             }
 
-
-
-
-
-
-
-
-
-
-
             //special atack with D and Space
             if (this.world.keyboard.D && this.world.keyboard.SPACE && !this.intro) {
 
@@ -539,38 +461,25 @@ class Character extends MovableObject {
                 } else {
                     this.playAnimation(this.withoutBubbleAnimationSpecial)
                 }
-
-
             }
-
 
             //slap with space
 
             if (this.world.keyboard.SPACE && !this.world.keyboard.D && !this.intro) {
                 this.SOUND_Slap.play();
-                console.log('x =', this.x + this.width - 60);
-                console.log('y =', this.y + 140)
                 this.world.checkCollisionSlap();
-
                 this.playAnimation(this.slap)
-
-
             }
 
         }, 80);
     }
-
-
 
     checkKeyboard() {
 
         if (!this.world.keyboard.SPACE && !this.world.keyboard.DOWN
             && !this.world.keyboard.UP && !this.world.keyboard.LEFT
             && !this.world.keyboard.RIGHT && !this.world.keyboard.D) {
-
-
             this.idleTime = new Date().getTime() - this.lastKeyboardTime;
-
 
             return true;
 
@@ -580,17 +489,7 @@ class Character extends MovableObject {
             return false;
 
         }
-
-
-
-
-
-
-
-
-
     }
-
 }
 
 

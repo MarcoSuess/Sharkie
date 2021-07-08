@@ -97,15 +97,9 @@ class Endboss extends MovableObject {
                 this.x = 4850
                 this.SOUND_Intro.play();
                 this.resetPosion = true;
-
-
-
-
                 this.playAnimation(this.IMAGES_INTRO, stopIntro, 9, this.introReady)
 
             }
-
-
 
         }, 200);
 
@@ -134,20 +128,12 @@ class Endboss extends MovableObject {
                 this.x -= 35;
             }
 
-
-
-
-
-
             if (this.character_y <= this.y + 150) {
                 this.y -= 20;
             }
             if (this.character_y >= this.y + 150) {
                 this.y += 20;
             }
-
-
-
 
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
