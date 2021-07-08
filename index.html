@@ -34,7 +34,7 @@
     <title>Sharkie</title>
 </head>
 
-<body>
+<body onload="loadMusicAndSoundSettings()">
 
     <div class="responsive">
         <img src="Sprites_Sharkie/6.Botones/responsive-title.png">
@@ -123,17 +123,17 @@
 
             <div class="soundSettings">
                 <h1>SOUND</h4>
-                <img src="Sprites_Sharkie/6.Botones/subract_button.png">
-                    <h2>100%</h2> 
-                <img src="Sprites_Sharkie/6.Botones/plus_button.png">
+                <img onclick="subtractSoundVolume()" src="Sprites_Sharkie/6.Botones/subract_button.png">
+                    <h2 id="soundVolume">100%</h2> 
+                <img onclick="plusSoundVolume()" src="Sprites_Sharkie/6.Botones/plus_button.png">
 
             </div>
 
             <div class="musicSettings">
                 <h1>MUSIK</h1>
-                <img src="Sprites_Sharkie/6.Botones/subract_button.png">
-                <h2>100%</h2> 
-            <img src="Sprites_Sharkie/6.Botones/plus_button.png">
+                <img onclick="subtractMusicVolume()" src="Sprites_Sharkie/6.Botones/subract_button.png">
+                <h2 id="musicVolume">100%</h2> 
+            <img onclick="plusMusicVolume()" src="Sprites_Sharkie/6.Botones/plus_button.png">
             </div>
     
 

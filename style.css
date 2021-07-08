@@ -209,7 +209,7 @@ h1 {
 }
 
 h2 {
-    color: red;
+    color: #f6f6f6;
     font-size: 2em;
 }
 
@@ -258,28 +258,32 @@ h2 {
 
 .sound_icon {
     height: 12vh;
+    margin-top: 2vh;
 }
 
 .soundMenu {
     display: flex;
     justify-content: center;
+    border-top: 3px solid #ffffff;
 }
 
 .soundSettings {
     display: flex;
     margin-top: 5vh;
-    justify-content: space-around
+    justify-content: space-around;
+    cursor: pointer;
 }
 
 .soundSettings img {
-    background-color: #f44336;
+    background-color: #2196f3;
     height: 8vh;
 }
 
 .musicSettings {
     display: flex;
     margin-top: 5vh;
-    justify-content: space-around
+    justify-content: space-around;
+    cursor: pointer;
 }
 
 .musicSettings img {

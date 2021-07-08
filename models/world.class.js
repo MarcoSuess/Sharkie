@@ -22,6 +22,9 @@ class World {
     bubble;
     backgroundSound;
     endThemeSound;
+    musicVolumetoGame;
+    soundVolumetoGame;
+
     SOUND_BACKGROUND = new Audio('Sprites_Sharkie/sounds/background.mp3');
     SOUND_EndTheme = new Audio('Sprites_Sharkie/sounds/endBossTheme.mp3');
     SOUND_Win = new Audio('Sprites_Sharkie/sounds/win.mp3');
@@ -32,16 +35,28 @@ class World {
 
 
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard,soundVolumetoGame, musicVolumetoGame ) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.musicVolumetoGame = musicVolumetoGame;
+        this.soundVolumetoGame = soundVolumetoGame;
         this.draw();
         this.setWorld();
         this.run();
         this.backgroundMusic();
+    
     };
 
+
+    setSoundVolume() {
+        this.character.SOUND_SpecialAtack.volume = this.soundVolumetoGame;
+    }
+
+    setMusicVolume() {
+        this.SOUND_BACKGROUND.volume = this.musicVolumetoGame;
+        this.SOUND_EndTheme.volume = this.musicVolumetoGame;
+    }
 
     setWorld() {
         this.character.world = this;
@@ -51,6 +66,9 @@ class World {
         setInterval(() => {
             this.checkEndScreen();
             this.endRoundAction()
+            this.setSoundVolume();
+            this.setMusicVolume(); 
+          
         }, 500);
 
         this.endThemeSound = setInterval(() => {
@@ -62,7 +80,7 @@ class World {
     }
 
     backgroundMusic() {
-        this.SOUND_BACKGROUND.volume = 0.2;
+
 
         this.backgroundSound = setInterval(() => {
             this.SOUND_BACKGROUND.play();
@@ -107,7 +125,7 @@ class World {
         }
 
         if (this.endBoss.resetPosion && this.character.x <= 4400) {
-           this.newPosion();
+            this.newPosion();
         }
     }
 
@@ -134,7 +152,7 @@ class World {
             this.endBoss.SOUND_EndBossIsNear.play();
             this.SOUND_BACKGROUND.pause();
             clearInterval(this.backgroundSound)
-        } 
+        }
 
         if (this.character.intro) {
             this.endBoss.introReady = true;
@@ -142,9 +160,9 @@ class World {
 
         if (this.endBoss.final) {
             this.endBoss.SOUND_EndBossIsNear.pause();
-            
+
             this.SOUND_BACKGROUND.pause();
-            this.SOUND_EndTheme.volume = 0.2
+
             this.SOUND_EndTheme.play();
         }
     }
@@ -152,7 +170,7 @@ class World {
 
     playSpecialBubble(otherDirection) {
 
-        this.character.SOUND_SpecialAtack.volume = 1;
+
 
         setTimeout(() => {
 
@@ -467,7 +485,7 @@ class World {
         if (this.gameOverScreen) {
             this.addToMap(this.gameOver)
             clearInterval(this.endThemeSound)
-            
+
         }
 
         if (this.endBoss.dead && this.win) {
@@ -514,7 +532,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-      /*   mo.drawFrame(this.ctx); */
+        /*   mo.drawFrame(this.ctx); */
 
         if (mo.otherDirection) {
             mo.x = mo.x * -1;
