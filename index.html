@@ -37,8 +37,10 @@
 <body onload="loadMusicAndSoundSettings()">
 
     <div class="responsive">
-        <img src="Sprites_Sharkie/6.Botones/responsive-title.png">
-        <img src="Sprites_Sharkie/6.Botones/Android-icon.png">
+        <img class="downloadTitle" src="Sprites_Sharkie/6.Botones/responsive-title.png">
+        <a href="apk/sharkie.apk" download="sharkie">
+            <img class="android-icon" src="Sprites_Sharkie/6.Botones/Android-icon.png">
+        </a>
     </div>
 
     <img class="background" src="Sprites_Sharkie/6.Botones/underwater-background_1280.jpg">
@@ -117,25 +119,25 @@
 
         </div>
 
-            <div class="soundMenu">
-                <img class="sound_icon" src="Sprites_Sharkie/6.Botones/sound-icon.png">
-            </div>
+        <div class="soundMenu">
+            <img class="sound_icon" src="Sprites_Sharkie/6.Botones/sound-icon.png">
+        </div>
 
-            <div class="soundSettings">
-                <h1>SOUND</h4>
+        <div class="soundSettings">
+            <h1>SOUND</h4>
                 <img onclick="subtractSoundVolume()" src="Sprites_Sharkie/6.Botones/subract_button.png">
-                    <h2 id="soundVolume">100%</h2> 
+                <h2 id="soundVolume">100%</h2>
                 <img onclick="plusSoundVolume()" src="Sprites_Sharkie/6.Botones/plus_button.png">
 
-            </div>
+        </div>
 
-            <div class="musicSettings">
-                <h1>MUSIK</h1>
-                <img onclick="subtractMusicVolume()" src="Sprites_Sharkie/6.Botones/subract_button.png">
-                <h2 id="musicVolume">100%</h2> 
+        <div class="musicSettings">
+            <h1>MUSIK</h1>
+            <img onclick="subtractMusicVolume()" src="Sprites_Sharkie/6.Botones/subract_button.png">
+            <h2 id="musicVolume">100%</h2>
             <img onclick="plusMusicVolume()" src="Sprites_Sharkie/6.Botones/plus_button.png">
-            </div>
-    
+        </div>
+
 
 
 

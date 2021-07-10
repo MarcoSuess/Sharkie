@@ -35,7 +35,7 @@ class World {
 
 
 
-    constructor(canvas, keyboard,soundVolumetoGame, musicVolumetoGame ) {
+    constructor(canvas, keyboard, soundVolumetoGame, musicVolumetoGame) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -45,17 +45,45 @@ class World {
         this.setWorld();
         this.run();
         this.backgroundMusic();
-    
+
     };
 
 
     setSoundVolume() {
-        this.character.SOUND_SpecialAtack.volume = this.soundVolumetoGame;
+
+
+        this.level.jelly_fish.forEach(jelly_fish => {
+            this.level.enemies.forEach(pufferFish => {
+
+
+
+
+
+                this.character.SOUND_SpecialAtack.volume = this.soundVolumetoGame;
+                jelly_fish.AUDIO_Dead.volume = this.soundVolumetoGame;
+                pufferFish.SOUND_Dead.volume = this.soundVolumetoGame;
+                this.endBoss.SOUND_Atack.volume = this.soundVolumetoGame;
+                this.endBoss.SOUND_Dead.volume = this.soundVolumetoGame;
+                this.endBoss.SOUND_Hurt.volume = this.soundVolumetoGame;
+                this.endBoss.SOUND_Intro.volume = this.soundVolumetoGame;
+                this.SOUND_Win.volume = this.soundVolumetoGame;
+                this.SOUND_Lose.volume = this.soundVolumetoGame;
+                this.character.SOUND_BubbleAtack.volume = this.soundVolumetoGame;
+                this.character.SOUND_SpecialAtack.volume = this.soundVolumetoGame;
+                this.character.SOUND_Slap.volume = this.soundVolumetoGame;
+                this.character.SOUND_SWIM.volume = this.soundVolumetoGame;
+                this.character.SOUND_ElectroDead.volume = this.soundVolumetoGame;
+                this.character.SOUND_DEAD.volume = this.soundVolumetoGame;
+                this.character.SOUND_Sleep.volume = this.soundVolumetoGame;
+                this.character.SOUND_Hurt.volume = this.soundVolumetoGame;
+            });
+        });
     }
 
     setMusicVolume() {
         this.SOUND_BACKGROUND.volume = this.musicVolumetoGame;
         this.SOUND_EndTheme.volume = this.musicVolumetoGame;
+        this.endBoss.SOUND_EndBossIsNear.volume = this.musicVolumetoGame;
     }
 
     setWorld() {
@@ -64,11 +92,12 @@ class World {
 
     run() {
         setInterval(() => {
+
             this.checkEndScreen();
             this.endRoundAction()
             this.setSoundVolume();
-            this.setMusicVolume(); 
-          
+            this.setMusicVolume();
+
         }, 500);
 
         this.endThemeSound = setInterval(() => {

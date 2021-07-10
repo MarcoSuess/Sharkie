@@ -72,7 +72,7 @@ function checkforGameOver() {
         if (world.gameOverScreen) {
             document.getElementById('newStart').classList.remove('d-none')
         }
-      console.log(  world.soundVolumetoGame )
+     
         if (world.win) {
             setTimeout(() => {
                 window.location = 'index.html';

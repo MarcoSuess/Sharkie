@@ -294,7 +294,7 @@ h2 {
 @media (max-width: 1024px) {
     .background {
         width: fit-content;
-        opacity: 0.2;
+        opacity: 0.4;
     }
     .iconFullScreen {
         display: none;
@@ -325,17 +325,23 @@ h2 {
         align-items: center;
         margin-top: 5vh;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        margin-top: 20vh;
     }
-    .responsive img {
-        height: 20vh;
+    .downloadTitle{
+        height: 25vh;
         object-fit: cover;
     }
+   
     .responsive h1 {
         font-size: 5em;
         color: #e42f2f;
     }
     .content {
         display: none;
+    }
+    .android-icon {
+        height: 16vh;
+        object-fit: cover;
     }
 }
