@@ -23,6 +23,11 @@ class StatusBar extends DrawableObject {
         this.setPercentage(100);
     }
 
+    /**
+     * This function declare the HP_bar.
+     * 
+     * @param {integer} percentage  - this is the percentage for the HP bar.
+     */
     setPercentage(percentage) {
         this.percentage = percentage; // -> 0 ... 5
         let path = this.HP_BAR[this.resolveImageIndex(percentage)];

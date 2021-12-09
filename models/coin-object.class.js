@@ -28,8 +28,11 @@ class coin extends MovableObject {
         this.y = y;
         this.loadImages(this.coinsAnimationImg);
         this.coinAnimation();
-    }
+    }   
 
+    /**
+     * This function is for the coin animation.
+     */
     coinAnimation() {
         setInterval(() => {
             this.playAnimation(this.coinsAnimationImg)
