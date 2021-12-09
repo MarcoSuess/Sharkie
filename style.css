@@ -31,8 +31,13 @@ canvas {
 
 .background {
     object-fit: cover;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
-    position: fixed;
 }
 
 .topSide {
@@ -48,6 +53,10 @@ canvas {
     margin-left: 262px;
     margin-top: 250px;
     cursor: pointer;
+}
+
+.startBtn:hover {
+    filter: brightness(150%);
 }
 
 .content {
@@ -118,6 +127,10 @@ canvas {
     cursor: pointer;
 }
 
+.iconFullScreen:hover {
+    filter: brightness(150%);
+}
+
 .fullScreen {
     display: flex;
     justify-content: flex-end;
@@ -130,6 +143,7 @@ canvas {
 
 .handbook:hover {
     height: 17vh;
+    filter: brightness(150%);
 }
 
 .d-none {
@@ -234,9 +248,16 @@ h2 {
     height: 8vh;
     object-fit: cover;
     position: absolute;
-    margin-left: 65vw;
+    right: 8px;
     cursor: pointer;
 }
+
+.closeButton:hover {
+    filter: brightness(150%);
+}
+
+
+
 
 .responsive {
     display: none;
@@ -277,6 +298,11 @@ h2 {
 .soundSettings img {
     background-color: #2196f3;
     height: 8vh;
+    border-radius: 8px;
+}
+
+.soundSettings img:hover {
+    filter: brightness(150%);
 }
 
 .musicSettings {
@@ -289,12 +315,16 @@ h2 {
 .musicSettings img {
     background-color: #f44336;
     height: 8vh;
+    border-radius: 8px;
+}
+
+.musicSettings img:hover {
+    filter: brightness(150%);
 }
 
 @media (max-width: 1024px) {
     .background {
-        width: fit-content;
-        opacity: 0.4;
+     position: fixed !important;
     }
     .iconFullScreen {
         display: none;
@@ -325,8 +355,8 @@ h2 {
         align-items: center;
         margin-top: 5vh;
         align-items: center;
-        justify-content: flex-start;
-        margin-top: 20vh;
+        justify-content: center;
+       
     }
     .downloadTitle{
         height: 25vh;
@@ -343,5 +373,9 @@ h2 {
     .android-icon {
         height: 16vh;
         object-fit: cover;
+    }
+
+    .android-icon:hover {
+        filter: brightness(120%);
     }
 }

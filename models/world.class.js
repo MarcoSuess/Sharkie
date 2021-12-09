@@ -55,10 +55,6 @@ class World {
         this.level.jelly_fish.forEach(jelly_fish => {
             this.level.enemies.forEach(pufferFish => {
 
-
-
-
-
                 this.character.SOUND_SpecialAtack.volume = this.soundVolumetoGame;
                 jelly_fish.AUDIO_Dead.volume = this.soundVolumetoGame;
                 pufferFish.SOUND_Dead.volume = this.soundVolumetoGame;
