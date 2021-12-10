@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: jelly_fish.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: jelly_fish.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  This Module is for the enemy Jelly Fish.
+ * @module jelly_fish
+ */
+class jelly_fish extends MovableObject {
+  startX;
+  endX;
+  bubbleHitDead;
+  electroHit = false;
+  AUDIO_Dead = new Audio("Sprites_Sharkie/sounds/enemy/jellyFish_dead.mp3");
+
+  regularDamage = [
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Regular damage/Yellow 1.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Regular damage/Yellow 2.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Regular damage/Yellow 3.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Regular damage/Yellow 4.png",
+  ];
+  superDangerous = [
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Súper dangerous/Green 1.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Súper dangerous/Green 2.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Súper dangerous/Green 3.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Súper dangerous/Green 4.png",
+  ];
+  dead = [
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Dead/Yellow/y1.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Dead/Yellow/y2.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Dead/Yellow/y3.png",
+    "Sprites_Sharkie/2.Enemy/2 Jelly fish/Dead/Yellow/y4.png",
+  ];
+
+  constructor(x, y, startX, endX) {
+    super().loadImage(
+      "Sprites_Sharkie/2.Enemy/2 Jelly fish/Regular damage/Yellow 1.png"
+    );
+    this.loadImages(this.regularDamage);
+    this.loadImages(this.superDangerous);
+    this.loadImages(this.dead);
+    this.height = 130;
+    this.width = 110;
+    this.x = x;
+    this.y = y;
+    this.startX = startX;
+    this.endX = endX;
+    this.animate();
+    this.move();
+  }
+
+
+  /**
+   * This function animate the object.
+   */
+  animate() {
+    setInterval(() => {
+      if (this.bubbleHitDead) {
+        this.checkDead();
+      } else {
+        this.playAnimation(this.regularDamage);
+
+        if (this.otherDirection == false) {
+          this.playAnimation(this.superDangerous);
+          this.electroHit = true;
+        } else {
+          this.electroHit = false;
+        }
+      }
+    }, 200);
+  }
+
+  /**
+   * This function set a interval for the move and right animation.
+   */
+  move() {
+    setInterval(() => {
+      this.moveRightandLeft();
+    }, 300);
+  }
+
+
+  /**
+   * This function is for move the object.
+   */
+  moveRightandLeft() {
+    if (this.x &lt;= this.endX) {
+      this.moveRight();
+      this.y += 5;
+
+      this.otherDirection = true;
+    } else if (this.x >= this.startX) {
+      this.moveLeft();
+      this.y -= 5;
+      this.otherDirection = false;
+    }
+  }
+
+
+  /**
+   * This function check the dead.
+   */
+  checkDead() {
+    setInterval(() => {
+      this.playAnimation(this.dead, 3);
+      this.height -= 3;
+      this.width -= 3;
+    }, 100);
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-backgroundObject.html">backgroundObject</a></li><li><a href="module-barrier.html">barrier</a></li><li><a href="module-Character.html">Character</a></li><li><a href="module-coin.html">coin</a></li><li><a href="module-coins_bar.html">coins_bar</a></li><li><a href="module-DrawableObject.html">DrawableObject</a></li><li><a href="module-Endboss.html">Endboss</a></li><li><a href="module-Endboss_bar.html">Endboss_bar</a></li><li><a href="module-GameOver.html">GameOver</a></li><li><a href="module-jelly_fish.html">jelly_fish</a></li><li><a href="module-Keyboard.html">Keyboard</a></li><li><a href="module-Level.html">Level</a></li><li><a href="module-level1.html">level1</a></li><li><a href="module-MovableObject.html">MovableObject</a></li><li><a href="module-posion.html">posion</a></li><li><a href="module-PosionBar.html">PosionBar</a></li><li><a href="module-puffer_fish.html">puffer_fish</a></li><li><a href="module-SpecialBubble.html">SpecialBubble</a></li><li><a href="module-StatusBar.html">StatusBar</a></li><li><a href="module-ThrowableObjects.html">ThrowableObjects</a></li><li><a href="module-World.html">World</a></li><li><a href="module-YouWin.html">YouWin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkforGameOver">checkforGameOver</a></li><li><a href="global.html#checkKeyDown">checkKeyDown</a></li><li><a href="global.html#checkKeyUp">checkKeyUp</a></li><li><a href="global.html#closeGameMenu">closeGameMenu</a></li><li><a href="global.html#fullScreen">fullScreen</a></li><li><a href="global.html#loadMusicAndSoundSettings">loadMusicAndSoundSettings</a></li><li><a href="global.html#openGameExplanation">openGameExplanation</a></li><li><a href="global.html#plusMusicVolume">plusMusicVolume</a></li><li><a href="global.html#plusSoundVolume">plusSoundVolume</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#subtractMusicVolume">subtractMusicVolume</a></li><li><a href="global.html#subtractSoundVolume">subtractSoundVolume</a></li><li><a href="global.html#tryAgainGame">tryAgainGame</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Dec 10 2021 19:47:49 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

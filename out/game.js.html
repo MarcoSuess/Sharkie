@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: game.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: game.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let canvas;
+let world;
+let keyboard = new Keyboard();
+let musicVolume = 2;
+let soundVolume = 10;
+let start;
+
+/**
+ * This function load the sound and music.
+ */
+function loadMusicAndSoundSettings() {
+  if (start) {
+    world.musicVolumetoGame = musicVolume / 10;
+    world.soundVolumetoGame = soundVolume / 10;
+  }
+  document.getElementById("soundVolume").innerHTML = soundVolume * 10 + "%";
+
+  document.getElementById("musicVolume").innerHTML = musicVolume * 10 + "%";
+}
+
+/**
+ * This function subtract the music volume.
+ */
+function subtractMusicVolume() {
+  if (musicVolume == 0) {
+    musicVolume = 0;
+  } else {
+    musicVolume -= 1;
+  }
+  loadMusicAndSoundSettings();
+}
+
+/**
+ * This function subtract the sound volume.
+ */
+function subtractSoundVolume() {
+  if (soundVolume == 0) {
+    soundVolume = 0;
+  } else {
+    soundVolume -= 1;
+  }
+  loadMusicAndSoundSettings();
+}
+
+/**
+ * This function elevated the music volume.
+ */
+function plusMusicVolume() {
+  if (musicVolume == 10) {
+    musicVolume = 10;
+  } else {
+    musicVolume += 1;
+  }
+  loadMusicAndSoundSettings();
+}
+
+/**
+ * This function elevated the sound volume.
+ */
+function plusSoundVolume() {
+  if (soundVolume == 10) {
+    soundVolume = 10;
+  } else {
+    soundVolume += 1;
+  }
+  loadMusicAndSoundSettings();
+}
+
+/**
+ * This function set the canvas to full screen.
+ */
+function fullScreen() {
+  canvas.requestFullscreen();
+}
+
+/**
+ * This function close the game menu.
+ */
+function closeGameMenu() {
+  document.getElementById("gameExplanation").classList.add("d-none");
+}
+
+/**
+ * This function restart the game if was game over.
+ */
+function checkforGameOver() {
+  setInterval(() => {
+    if (world.gameOverScreen) {
+      document.getElementById("newStart").classList.remove("d-none");
+    }
+
+    if (world.win) {
+      setTimeout(() => {
+        window.location = "index.html";
+      }, 5000);
+    }
+  }, 300);
+}
+
+
+/**
+ * This function routes to index.html.
+ */
+function tryAgainGame() {
+  window.location = "index.html";
+}
+
+
+/**
+ * This function remove the class list for show canvas.
+ */
+function openGameExplanation() {
+  document.getElementById("gameExplanation").classList.remove("d-none");
+}
+
+/**
+ * This function start the Game.
+ */
+function startGame() {
+  start = true;
+  document.getElementById("startScreen").classList.add("d-none");
+  canvas = document.getElementById("canvas");
+  world = new World(canvas, keyboard, soundVolume / 10, musicVolume / 10);
+  console.log("my Character is", world.character);
+  checkforGameOver();
+  checkKeyDown();
+  checkKeyUp();
+}
+
+
+
+/**
+ * This function check the pressed key down.
+ */
+function checkKeyDown() {
+  window.addEventListener("keydown", (e) => {
+    if (e.keyCode == 38) {
+      keyboard.UP = true;
+    }
+    if (e.keyCode == 40) {
+      keyboard.DOWN = true;
+    }
+    if (e.keyCode == 39) {
+      keyboard.RIGHT = true;
+    }
+    if (e.keyCode == 37) {
+      keyboard.LEFT = true;
+    }
+    if (e.keyCode == 68) {
+      keyboard.D = true;
+    }
+    if (e.keyCode == 32) {
+      keyboard.SPACE = true;
+    }
+  });
+}
+
+/**
+ * This function check the pressed key up.
+ */
+function checkKeyUp() {
+  window.addEventListener("keyup", (e) => {
+    if (e.keyCode == 38) {
+      keyboard.UP = false;
+    }
+    if (e.keyCode == 40) {
+      keyboard.DOWN = false;
+    }
+    if (e.keyCode == 39) {
+      keyboard.RIGHT = false;
+    }
+    if (e.keyCode == 37) {
+      keyboard.LEFT = false;
+    }
+    if (e.keyCode == 68) {
+      keyboard.D = false;
+      world.character.throwTime = new Date().getTime();
+    }
+    if (e.keyCode == 32) {
+      keyboard.SPACE = false;
+      world.character.throwTime = new Date().getTime();
+    }
+  });
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-backgroundObject.html">backgroundObject</a></li><li><a href="module-barrier.html">barrier</a></li><li><a href="module-Character.html">Character</a></li><li><a href="module-coin.html">coin</a></li><li><a href="module-coins_bar.html">coins_bar</a></li><li><a href="module-DrawableObject.html">DrawableObject</a></li><li><a href="module-Endboss.html">Endboss</a></li><li><a href="module-Endboss_bar.html">Endboss_bar</a></li><li><a href="module-GameOver.html">GameOver</a></li><li><a href="module-jelly_fish.html">jelly_fish</a></li><li><a href="module-Keyboard.html">Keyboard</a></li><li><a href="module-Level.html">Level</a></li><li><a href="module-level1.html">level1</a></li><li><a href="module-MovableObject.html">MovableObject</a></li><li><a href="module-posion.html">posion</a></li><li><a href="module-PosionBar.html">PosionBar</a></li><li><a href="module-puffer_fish.html">puffer_fish</a></li><li><a href="module-SpecialBubble.html">SpecialBubble</a></li><li><a href="module-StatusBar.html">StatusBar</a></li><li><a href="module-ThrowableObjects.html">ThrowableObjects</a></li><li><a href="module-World.html">World</a></li><li><a href="module-YouWin.html">YouWin</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkforGameOver">checkforGameOver</a></li><li><a href="global.html#checkKeyDown">checkKeyDown</a></li><li><a href="global.html#checkKeyUp">checkKeyUp</a></li><li><a href="global.html#closeGameMenu">closeGameMenu</a></li><li><a href="global.html#fullScreen">fullScreen</a></li><li><a href="global.html#loadMusicAndSoundSettings">loadMusicAndSoundSettings</a></li><li><a href="global.html#openGameExplanation">openGameExplanation</a></li><li><a href="global.html#plusMusicVolume">plusMusicVolume</a></li><li><a href="global.html#plusSoundVolume">plusSoundVolume</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#subtractMusicVolume">subtractMusicVolume</a></li><li><a href="global.html#subtractSoundVolume">subtractSoundVolume</a></li><li><a href="global.html#tryAgainGame">tryAgainGame</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Dec 10 2021 19:47:49 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
