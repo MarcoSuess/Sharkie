@@ -1,3 +1,7 @@
+/**
+ * This Module is for all objects.
+ * @module World
+ */
 class World {
   character = new Character();
   endBoss = new Endboss();

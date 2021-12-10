@@ -1,3 +1,7 @@
+/**
+ *  This Module is for the enemy Jelly Fish.
+ * @module jelly_fish
+ */
 class jelly_fish extends MovableObject {
   startX;
   endX;

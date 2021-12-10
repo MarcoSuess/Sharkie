@@ -1,3 +1,8 @@
+
+/**
+ * all objects for the level.
+ * @module level1
+ */
 const level1 = new Level(
   [
     new puffer_fish(2400, 250, 2350, 2600),

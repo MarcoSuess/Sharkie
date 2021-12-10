@@ -1,3 +1,8 @@
+
+/**
+ * This module is for the coins.
+ * @module coin
+ */
 class coin extends MovableObject {
 
     SOUND_COIN = new Audio('Sprites_Sharkie/sounds/character/coin.mp3');

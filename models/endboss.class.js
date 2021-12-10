@@ -1,3 +1,8 @@
+
+/**
+ * This module declare the EndBoss.
+ * @module Endboss
+ */
 class Endboss extends MovableObject {
   height = 500;
   width = 300;

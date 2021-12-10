@@ -1,3 +1,8 @@
+
+/**
+ * This module is for the HP Bar.
+ * @module StatusBar
+ */
 class StatusBar extends DrawableObject {
 
     HP_BAR = [

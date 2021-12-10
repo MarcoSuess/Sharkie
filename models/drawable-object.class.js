@@ -1,3 +1,8 @@
+
+/**
+ * This module is fora all drawable objects.
+ * @module DrawableObject
+ */
 class DrawableObject {
   img;
   imageCache = {};

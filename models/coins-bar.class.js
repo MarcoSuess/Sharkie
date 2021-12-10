@@ -1,3 +1,8 @@
+
+/**
+ * module description
+ * @module coins_bar
+ */
 class coins_bar extends DrawableObject {
   coinsBar = [
     "Sprites_Sharkie/4. Marcadores/orange/0.png",

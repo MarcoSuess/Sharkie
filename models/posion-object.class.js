@@ -1,3 +1,7 @@
+/**
+ * This module is for all poisons.
+ * @module posion
+ */
 class posion extends MovableObject {
     
   SOUND_PosionCollect = new Audio(

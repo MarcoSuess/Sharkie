@@ -1,3 +1,8 @@
+
+/**
+ * This module declares all objects.
+ * @module Level
+ */
 class Level {
   enemies;
   backgroundObjects;

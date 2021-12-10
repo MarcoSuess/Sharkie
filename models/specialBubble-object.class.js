@@ -1,3 +1,8 @@
+
+/**
+ * This module declare the SpecialBubble.
+ * @module SpecialBubble
+ */
 class SpecialBubble extends MovableObject {
   bubbleAnimationSpecial = [
     "Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/bubble_animationSpecial/0.png",

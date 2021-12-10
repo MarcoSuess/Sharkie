@@ -1,3 +1,8 @@
+
+/**
+ * This module is for the background.
+ * @module backgroundObject
+ */
 class backgroundObject extends MovableObject {
   height = 480;
   width = 720;

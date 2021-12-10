@@ -1,3 +1,8 @@
+
+/**
+ * This module is for the Character.
+ * @module Character
+ */
 class Character extends MovableObject {
   y = 150;
   x = 80;
@@ -525,7 +530,7 @@ class Character extends MovableObject {
   /**
    * This function check the keyboard if was pressed.
    * 
-   * @returns 
+   * @returns {boolean}
    */
   checkKeyboard() {
     if (

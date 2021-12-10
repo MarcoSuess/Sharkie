@@ -1,3 +1,8 @@
+
+/**
+ * This module is for the Endboss bar.
+ * @module Endboss_bar
+ */
 class Endboss_bar extends DrawableObject {
   endBossX;
   endBossY;

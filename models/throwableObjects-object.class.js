@@ -1,3 +1,8 @@
+
+/**
+ * This module is for all throwable objects.
+ * @module ThrowableObjects
+ */
 class ThrowableObjects extends MovableObject {
   bubbleAnimation = [
     "Sprites_Sharkie/1.Sharkie/4.Attack/Bubble trap/bubble_animation/1.png",

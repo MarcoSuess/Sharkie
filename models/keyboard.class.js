@@ -1,3 +1,7 @@
+/**
+ * This module is for the Keyboard.
+ * @module Keyboard
+ */
 class Keyboard  {
     LEFT = false;
     RIGHT = false;

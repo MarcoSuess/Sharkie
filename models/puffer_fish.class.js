@@ -1,3 +1,8 @@
+
+/**
+ *  This module is  for the enemy puffer fish.
+ * @module puffer_fish
+ */
 class puffer_fish extends MovableObject {
   x = 400;
   y = 300;

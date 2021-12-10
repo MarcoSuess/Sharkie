@@ -1,3 +1,7 @@
+/**
+ * This module set the Poison Bar.
+ * @module PosionBar
+ */
 class PosionBar extends DrawableObject {
   SOUND_PosionFull = new Audio(
     "Sprites_Sharkie/sounds/character/specialAtackisReady.mp3"

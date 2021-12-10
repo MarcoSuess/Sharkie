@@ -1,3 +1,8 @@
+
+/**
+ * This module is for the barrier object.
+ * @module barrier
+ */
 class barrier extends MovableObject {
   constructor(imagePath, x, y, width, height) {
     super().loadImage(imagePath);

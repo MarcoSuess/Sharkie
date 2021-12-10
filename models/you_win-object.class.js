@@ -1,3 +1,8 @@
+
+/**
+ * This module is for the Win screen.
+ * @module YouWin
+ */
 class YouWin extends DrawableObject {
   constructor() {
 

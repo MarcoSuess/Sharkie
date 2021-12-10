@@ -1,3 +1,7 @@
+/**
+ * This module is for all movable Objects.
+ * @module MovableObject
+ */
 class MovableObject extends DrawableObject {
   //barrier
   barrierBlockDown;
@@ -316,7 +320,7 @@ class MovableObject extends DrawableObject {
   /**
    *  This function check the dead.
    * 
-   * @returns 
+   * @returns {any}
    */
   isDead() {
     return this.HP == 0;
@@ -326,7 +330,7 @@ class MovableObject extends DrawableObject {
   /**   
    * This function checked the time from is hurt.
    * 
-   * @returns 
+   * @returns {any}
    */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
@@ -338,7 +342,7 @@ class MovableObject extends DrawableObject {
   /**
    * This function check the keyboard press.
    * 
-   * @returns 
+   * @returns {any}
    */
   keyboardIntervall() {
     let timepassed = new Date().getTime() - this.throwTime;

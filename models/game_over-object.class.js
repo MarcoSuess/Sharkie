@@ -1,3 +1,8 @@
+
+/**
+ *  This Module is for the Game over Screen.
+ * @module GameOver
+ */
 class GameOver extends MovableObject {
   GameOverScreen = [
     "Sprites_Sharkie/6.Botones/Tittles/Game Over/Recurso 9.png",
