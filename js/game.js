@@ -116,15 +116,15 @@ function openGameExplanation() {
 /**
  * This function start the Game.
  */
-function startGame() {
+async function startGame() {
   start = true;
-  document.getElementById("startScreen").classList.add("d-none");
   canvas = document.getElementById("canvas");
-  world = new World(canvas, keyboard, soundVolume / 10, musicVolume / 10);
+  world = await  new World(canvas, keyboard, soundVolume / 10, musicVolume / 10);
   console.log("my Character is", world.character);
   checkforGameOver();
   checkKeyDown();
   checkKeyUp();
+  document.getElementById("startScreen").classList.add("d-none");
 }
 
 
